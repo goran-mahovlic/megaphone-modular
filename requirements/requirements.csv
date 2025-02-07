@@ -37,7 +37,7 @@ Requirement 3.4.4: I2C I/O Expander to accept inputs from buttons and control LE
 Requirement 3.4.5: Slider switch module for input
 Desirable 3.4.6: Module for hosting e-ink display and recessed buttons
 Desirable 3.4.7: Module specification for hosting I2C sensors and peripherals
-Requirement 4.1.1:  A100T or larger FPGA module SWaP and pin-compatible with the Trenz TE0790.
+Requirement 4.1.1:  A100T or larger FPGA module SWaP and pin-compatible with the Trenz TE0725.
 Requirement 4.2.1: Module bay that can power and host a FireAnt or similar FPGA module to control the power to all sub-systems, and interdict the communications between the main FPGA and sub-systems that require monitoring when the main FPGA is powerd off.
 Desirable 4.3.1: Bay for Pi Compute Module 4
 Desirable 4.3.2: DVGA multiplexor to allow LCD panel to display either the MEGA65 or Pi display, on a pixel by pixel basis.
