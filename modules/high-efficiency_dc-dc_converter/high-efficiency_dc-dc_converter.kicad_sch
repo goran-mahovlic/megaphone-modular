@@ -6,7 +6,8 @@
 
   (title_block
     (title "High-Efficiency DC:DC Converter Module")
-    (rev "1")
+    (date "2025-02-09")
+    (rev "20250209")
   )
 
   (lib_symbols
