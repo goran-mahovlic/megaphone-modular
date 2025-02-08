@@ -223,6 +223,10 @@
           (name "VOUT" (effects (font (size 1.27 1.27))))
           (number "20" (effects (font (size 1.27 1.27))))
         )
+        (pin power_in line (at 10.16 -13.97 180) (length 2.54)
+          (name "EPAD" (effects (font (size 1.27 1.27))))
+          (number "21" (effects (font (size 1.27 1.27))))
+        )
         (pin power_in line (at -10.16 -13.97 0) (length 2.54)
           (name "PGND" (effects (font (size 1.27 1.27))))
           (number "3" (effects (font (size 1.27 1.27))))
@@ -250,10 +254,6 @@
         (pin power_in line (at -10.16 -10.16 0) (length 2.54)
           (name "PVIN" (effects (font (size 1.27 1.27))))
           (number "9" (effects (font (size 1.27 1.27))))
-        )
-        (pin power_in line (at 10.16 -13.97 180) (length 2.54)
-          (name "EPAD" (effects (font (size 1.27 1.27))))
-          (number "EPAD" (effects (font (size 1.27 1.27))))
         )
       )
     )
@@ -746,7 +746,7 @@
   (symbol (lib_id "Device:R") (at 101.6 62.23 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 0f4ecea5-d681-49f7-8353-144f26aa5e59)
-    (property "Reference" "R2B" (at 104.14 60.96 0)
+    (property "Reference" "R5" (at 104.14 60.96 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "138K" (at 104.14 63.5 0)
@@ -763,7 +763,7 @@
     (instances
       (project "high-efficiency_dc-dc_converter"
         (path "/7f4a2112-cc8e-483f-9ea5-76225b466e70"
-          (reference "R2B") (unit 1)
+          (reference "R5") (unit 1)
         )
       )
     )
@@ -861,7 +861,7 @@
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "5" (uuid 25ed1a1b-ab82-47a8-9463-5cef7b733994))
-    (pin "EPAD" (uuid f686c82c-7ea1-428a-8d06-f0eda374e7d3))
+    (pin "21" (uuid f686c82c-7ea1-428a-8d06-f0eda374e7d3))
     (pin "1" (uuid 579ef605-93d7-4fd6-b669-c691c4a5e1f9))
     (pin "9" (uuid 6e01b920-b0b3-4e74-9662-c58b131be025))
     (pin "4" (uuid 061ee5d9-fe3c-4a6c-9bbd-c657ba47f245))
@@ -893,7 +893,7 @@
   (symbol (lib_id "Device:R") (at 92.71 62.23 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 33e17d4a-8912-482c-8973-195da5e821d7)
-    (property "Reference" "R2A" (at 95.25 60.96 0)
+    (property "Reference" "R2" (at 95.25 60.96 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "92K" (at 95.25 63.5 0)
@@ -910,7 +910,7 @@
     (instances
       (project "high-efficiency_dc-dc_converter"
         (path "/7f4a2112-cc8e-483f-9ea5-76225b466e70"
-          (reference "R2A") (unit 1)
+          (reference "R2") (unit 1)
         )
       )
     )
@@ -970,7 +970,7 @@
   (symbol (lib_id "Device:C") (at 31.75 81.28 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 4d3eec4c-aef0-4f4f-b680-cdde98e62a75)
-    (property "Reference" "C1B" (at 24.13 80.01 0)
+    (property "Reference" "C1" (at 24.13 80.01 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "10uF" (at 24.13 82.55 0)
@@ -987,7 +987,7 @@
     (instances
       (project "high-efficiency_dc-dc_converter"
         (path "/7f4a2112-cc8e-483f-9ea5-76225b466e70"
-          (reference "C1B") (unit 1)
+          (reference "C1") (unit 1)
         )
       )
     )
@@ -1073,7 +1073,7 @@
   (symbol (lib_id "Device:C") (at 38.1 81.28 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 77844b2c-f277-4843-8552-ca744098f6a3)
-    (property "Reference" "C1A" (at 41.91 80.01 0)
+    (property "Reference" "C5" (at 41.91 80.01 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "10uF" (at 41.91 82.55 0)
@@ -1090,7 +1090,7 @@
     (instances
       (project "high-efficiency_dc-dc_converter"
         (path "/7f4a2112-cc8e-483f-9ea5-76225b466e70"
-          (reference "C1A") (unit 1)
+          (reference "C5") (unit 1)
         )
       )
     )
@@ -1149,7 +1149,7 @@
   (symbol (lib_id "Device:C") (at 92.71 78.74 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid c15201d4-d403-4e12-aa0d-5102de68b1ae)
-    (property "Reference" "C2A" (at 96.52 77.47 0)
+    (property "Reference" "C2" (at 96.52 77.47 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "22uF" (at 96.52 80.01 0)
@@ -1166,7 +1166,7 @@
     (instances
       (project "high-efficiency_dc-dc_converter"
         (path "/7f4a2112-cc8e-483f-9ea5-76225b466e70"
-          (reference "C2A") (unit 1)
+          (reference "C2") (unit 1)
         )
       )
     )
@@ -1225,7 +1225,7 @@
   (symbol (lib_id "Device:C") (at 105.41 78.74 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid ce9224f3-7418-4033-a279-2368ef45bf4b)
-    (property "Reference" "C2B" (at 109.22 77.47 0)
+    (property "Reference" "C4" (at 109.22 77.47 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "22uF" (at 109.22 80.01 0)
@@ -1242,7 +1242,7 @@
     (instances
       (project "high-efficiency_dc-dc_converter"
         (path "/7f4a2112-cc8e-483f-9ea5-76225b466e70"
-          (reference "C2B") (unit 1)
+          (reference "C4") (unit 1)
         )
       )
     )
@@ -1279,7 +1279,7 @@
     (property "Reference" "L1" (at 72.39 38.1 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Value" "L" (at 72.39 40.64 90)
+    (property "Value" "1uH" (at 72.39 40.64 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "Inductor_SMD:L_1008_2520Metric" (at 72.39 43.18 0)
