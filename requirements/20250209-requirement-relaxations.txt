@@ -1,0 +1,9 @@
+Relaxation of Requirement 1.2.2.1: Maximum input voltage reduced from 40V to ~28V.
+Impact: (1) 24V truck systems may peak out of range when alternator charging. (2) Some larger solar panels may be out of spec. However, given the ~30Wh battery size, this should not be a problem. Impact acceptable.
+Proposed: PGS
+Assessed and approved: PGS
+
+Relaxation of Requirement 1.2.3.1: Minimum solar panel input voltage increased from 2V to 6V.
+Impact: Some very small panels, especially those consisting of few cells in series, no longer in specification.  However, small panels (eg 55x70mm) are readily available with 6V MP voltages. Thus the impact is acceptable.
+Proposed: PGS
+Assessed and approved: PGS
