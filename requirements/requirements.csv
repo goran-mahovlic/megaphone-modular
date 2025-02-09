@@ -6,8 +6,8 @@ Requirement 1.1.2.1: The internal battery shall be chargeable via an integrated 
 Requirement 1.1.2.2 Define module bay for USB-C charger + data module, large enough to fit the SparkFun module, as that looks to be the biggest, capable of delivering 20V @ 3A to the carrier board.
 Requirement 1.1.2.3: Proof-of-concept charger module based on a given USB-C power delivery module (no need for data).
 Requirement 1.1.2.4: Power isolation mechanism to allow conflict-free operation of the USB-C and alternative power inputs to the MEGAphone (back-flow and over-voltage protection, for example)
-Requirement 1.2.2.1: Means of accepting (including connector) dirty DC power between ~9V and ~40V using a MPPT to maximise efficiency with a solar panel.
-Requirement 1.2.3.1: Means of accepting DC power from integrated solar panel at input voltages of 2V to 20V with a MPPT.
+Requirement 1.2.2.1: Means of accepting (including connector) dirty DC power between ~9V and ~28V using a MPPT to maximise efficiency with a solar panel. (Varied 20250209)
+Requirement 1.2.3.1: Means of accepting DC power from integrated solar panel at input voltages of 6V to 20V with a MPPT. (Varied 20250209)
 Requirement 1.3.1: Power management processor that can control power to all other sub-systems, and itself have very low power consumption, ideally <10mW.
 Requirement 1.3.2: Ability for power management processor to buffer communications when main processor is powered off.
 Requirement 1.3.3: Galvanic isolation of communications lines between sub-systems that can be independently powered off, e.g., using opto-isolators.
