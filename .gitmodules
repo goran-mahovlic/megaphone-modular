@@ -1,0 +1,3 @@
+[submodule "modules/mppt-charge-controller"]
+	path = modules/mppt-charge-controller
+	url = git@github.com:gardners/mppt-charge-controller.git
