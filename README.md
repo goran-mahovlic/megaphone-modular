@@ -21,6 +21,19 @@ The major hardware stream of this project is focused on modularising the MEGApho
 
 ### 2.1 High-efficiency DC-DC converter module to power the various sub-systems
 
+High-current and high-efficiency modules are required for the main FPGA, cellular modem, auxilliary communications module, LCD panel, and external speaker/bluetooth modules.  It is desirable to come up with a single module that can be reused several times for these purposes.  The cellular modems are likely to be the highest draw item, and according to https://ww1.microchip.com/downloads/en/Appnotes/ANLPS300-APID.pdf, they can draw upto around 2A at 3.3V, which is the voltage we will most likely use, since it allows a common voltage for many of our sub-systems.
+
+It is unlikely that any other device on the system will consume more power than this, so our DC-DC modules need to support 2A.
+
+A further requirement is that it must be buck-boost, as the LiFePO4 cells can go below 3.3V, but when charged are >3.3V.
+
+Some possible parts to consider:
+
+STBBJ3 https://www.st.com/en/power-management/stbb3j.html  (2A in buck mode, i.e., where VIN > 3.3V, but only 800mA in boost mode, i.e., where VIN < 3.3V). 5x4 grid array, without thermal pad. Shutdown and soft-start. "typical" efficiency of 94%
+LTC3113 https://www.analog.com/media/en/technical-documentation/data-sheets/3113f.pdf (3A in buck mode, 1.5A in boost mode). "up to" 96% efficiency. Choice of grid array and TSSOP -- but with a concealled thermal pad on the underside, which is not easy to hand-solder. AU$20 each for TTSOP!
+
+
+
 ### 2.2 Low-energy power-management module to minimise energy consumption of device, especially in low-power modes
 
 ### 2.3 Battery management and energy harvesting module to allow USB-C, integrated solar panel and external 12/24V vehicle battery power sources, and efficient management of the integrated rechargeable battery
@@ -36,6 +49,11 @@ The major hardware stream of this project is focused on modularising the MEGApho
 ### 2.8 LCD panel interface module
 
 ### 2.9 Auxiliary communications module, e.g., LoRa, ultra-sonic, infra-red or mm wave
+
+Low-cost LoRa devices based on the SX1262 look to be an option, using open-source software like this: https://github.com/beegee-tokyo/SX126x-Mesh-Network
+The goal would be for the module to be able to autonomously participate in the mesh while the main process is off.  ESP32s can go into low power modes with <1mA consumption according to https://www.arrow.com/en/research-and-events/articles/esp32-power-consumption-can-be-reduced-with-sleep-modes, and the SX1262 uses only about 5mA to listen for packets, and perhaps 70mA when active, so this looks plausible. The SX1262 when transmitting can draw upto about 120mA according to https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/2R000000Un7F/yT.fKdAr9ZAo3cJLc4F2cBdUsMftpT2vsOICP7NmvMo
+
+Thus the total power consumption of an auxilliary communications module (assuming we include an ESP32 in it, rather than using the power management FPGA to run the mesh) will be about 5mA while idle (~17mW) and upto ~200mA (~660mW).
 
 ### 2.10 Main carrier board and assembly, into which the various modules connect
 
