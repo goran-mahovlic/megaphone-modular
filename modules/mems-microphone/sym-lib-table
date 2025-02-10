@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "MegaCastle")(type "KiCad")(uri "/home/gardners/Projects/mega65/megaphone-r5-modular/MegaCastle.kicad_sym")(options "")(descr ""))
+)
