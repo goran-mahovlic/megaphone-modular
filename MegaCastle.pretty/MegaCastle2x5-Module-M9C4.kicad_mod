@@ -76,8 +76,8 @@
 		(uuid "a267cc7c-3519-453e-849e-e978b46e7c98")
 	)
 	(fp_rect
-		(start -2.000193 -6.354102)
-		(end 2.003564 -4.88551)
+		(start -2.001878 -6.243592)
+		(end 2.001879 -4.775)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -87,8 +87,8 @@
 		(uuid "f564f1db-be49-4513-937e-1aa3ec5f762f")
 	)
 	(fp_rect
-		(start -1.984241 4.885886)
-		(end 2.019516 6.354478)
+		(start -1.984241 4.8)
+		(end 2.019516 6.268592)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -108,27 +108,27 @@
 		(layer "Edge.Cuts")
 		(uuid "e0e166a7-b48f-4580-b2a9-bbb7fa1421f5")
 	)
-	(fp_text user "Pry Zone"
-		(at 1.755819 6.011473 0)
+	(fp_text user "PRY"
+		(at 1.1 6.15 0)
 		(unlocked yes)
 		(layer "B.SilkS")
 		(uuid "1c67120b-cd38-4dc1-b421-22e46cf03846")
 		(effects
 			(font
-				(size 0.5 0.5)
+				(size 0.8 0.8)
 				(thickness 0.1)
 			)
 			(justify left bottom mirror)
 		)
 	)
-	(fp_text user "Pry Zone"
-		(at 1.705127 -5.338692 0)
+	(fp_text user "PRY"
+		(at 1.27 -5.08 0)
 		(unlocked yes)
 		(layer "B.SilkS")
 		(uuid "e32950ed-8495-438e-99ee-5fbaec282f53")
 		(effects
 			(font
-				(size 0.5 0.5)
+				(size 0.8 0.8)
 				(thickness 0.1)
 			)
 			(justify left bottom mirror)
@@ -148,10 +148,8 @@
 	)
 	(pad "1" thru_hole rect
 		(at -5.08 -5.08)
-		(size 1.27 2)
-		(drill oval 2 1.5
-			(offset 0.635 0)
-		)
+		(size 2.54 2)
+		(drill oval 2 1.5)
 		(property pad_prop_castellated)
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
@@ -160,10 +158,8 @@
 	)
 	(pad "4" thru_hole rect
 		(at -5.08 2.54)
-		(size 1.27 2)
-		(drill oval 2 1.5
-			(offset 0.635 0)
-		)
+		(size 2.54 2)
+		(drill oval 2 1.5)
 		(property pad_prop_castellated)
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
@@ -172,10 +168,8 @@
 	)
 	(pad "5" thru_hole rect
 		(at -5.08 5.08)
-		(size 1.27 2)
-		(drill oval 2 1.5
-			(offset 0.635 0)
-		)
+		(size 2.54 2)
+		(drill oval 2 1.5)
 		(property pad_prop_castellated)
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
@@ -184,10 +178,8 @@
 	)
 	(pad "6" thru_hole rect
 		(at 5.08 -5.08)
-		(size 1.27 2)
-		(drill oval 2 1.5
-			(offset -0.635 0)
-		)
+		(size 2.54 2)
+		(drill oval 2 1.5)
 		(property pad_prop_castellated)
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
@@ -196,10 +188,8 @@
 	)
 	(pad "10" thru_hole rect
 		(at 5.08 5.08)
-		(size 1.27 2)
-		(drill oval 2 1.5
-			(offset -0.635 0)
-		)
+		(size 2.54 2)
+		(drill oval 2 1.5)
 		(property pad_prop_castellated)
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
