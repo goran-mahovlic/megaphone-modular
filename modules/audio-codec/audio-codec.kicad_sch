@@ -654,108 +654,6 @@
 				)
 			)
 		)
-		(symbol "Connector:TestPoint"
-			(pin_numbers hide)
-			(pin_names
-				(offset 0.762) hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "TP"
-				(at 0 6.858 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "TestPoint"
-				(at 0 5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 5.08 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 5.08 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "test point"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "test point tp"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "Pin* Test*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "TestPoint_0_1"
-				(circle
-					(center 0 3.302)
-					(radius 0.762)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "TestPoint_1_1"
-				(pin passive line
-					(at 0 0 90)
-					(length 2.54)
-					(name "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "Device:C"
 			(pin_numbers hide)
 			(pin_names
@@ -2762,12 +2660,6 @@
 		(uuid "86fb43c6-67b2-4c8c-8e0c-4e504ed94bfe")
 	)
 	(junction
-		(at 134.62 57.15)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "8aa86413-01c3-4dc8-a866-3be2fca9ef6e")
-	)
-	(junction
 		(at 119.38 52.07)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3665,6 +3557,17 @@
 		)
 		(uuid "656cd276-c69a-4323-9bcf-8f7968c8369b")
 	)
+	(text "= +1.8V Rail"
+		(exclude_from_sim no)
+		(at 66.548 118.618 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "c6760494-e154-4558-94e7-231e04952ed3")
+	)
 	(text "DVSS & IOVSS tied to\ndigital side of GND\nplane.\n\nAll others to analog\n(VBAT) side."
 		(exclude_from_sim no)
 		(at 189.484 130.556 0)
@@ -3733,6 +3636,28 @@
 		(uuid "0ddad4f9-2002-47e5-bda9-05304682cdc9")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 252.7082 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "WCLK"
+		(shape input)
+		(at 93.98 125.73 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "1014407b-4044-4a41-a029-0254654cbb94")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 85.9753 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3896,6 +3821,28 @@
 			)
 		)
 	)
+	(global_label "I2S_MCLK"
+		(shape input)
+		(at 93.98 130.81 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "3bed36b5-549c-4d91-8e32-0ea9123dd05a")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 81.9839 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "I2S_DIN"
 		(shape input)
 		(at 182.88 66.04 180)
@@ -3909,6 +3856,28 @@
 		(uuid "4cc20b4c-b22b-4eec-8c75-628f5fc73d56")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 172.6981 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "SCL"
+		(shape input)
+		(at 93.98 135.89 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "53024af5-5a75-4f1c-a5aa-d70ee6e09df2")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 87.4872 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4006,6 +3975,28 @@
 			)
 		)
 	)
+	(global_label "I2S_DOUT"
+		(shape output)
+		(at 93.98 120.65 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "61754a89-2e13-475f-9a14-830826390fc3")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 82.1048 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "V1.8_MODE"
 		(shape input)
 		(at 44.45 64.77 180)
@@ -4019,6 +4010,28 @@
 		(uuid "6cf24a5e-1c9b-4ee4-9545-ccf47b9e4225")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 31.1839 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "SDA"
+		(shape bidirectional)
+		(at 93.98 133.35 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "73582278-1c3b-4922-b71a-9bd0a32985f6")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 86.3154 133.35 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4112,6 +4125,28 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "V1.8_MODE"
+		(shape input)
+		(at 107.95 120.65 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "91bc755e-1929-4c78-87e7-8c0fe92fd037")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 121.2161 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -4336,6 +4371,50 @@
 			)
 		)
 	)
+	(global_label "I2S_BCLK"
+		(shape input)
+		(at 93.98 128.27 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "c309a10f-ce44-4305-a6e1-0ae5c7dbd3af")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 82.1653 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "I2S_DIN"
+		(shape input)
+		(at 93.98 123.19 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "df85d1db-b40c-474e-ade8-a08baa0cadc3")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 83.7981 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "DECOUPLE1"
 		(shape input)
 		(at 267.97 17.78 180)
@@ -4349,6 +4428,28 @@
 		(uuid "e0bbfe76-84ce-4b4c-ba53-11d0578a0a06")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 253.9782 17.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "DECOUPLE5"
+		(shape output)
+		(at 93.98 118.11 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "edb1fa6a-219a-414b-acea-6aae272ad296")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 79.9882 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7804,73 +7905,6 @@
 			(project "audio-codec"
 				(path "/e0031877-65b0-4e57-86fe-bc20869de862"
 					(reference "C4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 134.62 57.15 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "cc4612f5-c20f-42de-831c-3e256ef5fcfc")
-		(property "Reference" "TP1"
-			(at 139.7 55.8799 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "1.8V"
-			(at 139.7 58.4199 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
-			(at 134.62 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 134.62 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 134.62 57.15 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "5af38e66-051e-4f89-815a-ffeacc35d471")
-		)
-		(instances
-			(project ""
-				(path "/e0031877-65b0-4e57-86fe-bc20869de862"
-					(reference "TP1")
 					(unit 1)
 				)
 			)
