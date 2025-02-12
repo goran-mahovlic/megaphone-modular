@@ -1170,6 +1170,447 @@
 				)
 			)
 		)
+		(symbol "MegaCastle:MegaCastle2x11-Module"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "M"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "MegaCastle:MegaCastle2x11-Module"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "MegaCastle2x11-Module_0_1"
+				(rectangle
+					(start -6.35 13.97)
+					(end 7.62 -15.24)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "MegaCastle2x11-Module_1_1"
+				(pin bidirectional line
+					(at -6.35 11.43 0)
+					(length 2.54)
+					(name "VCC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -6.35 -11.43 0)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -6.35 -13.97 0)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 7.62 11.43 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 7.62 8.89 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 7.62 6.35 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 7.62 3.81 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "15"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 7.62 1.27 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "16"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 7.62 -1.27 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "17"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 7.62 -3.81 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "18"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 7.62 -6.35 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "19"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 7.62 -8.89 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "20"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 7.62 -11.43 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "21"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 7.62 -13.97 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "22"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -6.35 6.35 0)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -6.35 3.81 0)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -6.35 1.27 0)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -6.35 -1.27 0)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -6.35 -3.81 0)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -6.35 -6.35 0)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -6.35 -8.89 0)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "TLV320AIC3110IRHBR:TLV320AIC3110IRHBR"
 			(pin_names
 				(offset 1.016)
@@ -2964,6 +3405,16 @@
 	)
 	(wire
 		(pts
+			(xy 90.17 138.43) (xy 93.98 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b7f754fa-4780-413f-80aa-ff5daccea109")
+	)
+	(wire
+		(pts
 			(xy 64.77 54.61) (xy 64.77 59.69)
 		)
 		(stroke
@@ -2981,6 +3432,16 @@
 			(type default)
 		)
 		(uuid "bc1bfcd7-380b-48ef-bfe9-81e94d7f4cfe")
+	)
+	(wire
+		(pts
+			(xy 85.09 113.03) (xy 93.98 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bff81548-87da-41ce-b482-a9c1223bb655")
 	)
 	(wire
 		(pts
@@ -3633,6 +4094,28 @@
 			)
 		)
 	)
+	(global_label "VBAT"
+		(shape input)
+		(at 85.09 113.03 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "81c33c44-ee88-4961-b2dd-49bb98f2adab")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 77.69 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "DECOUPLE6"
 		(shape input)
 		(at 266.7 144.78 180)
@@ -3969,7 +4452,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 261.3152 87.63 0)
 			(effects
 				(font
@@ -4633,7 +5116,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 261.3152 134.62 0)
 			(effects
 				(font
@@ -5011,7 +5494,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 274.0152 110.49 0)
 			(effects
 				(font
@@ -5081,7 +5564,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 275.2852 30.48 0)
 			(effects
 				(font
@@ -5217,7 +5700,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 274.0152 87.63 0)
 			(effects
 				(font
@@ -5285,7 +5768,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 247.65 65.0748 0)
 			(effects
 				(font
@@ -5419,7 +5902,7 @@
 				)
 			)
 		)
-		(property "Footprint" "ADP5301ACBZ-1-R7:BGA9C50P3X3_187X165X66N"
+		(property "Footprint" "BGA9C50P3X3_187X165X66N"
 			(at 85.09 64.77 0)
 			(effects
 				(font
@@ -5928,7 +6411,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 250.19 70.358 90)
 			(effects
 				(font
@@ -5998,7 +6481,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 261.3152 110.49 0)
 			(effects
 				(font
@@ -6066,7 +6549,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 63.5 53.6448 0)
 			(effects
 				(font
@@ -6258,7 +6741,7 @@
 				)
 			)
 		)
-		(property "Value" "2.3uH"
+		(property "Value" "2.2uH"
 			(at 109.22 49.53 90)
 			(effects
 				(font
@@ -6266,7 +6749,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Inductor_SMD:L_0805_2012Metric"
 			(at 109.22 52.07 0)
 			(effects
 				(font
@@ -6336,7 +6819,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 261.3152 157.48 0)
 			(effects
 				(font
@@ -6602,7 +7085,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 165.1 77.1652 0)
 			(effects
 				(font
@@ -6672,7 +7155,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 274.0152 134.62 0)
 			(effects
 				(font
@@ -6808,7 +7291,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 262.5852 53.34 0)
 			(effects
 				(font
@@ -6878,7 +7361,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 275.2852 53.34 0)
 			(effects
 				(font
@@ -6946,7 +7429,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 228.6 59.9948 0)
 			(effects
 				(font
@@ -7148,7 +7631,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 118.4148 44.45 0)
 			(effects
 				(font
@@ -7191,6 +7674,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 90.17 138.43 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c9f0a98b-832a-4062-95f6-bd37dba99cfa")
+		(property "Reference" "#PWR025"
+			(at 90.17 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 90.17 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 90.17 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 90.17 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 90.17 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c8d43000-bccd-4881-a591-13b47a9f17d5")
+		)
+		(instances
+			(project "audio-codec"
+				(path "/e0031877-65b0-4e57-86fe-bc20869de862"
+					(reference "#PWR025")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 261.62 26.67 0)
 		(unit 1)
@@ -7218,7 +7767,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 262.5852 30.48 0)
 			(effects
 				(font
@@ -7288,7 +7837,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 134.62 62.23 0)
 			(effects
 				(font
@@ -7355,7 +7904,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 62.992 73.66 90)
 			(effects
 				(font
@@ -7557,7 +8106,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 274.0152 157.48 0)
 			(effects
 				(font
@@ -7666,6 +8215,131 @@
 		)
 	)
 	(symbol
+		(lib_id "MegaCastle:MegaCastle2x11-Module")
+		(at 100.33 124.46 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f0ab5100-a9b4-4c9b-b927-c164f3eefec5")
+		(property "Reference" "M1"
+			(at 100.965 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "~"
+			(at 100.965 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "MegaCastle:MegaCastle2x11Wide-Module-I13.2x22.25"
+			(at 100.33 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 100.33 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 100.33 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "97ded3ed-0982-4690-b245-a0a91ca01e55")
+		)
+		(pin "18"
+			(uuid "20fec453-90b2-498f-914d-f2489be5183a")
+		)
+		(pin "8"
+			(uuid "b529d417-3d7e-46d1-a083-36da66b2c0fb")
+		)
+		(pin "6"
+			(uuid "8fc635bd-4750-45b2-9af6-dc327f50d2a1")
+		)
+		(pin "9"
+			(uuid "e0c968bf-5513-4a55-9158-0db09dcf9033")
+		)
+		(pin "21"
+			(uuid "2bf67e25-e9cd-45b4-abee-3a50f87cbdec")
+		)
+		(pin "4"
+			(uuid "8e5b0f22-35e1-426c-b82e-1357e55e75d8")
+		)
+		(pin "20"
+			(uuid "4a5e331f-e18c-434e-9bce-d666bbd3df98")
+		)
+		(pin "11"
+			(uuid "6d4ba0d0-921c-40c8-a6ab-7c966c355543")
+		)
+		(pin "1"
+			(uuid "1d4a21b3-8b28-4850-827c-1b5c7c5a3a70")
+		)
+		(pin "10"
+			(uuid "d59e7a5d-276c-42d7-8e73-8dcb8b813567")
+		)
+		(pin "17"
+			(uuid "9f220bde-0a87-44f1-b499-a6e37bf03598")
+		)
+		(pin "16"
+			(uuid "51e382f5-e6fa-4ef6-90b7-d98792ca2da4")
+		)
+		(pin "5"
+			(uuid "6be0fa1a-fea4-46c9-a943-668a10ec557c")
+		)
+		(pin "14"
+			(uuid "fdf7930b-b2d9-489c-8d75-7e2f6b19a9c4")
+		)
+		(pin "15"
+			(uuid "123ef5b3-880c-4743-aa4b-27102e6d2ed4")
+		)
+		(pin "22"
+			(uuid "f6b2ce17-100d-46f0-962b-abb95ff11819")
+		)
+		(pin "7"
+			(uuid "df4ece7b-ce3f-48e5-a163-2171581180f7")
+		)
+		(pin "19"
+			(uuid "7dc458c1-16a0-4590-8d1e-641ac8fd6a8f")
+		)
+		(pin "12"
+			(uuid "b0bc4a88-b377-41bb-a750-b6322ef36dd9")
+		)
+		(pin "13"
+			(uuid "028bbfb7-861e-4b7b-bf8b-865c8f38efde")
+		)
+		(instances
+			(project ""
+				(path "/e0031877-65b0-4e57-86fe-bc20869de862"
+					(reference "M1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 46.99 60.96 0)
 		(unit 1)
@@ -7693,7 +8367,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 45.212 60.96 90)
 			(effects
 				(font
