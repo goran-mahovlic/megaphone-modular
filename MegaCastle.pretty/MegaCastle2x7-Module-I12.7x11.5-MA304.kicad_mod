@@ -148,7 +148,7 @@
 	)
 	(dimension
 		(type aligned)
-		(layer "F.SilkS")
+		(layer "Dwgs.User")
 		(uuid "73768abf-34fa-4f5d-aff1-bf51b0717a01")
 		(pts
 			(xy -6.35 1.905) (xy 6.325 2.041622)
@@ -156,7 +156,7 @@
 		(height 7.595)
 		(gr_text "12.6757 mm"
 			(at -0.082505 8.467934 359.382441)
-			(layer "F.SilkS")
+			(layer "Dwgs.User")
 			(uuid "73768abf-34fa-4f5d-aff1-bf51b0717a01")
 			(effects
 				(font
