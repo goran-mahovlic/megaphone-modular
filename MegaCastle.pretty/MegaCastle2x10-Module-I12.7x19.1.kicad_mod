@@ -1,10 +1,10 @@
-(footprint "MegaCastle2x10-Module-I6.4x19.1"
+(footprint "MegaCastle2x10-Module-I12.7x19.1"
 	(version 20240108)
 	(generator "pcbnew")
 	(generator_version "8.0")
 	(layer "F.Cu")
 	(property "Reference" "REF**"
-		(at -6.35 10.16 90)
+		(at -9.525 10.16 90)
 		(unlocked yes)
 		(layer "F.SilkS")
 		(uuid "08d1cbd6-6dbd-4696-9477-43e1380128be")
@@ -15,8 +15,8 @@
 			)
 		)
 	)
-	(property "Value" "MegaCastle2x10-Module-I6.4x19.1"
-		(at 6.35 0 90)
+	(property "Value" "MegaCastle2x10-Module-I12.7x19.1"
+		(at 9.525 0 90)
 		(unlocked yes)
 		(layer "F.Fab")
 		(uuid "7848b12f-b698-40ff-9b18-5d3dc1ad63e0")
@@ -65,8 +65,8 @@
 	)
 	(attr smd)
 	(fp_rect
-		(start -3.2 9.55)
-		(end 3.2 -9.55)
+		(start -6.35 9.55)
+		(end 6.35 -9.525)
 		(stroke
 			(width 0.05)
 			(type default)
@@ -76,8 +76,8 @@
 		(uuid "a267cc7c-3519-453e-849e-e978b46e7c98")
 	)
 	(fp_rect
-		(start -2.001879 -12.5984)
-		(end 2.001878 -11.129808)
+		(start -2.027278 -12.619192)
+		(end 1.976479 -11.1506)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -98,8 +98,8 @@
 		(uuid "966a509b-00f8-4763-8fcb-dbbd2ac08dcd")
 	)
 	(fp_rect
-		(start -5.04 -12.7)
-		(end 5.08 12.7)
+		(start -8.255 -12.7)
+		(end 8.255 12.7)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -109,7 +109,7 @@
 		(uuid "e0e166a7-b48f-4580-b2a9-bbb7fa1421f5")
 	)
 	(fp_text user "PRY"
-		(at 1.2192 12.408699 0)
+		(at 1.1938 12.4206 0)
 		(unlocked yes)
 		(layer "B.SilkS")
 		(uuid "1c67120b-cd38-4dc1-b421-22e46cf03846")
@@ -122,7 +122,7 @@
 		)
 	)
 	(fp_text user "PRY"
-		(at 1.27 -11.43 0)
+		(at 1.2192 -11.4554 0)
 		(unlocked yes)
 		(layer "B.SilkS")
 		(uuid "e32950ed-8495-438e-99ee-5fbaec282f53")
@@ -135,7 +135,7 @@
 		)
 	)
 	(fp_text user "${REFERENCE}"
-		(at -6.35 -6.35 90)
+		(at -9.525 -6.35 90)
 		(unlocked yes)
 		(layer "F.Fab")
 		(uuid "515e6e66-058b-44a5-b9cf-9ec3e273dd1c")
@@ -151,10 +151,10 @@
 		(layer "F.SilkS")
 		(uuid "73768abf-34fa-4f5d-aff1-bf51b0717a01")
 		(pts
-			(xy -3.2 9.55) (xy 3.2 9.55)
+			(xy -6.35 9.55) (xy 6.35 9.55)
 		)
 		(height 7.595)
-		(gr_text "6.4000 mm"
+		(gr_text "12.7000 mm"
 			(at 0 16.045 0)
 			(layer "F.SilkS")
 			(uuid "73768abf-34fa-4f5d-aff1-bf51b0717a01")
@@ -184,11 +184,11 @@
 		(layer "F.SilkS")
 		(uuid "9bde321d-79cf-4cb5-bf6b-c052c28e0b2b")
 		(pts
-			(xy 3.2 9.55) (xy 3.2 -9.55)
+			(xy 6.985 9.55) (xy 6.985 -9.55)
 		)
 		(height 6.96)
 		(gr_text "19.1000 mm"
-			(at 9.06 0 90)
+			(at 12.845 0 90)
 			(layer "F.SilkS")
 			(uuid "9bde321d-79cf-4cb5-bf6b-c052c28e0b2b")
 			(effects
@@ -217,11 +217,11 @@
 		(layer "Dwgs.User")
 		(uuid "862ef235-0d69-4846-a9f8-7bb5aa438286")
 		(pts
-			(xy -5.08 -12.43) (xy -5.08 12.43)
+			(xy -8.89 -12.43) (xy -8.89 12.43)
 		)
 		(height 5.08)
 		(gr_text "24.8600 mm"
-			(at -11.31 0 90)
+			(at -15.12 0 90)
 			(layer "Dwgs.User")
 			(uuid "862ef235-0d69-4846-a9f8-7bb5aa438286")
 			(effects
@@ -250,11 +250,11 @@
 		(layer "Dwgs.User")
 		(uuid "b063aa99-61df-4ffd-a9d1-55ac7017f451")
 		(pts
-			(xy -5.08 -11.43) (xy 5.08 -11.43)
+			(xy -8.255 -12.7) (xy 8.255 -12.7)
 		)
 		(height -2.54)
-		(gr_text "10.1600 mm"
-			(at 0 -15.12 0)
+		(gr_text "16.5100 mm"
+			(at 0 -16.39 0)
 			(layer "Dwgs.User")
 			(uuid "b063aa99-61df-4ffd-a9d1-55ac7017f451")
 			(effects
@@ -279,7 +279,7 @@
 			(extension_offset 0.5) keep_text_aligned)
 	)
 	(pad "1" thru_hole rect
-		(at -5.08 -11.43)
+		(at -8.255 -11.43)
 		(size 2.54 2)
 		(drill oval 2 1.5)
 		(property pad_prop_castellated)
@@ -289,7 +289,7 @@
 		(uuid "f85e55df-ccf1-4a29-ab8b-2b081b1da284")
 	)
 	(pad "3" thru_hole rect
-		(at -5.08 -6.35)
+		(at -8.255 -6.35)
 		(size 2.54 2)
 		(drill oval 2 1.5)
 		(property pad_prop_castellated)
@@ -299,7 +299,7 @@
 		(uuid "d50ed3d4-6188-4c00-9fe5-d6fa68ab290b")
 	)
 	(pad "4" thru_hole rect
-		(at -5.08 -3.81)
+		(at -8.255 -3.81)
 		(size 2.54 2)
 		(drill oval 2 1.5)
 		(property pad_prop_castellated)
@@ -309,7 +309,7 @@
 		(uuid "2e546900-aef1-4d45-a449-91ae6a97f8a6")
 	)
 	(pad "5" thru_hole rect
-		(at -5.08 -1.27)
+		(at -8.255 -1.27)
 		(size 2.54 2)
 		(drill oval 2 1.5)
 		(property pad_prop_castellated)
@@ -319,7 +319,7 @@
 		(uuid "a7da7a50-194d-4b90-b775-6e2a67682ade")
 	)
 	(pad "6" thru_hole rect
-		(at -5.08 1.27)
+		(at -8.255 1.27)
 		(size 2.54 2)
 		(drill oval 2 1.5)
 		(property pad_prop_castellated)
@@ -329,7 +329,7 @@
 		(uuid "6f4ddab8-b534-4c5b-b2f7-975da19e935e")
 	)
 	(pad "7" thru_hole rect
-		(at -5.08 3.81)
+		(at -8.255 3.81)
 		(size 2.54 2)
 		(drill oval 2 1.5)
 		(property pad_prop_castellated)
@@ -339,7 +339,7 @@
 		(uuid "5dfa296d-9cec-44b4-a8af-26140cdbfbb3")
 	)
 	(pad "8" thru_hole rect
-		(at -5.08 6.35)
+		(at -8.255 6.35)
 		(size 2.54 2)
 		(drill oval 2 1.5)
 		(property pad_prop_castellated)
@@ -349,7 +349,7 @@
 		(uuid "e4563d55-0cfb-4f00-83e4-72c557e834bc")
 	)
 	(pad "9" thru_hole rect
-		(at -5.08 8.89)
+		(at -8.255 8.89)
 		(size 2.54 2)
 		(drill oval 2 1.5)
 		(property pad_prop_castellated)
@@ -359,7 +359,7 @@
 		(uuid "1e6fb4a2-1636-4a1b-858e-807f91c795ce")
 	)
 	(pad "10" thru_hole rect
-		(at -5.08 11.43)
+		(at -8.255 11.43)
 		(size 2.54 2)
 		(drill oval 2 1.5)
 		(property pad_prop_castellated)
@@ -369,7 +369,7 @@
 		(uuid "a605fc9e-c6ec-4e19-a310-01ab726b2c48")
 	)
 	(pad "11" thru_hole rect
-		(at 5.08 -11.43)
+		(at 8.255 -11.43)
 		(size 2.54 2)
 		(drill oval 2 1.5)
 		(property pad_prop_castellated)
@@ -379,7 +379,7 @@
 		(uuid "9bcdd31d-3980-43bf-893f-6884dcb2af53")
 	)
 	(pad "12" thru_hole rect
-		(at 5.08 -8.89)
+		(at 8.255 -8.89)
 		(size 2.54 2)
 		(drill oval 2 1.5)
 		(property pad_prop_castellated)
@@ -389,7 +389,7 @@
 		(uuid "d82a879a-ad06-4606-8636-b8f43538d63c")
 	)
 	(pad "13" thru_hole rect
-		(at 5.08 -6.35)
+		(at 8.255 -6.35)
 		(size 2.54 2)
 		(drill oval 2 1.5)
 		(property pad_prop_castellated)
@@ -399,7 +399,7 @@
 		(uuid "db5ec48b-42d5-4d63-8259-dd55f713ff28")
 	)
 	(pad "14" thru_hole rect
-		(at 5.08 -3.81)
+		(at 8.255 -3.81)
 		(size 2.54 2)
 		(drill oval 2 1.5)
 		(property pad_prop_castellated)
@@ -409,7 +409,7 @@
 		(uuid "75fd84c5-78ea-4c0f-86ee-21006295076a")
 	)
 	(pad "15" thru_hole rect
-		(at 5.08 -1.27)
+		(at 8.255 -1.27)
 		(size 2.54 2)
 		(drill oval 2 1.5)
 		(property pad_prop_castellated)
@@ -419,7 +419,7 @@
 		(uuid "8f40d3ae-a7e3-456e-b68d-edaaf1c025f3")
 	)
 	(pad "16" thru_hole rect
-		(at 5.08 1.27)
+		(at 8.255 1.27)
 		(size 2.54 2)
 		(drill oval 2 1.5)
 		(property pad_prop_castellated)
@@ -429,7 +429,7 @@
 		(uuid "1642db65-dd41-4c55-9d01-95a571104588")
 	)
 	(pad "17" thru_hole rect
-		(at 5.08 3.81)
+		(at 8.255 3.81)
 		(size 2.54 2)
 		(drill oval 2 1.5)
 		(property pad_prop_castellated)
@@ -439,7 +439,7 @@
 		(uuid "162a7b58-68d1-4ae4-94c9-cd396b30ac95")
 	)
 	(pad "18" thru_hole rect
-		(at 5.08 6.35)
+		(at 8.255 6.35)
 		(size 2.54 2)
 		(drill oval 2 1.5)
 		(property pad_prop_castellated)
@@ -449,7 +449,7 @@
 		(uuid "490c10c4-c0c1-47de-a927-91bf20892f9c")
 	)
 	(pad "19" thru_hole rect
-		(at 5.08 8.89)
+		(at 8.255 8.89)
 		(size 2.54 2)
 		(drill oval 2 1.5)
 		(property pad_prop_castellated)
@@ -459,7 +459,7 @@
 		(uuid "11a5fc16-614b-4654-9840-08c0c43d1ea7")
 	)
 	(pad "20" thru_hole rect
-		(at 5.08 11.43)
+		(at 8.255 11.43)
 		(size 2.54 2)
 		(drill oval 2 1.5)
 		(property pad_prop_castellated)
@@ -492,7 +492,7 @@
 		)
 		(polygon
 			(pts
-				(xy -6.985 12.7) (xy -6.985 -12.7) (xy -3.175 -12.7) (xy -3.175 12.7)
+				(xy -10.16 12.7) (xy -10.16 -12.7) (xy -6.35 -12.7) (xy -6.35 12.7)
 			)
 		)
 	)
@@ -578,7 +578,7 @@
 		)
 		(polygon
 			(pts
-				(xy 6.985 12.7) (xy 6.985 -12.7) (xy 3.175 -12.7) (xy 3.175 12.7)
+				(xy 10.16 12.7) (xy 10.16 -12.7) (xy 6.35 -12.7) (xy 6.35 12.7)
 			)
 		)
 	)
@@ -606,7 +606,7 @@
 		)
 		(polygon
 			(pts
-				(xy -5.08 -12.7) (xy -5.092306 -9.749778) (xy 5.105788 -9.729267) (xy 5.08 -12.7) (xy 2.004517 -12.699268)
+				(xy -6.35 -12.7) (xy -6.35 -9.749778) (xy 6.35 -9.729267) (xy 6.35 -12.7) (xy 2.004517 -12.699268)
 				(xy 1.992211 -11.238881) (xy -1.998094 -11.241982) (xy -2.001512 -12.705103)
 			)
 		)
@@ -635,8 +635,8 @@
 		)
 		(polygon
 			(pts
-				(xy -5.076282 12.632355) (xy -5.088588 9.682133) (xy 5.109506 9.661622) (xy 5.083718 12.632355)
-				(xy 2.008235 12.631623) (xy 1.995929 11.171236) (xy -1.994376 11.174337) (xy -1.997794 12.637458)
+				(xy -6.35 12.7) (xy -6.35 9.682133) (xy 6.35 9.661622) (xy 6.35 12.7) (xy 2.008235 12.631623) (xy 1.995929 11.171236)
+				(xy -1.994376 11.174337) (xy -1.997794 12.637458)
 			)
 		)
 	)
