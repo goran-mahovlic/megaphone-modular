@@ -163,6 +163,14 @@ void usage(void)
   exit(-1);
 }
 
+void draw_line(FILE *out,char *layer,float x1, float y1, float x2, float y2)
+{
+  fprintf(out,
+	  "  (fp_line (start %f %f) (end %f %f)\n"
+	  "    (stroke (width 0.1) (type default)) (layer \"%s\") (tstamp 2c385f8a-f9bf-4768-8345-7af626d58ca0))\n",
+	  x1,y1,x2,y2,layer);
+}
+
 void footprint_exclusion_zone(FILE *out, float x1, float y1, float x2, float y2)
 {
   fprintf(out,
@@ -586,7 +594,57 @@ int main(int argc, char **argv)
 	  bay_footprint_name
 	  );
 
+  fprintf(out,
+	  " (fp_text reference \"REF**\" (at %f %f 90 unlocked) (layer \"F.SilkS\")\n"
+	  "      (effects (font (size 1 1) (thickness 0.1)))\n"
+	  "    (tstamp 08d1cbd6-6dbd-4696-9477-43e1380128be)\n"
+	  "  )\n",
+	  -module_width/2 - 2.54 * 0.8,
+	  module_height/2
+	  );
   
+  fprintf(out,
+	  "  (fp_text value \"%s\" (at %f 0 90 unlocked) (layer \"F.Fab\")\n"
+	  "      (effects (font (size 1 1) (thickness 0.15)))\n"
+	  "    (tstamp 7848b12f-b698-40ff-9b18-5d3dc1ad63e0)\n"
+	  "  )\n",
+	  bay_footprint_name,
+	  module_width/2 + 2.54* 0.8
+	  );
+
+  fprintf(out,
+	  "  (fp_text user \"VCC Bridge\" (at -3.81 %f unlocked) (layer \"F.SilkS\")\n"
+	  "      (effects (font (size 1 1) (thickness 0.1)) (justify left bottom))\n"
+	  "    (tstamp c3f3f8b2-4d95-4798-a62c-fde882be7a8f)\n"
+	  "  )\n",
+	  -(module_height/2 + 3)
+	  );
+  fprintf(out,
+	  "  (fp_text user \"GND Bridge\" (at -4.226381 %f unlocked) (layer \"F.SilkS\")\n"
+	  "      (effects (font (size 1 1) (thickness 0.1)) (justify left bottom))\n"
+	  "    (tstamp ececdf77-5944-4d0f-945c-855ee7843a28)\n"
+	  "  )\n",
+	  module_height/2 + 3 + 1
+	  );
+  fprintf(out,
+	  "  (fp_text user \"${REFERENCE}\" (at %f %f 90 unlocked) (layer \"F.Fab\")\n"
+	  "      (effects (font (size 1 1) (thickness 0.15)))\n"
+	  "    (tstamp 515e6e66-058b-44a5-b9cf-9ec3e273dd1c)\n"
+	  "  )\n",
+	  -module_width/2 - 2.54 * 0.8,
+	  0.0
+	  );
+
+  draw_line(out,"F.SilkS",
+	    -module_width/2,-(module_height/2+2.54*.0),
+	    -module_width/2,-(module_height/2+2.54*.5+3));
+  draw_line(out,"F.SilkS",
+	    -module_width/2,-(module_height/2+2.54*.5+3),
+	    module_width/2,-(module_height/2+2.54*.5+3));
+  draw_line(out,"F.SilkS",
+	    module_width/2,-(module_height/2+2.54*.0),
+	    module_width/2,-(module_height/2+2.54*.5+3));
+
   for(int i=0;i<half_pin_count;i++)
     {
       if (pin_present(i+1,pin_mask))
