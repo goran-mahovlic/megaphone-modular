@@ -21,7 +21,7 @@ int main(int argc, char **argv)
   float pins_used=atof(argv[3]);
   float variant=atof(argv[4]);
 
-  double module_height = co_height + 1.6 + 1.6;
+  double module_height = co_height + 2.4 + 2.4;
   double module_width = co_width + 1.8 + 1.8;
 
   // Make module size integer 10ths of an inch
@@ -36,6 +36,10 @@ int main(int argc, char **argv)
   while ( (half_pin_count*2-1) < pins_used ) half_pin_count++;
 
   module_height = half_pin_count * 2.54;
+
+  // Increase cut-out height if we added more pins than the original size
+  // required.
+  co_height = module_height - (2.4 + 2.4);
   
   fprintf(stderr,"INFO: Module size = %fx%f mm, %d pins each side.\n",
 	  module_width, module_height, half_pin_count);
