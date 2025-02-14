@@ -22,7 +22,7 @@ unsigned long long reverse_bits(unsigned long long num, int m) {
 unsigned long long flip_bits(unsigned long long num, int m) {
     unsigned long long flipped = 0;
     for (int i = 0; i < m / 2; i++) {
-        int j = m - 1 - i;
+        int j = m/2 + i;
         bool left = num & (1ULL << i);
         bool right = num & (1ULL << j);
         if (left) flipped |= (1ULL << j);
@@ -100,7 +100,6 @@ unsigned long long find_nth_valid_vector(int m, int n, int target_index) {
             }
             
             // Check if it's a unique configuration
-	    fprintf(stderr,"DEBUG: Vector = %016llx\n",vector);
             if (is_unique(vector, unique_vectors, unique_count, m)) {
                 unique_vectors[unique_count++] = vector;
                 if (unique_count == target_index) {
@@ -126,10 +125,11 @@ unsigned long long variant_pads[MAX_VARIANTS];
 
 unsigned long long find_variant(int half_pin_count,int pins_used,int variant)
 {
-  fprintf(stderr,"DEBUG: half_pin_count=%d, pins_used=%d\n",
-	  half_pin_count,pins_used);
+  if (variant<1) {
+    fprintf(stderr,"ERROR: Variant number must be >=1\n");
+    exit(-1);
+  }
   unsigned long long v = find_nth_valid_vector(half_pin_count*2, pins_used, variant);
-  fprintf(stderr,"vector = %016llx\n",v);
   return v;
 }
 
