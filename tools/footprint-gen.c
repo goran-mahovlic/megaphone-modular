@@ -123,6 +123,7 @@ unsigned long long variant_pads[MAX_VARIANTS];
 
 char suffix[128]="";
 char footprint_name[1024];
+char bay_footprint_name[1024];
 
 unsigned long long find_variant(int half_pin_count,int pins_used,int variant,
 				float co_width,float co_height)
@@ -140,7 +141,9 @@ unsigned long long find_variant(int half_pin_count,int pins_used,int variant,
   sprintf(footprint_name,"MegaCastle2x%d-Module-I%.1fx%.1f%s",
 	  half_pin_count,co_width,co_height,
 	  suffix);
-  fprintf(stderr,"INFO: Variant is %s\n",footprint_name);
+  sprintf(bay_footprint_name,"MegaCastle2x%d-I%.1fx%.1f%s",
+	  half_pin_count,co_width,co_height,
+	  suffix);
   return reverse_bits(v,half_pin_count*2);
 }
 
@@ -240,9 +243,18 @@ int main(int argc, char **argv)
   unsigned long long pin_mask = find_variant(half_pin_count,pins_used,variant,
 					     co_width,co_height);
 
+  /* ------------------------------------------------------------------------------
+
+     Module footprint
+
+    ------------------------------------------------------------------------------ */
+
+  
   char filename[8192];
   snprintf(filename,8192,"%s/MegaCastle.pretty/%s.kicad_mod",path,footprint_name);
   FILE *out = fopen(filename,"w");
+
+  fprintf(stderr,"INFO: Creating %s\n",filename);
   
   fprintf(out,
 	  "(footprint \"%s\"\n"
@@ -552,6 +564,64 @@ int main(int argc, char **argv)
     }
  
   fprintf(out,")\n");
+  fclose(out);
+
+
+  /* ------------------------------------------------------------------------------
+
+     Module Bay footprint (internal to PCB)
+
+    ------------------------------------------------------------------------------ */
+
+  
+  snprintf(filename,8192,"%s/MegaCastle.pretty/%s.kicad_mod",path,bay_footprint_name);
+  out = fopen(filename,"w");
+
+  fprintf(stderr,"INFO: Creating %s\n",filename);
+
+  fprintf(out,
+	  "(footprint \"%s\" (version 20221018) (generator pcbnew)\n"
+	  "  (layer \"F.Cu\")\n"
+	  "  (attr smd)\n",
+	  bay_footprint_name
+	  );
+
+  
+  for(int i=0;i<half_pin_count;i++)
+    {
+      if (pin_present(i+1,pin_mask))
+	fprintf(out,
+		"       (pad \"%d\" smd roundrect\n"
+		"                (at %f %f)\n"
+		"                (size 2.54 2)\n"
+		"                (layers \"F.Cu\" \"F.Paste\" \"F.Mask\")\n"
+		"                (roundrect_rratio 0.25)\n"
+		"                (thermal_bridge_angle 45) (tstamp 93e18f82-86ef-4410-989e-eb27a6ef3dd8)\n"
+		"        )\n",
+		i+1,
+		-module_width/2,
+		-module_height/2 + 2.54/2.0 + 2.54*i
+		);
+    }
+  
+  for(int i=0;i<half_pin_count;i++)
+    {
+      if (pin_present(i+half_pin_count+1,pin_mask))
+	fprintf(out,
+		"       (pad \"%d\" smd roundrect\n"
+		"                (at %f %f)\n"
+		"                (size 2.54 2)\n"
+		"                (layers \"F.Cu\" \"F.Paste\" \"F.Mask\")\n"
+		"                (roundrect_rratio 0.25)\n"
+		"                (thermal_bridge_angle 45) (tstamp 93e18f82-86ef-4410-989e-eb27a6ef3dd8)\n"
+		"        )\n",
+		i+1+half_pin_count,
+		module_width/2,
+		-module_height/2 + 2.54/2.0 + 2.54*i
+		);
+    }
+
+  fprintf(out,")\n");  
   fclose(out);
   
   return 0;
