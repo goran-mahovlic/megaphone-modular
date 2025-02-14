@@ -123,7 +123,8 @@ unsigned long long variant_pads[MAX_VARIANTS];
 
 char suffix[1024]="";
 
-unsigned long long find_variant(int half_pin_count,int pins_used,int variant)
+unsigned long long find_variant(int half_pin_count,int pins_used,int variant,
+				float co_width,float co_height)
 {
   if (variant<1) {
     fprintf(stderr,"ERROR: Variant number must be >=1\n");
@@ -135,7 +136,9 @@ unsigned long long find_variant(int half_pin_count,int pins_used,int variant)
     sprintf(suffix,"-M%X",v<<2);
   } else 
     sprintf(suffix,"-M%X",v);
-  fprintf(stderr,"INFO: Variant is %s\n",suffix);
+  fprintf(stderr,"INFO: Variant is MegaCastle2x%d-Module-I%.1fx%.1f%s\n",
+	  half_pin_count,co_width,co_height,
+	  suffix);
   return reverse_bits(v,half_pin_count*2);
 }
 
@@ -220,8 +223,6 @@ int main(int argc, char **argv)
     half_pin_count++;
   }
   
-  unsigned long long pin_mask = find_variant(half_pin_count,pins_used,variant);
-  
   while ( (half_pin_count*2-1) < pins_used ) half_pin_count++;
 
   module_height = half_pin_count * 2.54;
@@ -233,6 +234,10 @@ int main(int argc, char **argv)
   fprintf(stderr,"INFO: Module size = %fx%f mm, %d pins each side.\n",
 	  module_width, module_height, half_pin_count);
 
+  unsigned long long pin_mask = find_variant(half_pin_count,pins_used,variant,
+					     co_width,co_height);
+  
+  
   printf("(footprint \"MegaCastle2x%d-Module-Mfoo\"\n"
 	   "        (version 20240108)\n"
 	   "	    (generator \"pcbnew\")\n"
