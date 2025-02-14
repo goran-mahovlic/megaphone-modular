@@ -163,6 +163,26 @@ void usage(void)
   exit(-1);
 }
 
+void draw_qr_corner(FILE *out,float x, float y, int draw_outer)
+{
+  fprintf(out,
+	  "  (fp_rect (start %f %f) (end %f %f)\n"
+	  "    (stroke (width 0) (type solid)) (fill solid) (layer \"F.SilkS\") (tstamp cf9cd8c1-cf12-4383-8e04-88ab007df94c))\n",
+	  x-1.27,y-1.27,
+	  x-2.54,y-2.54
+	  );
+
+  if (draw_outer) {
+    fprintf(out,
+	    "  (fp_rect (start %f %f) (end %f %f)\n"
+	    "    (stroke (width 0.5) (type default)) (fill none) (layer \"F.SilkS\") (tstamp cf9cd8c1-cf12-4383-8e04-88ab007df94c))\n",
+	    x,y,
+	    x-3.81,y-3.81
+	    );
+  }
+}
+	  
+
 void draw_line(FILE *out,char *layer,float x1, float y1, float x2, float y2)
 {
   fprintf(out,
@@ -635,6 +655,7 @@ int main(int argc, char **argv)
 	  0.0
 	  );
 
+  // VCC and GND bridge silkscreen marks
   draw_line(out,"F.SilkS",
 	    -module_width/2,-(module_height/2+2.54*1.75+0),
 	    -module_width/2,-(module_height/2+2.54*1.75+1.4));
@@ -655,6 +676,29 @@ int main(int argc, char **argv)
 	    module_width/2,(module_height/2+2.54*1.75+0),
 	    module_width/2,(module_height/2+2.54*1.75+1.4));
 
+  // Module outline silkscreen
+  fprintf(out,
+	  "   (fp_rect (start %f %f) (end %f %f)\n"
+	  "    (stroke (width 0.1) (type default)) (fill none) (layer \"F.SilkS\") (tstamp 1b929847-1a5f-4d05-bc4e-9961861a32f5))\n",
+	  -module_width/2,-module_height/2,
+	  module_width/2,module_height/2
+	  );
+
+  // Draw QR-code style registration boxes
+  draw_qr_corner(out,-module_width/2-2.54,-module_height/2,1);
+  draw_qr_corner(out,module_width/2+2.54*2.5,-module_height/2,1);
+  draw_qr_corner(out,-module_width/2-2.54,module_height/2+3.81,0);
+  draw_qr_corner(out,module_width/2+2.54*2.5,module_height/2+3.81,1);
+  
+  fprintf(out,
+	  "     (fp_rect (start -3.4 3.4) (end 3.4 -3.4)\n"
+	  "    (stroke (width 0.05) (type default)) (fill none) (layer \"Edge.Cuts\") (tstamp 0442aa54-1eb9-4247-b784-158a997ff791))\n"
+	  "  (fp_rect (start -2 -8.89) (end 2 -4.89)\n"
+	  "    (stroke (width 0.05) (type default)) (fill none) (layer \"Edge.Cuts\") (tstamp 7fe4220e-eec5-4f8b-b02e-8e7654d86bc8))\n"
+	  "  (fp_rect (start -2 8.89) (end 2 4.89)\n"
+	  "    (stroke (width 0.05) (type default)) (fill none) (layer \"Edge.Cuts\") (tstamp 47058791-feaf-409b-812c-7a0cb6797c8a))\n"
+	  );
+  
 
   fprintf(out,
 	  "  (pad \"A1\" smd roundrect (at %f %f) (size 2.54 2.54) (layers \"F.Cu\" \"F.Paste\" \"F.Mask\") (roundrect_rratio 0.25)\n"
