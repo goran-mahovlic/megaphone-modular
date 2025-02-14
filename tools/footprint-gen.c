@@ -601,174 +601,205 @@ int main(int argc, char **argv)
 
     ------------------------------------------------------------------------------ */
 
-  
-  snprintf(filename,8192,"%s/MegaCastle.pretty/%s.kicad_mod",path,bay_footprint_name);
-  out = fopen(filename,"w");
+  for(int edge_type=0;edge_type<2;edge_type++) {
+  for(int with_cutout=0;with_cutout<2;with_cutout++) {
 
-  fprintf(stderr,"INFO: Creating %s\n",filename);
+    snprintf(filename,8192,"%s/MegaCastle.pretty/%s%s%s.kicad_mod",
+	     path,
+	     bay_footprint_name,
+	     with_cutout?"":"-NOCUTOUT",
+	     edge_type?"-EDGE":""
+	     );
+    out = fopen(filename,"w");
 
-  fprintf(out,
-	  "(footprint \"%s\" (version 20221018) (generator pcbnew)\n"
-	  "  (layer \"F.Cu\")\n"
-	  "  (attr smd)\n",
-	  bay_footprint_name
-	  );
+    fprintf(stderr,"INFO: Creating %s\n",filename);
+    
+    fprintf(out,
+	    "(footprint \"%s\" (version 20221018) (generator pcbnew)\n"
+	    "  (layer \"F.Cu\")\n"
+	    "  (attr smd)\n",
+	    bay_footprint_name
+	    );
+    
+    fprintf(out,
+	    " (fp_text reference \"REF**\" (at %f %f 90 unlocked) (layer \"F.SilkS\")\n"
+	    "      (effects (font (size 1 1) (thickness 0.1)))\n"
+	    "    (tstamp 08d1cbd6-6dbd-4696-9477-43e1380128be)\n"
+	    "  )\n",
+	    -module_width/2 - 2.54 * 0.8,
+	    module_height/2
+	    );
+    
+    fprintf(out,
+	    "  (fp_text value \"%s\" (at %f 0 90 unlocked) (layer \"F.Fab\")\n"
+	    "      (effects (font (size 1 1) (thickness 0.15)))\n"
+	    "    (tstamp 7848b12f-b698-40ff-9b18-5d3dc1ad63e0)\n"
+	    "  )\n",
+	    bay_footprint_name,
+	    module_width/2 + 2.54* 0.8
+	    );
 
-  fprintf(out,
-	  " (fp_text reference \"REF**\" (at %f %f 90 unlocked) (layer \"F.SilkS\")\n"
-	  "      (effects (font (size 1 1) (thickness 0.1)))\n"
-	  "    (tstamp 08d1cbd6-6dbd-4696-9477-43e1380128be)\n"
-	  "  )\n",
-	  -module_width/2 - 2.54 * 0.8,
-	  module_height/2
-	  );
-  
-  fprintf(out,
-	  "  (fp_text value \"%s\" (at %f 0 90 unlocked) (layer \"F.Fab\")\n"
-	  "      (effects (font (size 1 1) (thickness 0.15)))\n"
-	  "    (tstamp 7848b12f-b698-40ff-9b18-5d3dc1ad63e0)\n"
-	  "  )\n",
-	  bay_footprint_name,
-	  module_width/2 + 2.54* 0.8
-	  );
-
-  fprintf(out,
-	  "  (fp_text user \"VCC Bridge\" (at -3.81 %f unlocked) (layer \"F.SilkS\")\n"
-	  "      (effects (font (size 1 1) (thickness 0.1)) (justify left bottom))\n"
-	  "    (tstamp c3f3f8b2-4d95-4798-a62c-fde882be7a8f)\n"
-	  "  )\n",
-	  -(module_height/2 + 4.6)
-	  );
-  fprintf(out,
-	  "  (fp_text user \"GND Bridge\" (at -4.226381 %f unlocked) (layer \"F.SilkS\")\n"
-	  "      (effects (font (size 1 1) (thickness 0.1)) (justify left bottom))\n"
-	  "    (tstamp ececdf77-5944-4d0f-945c-855ee7843a28)\n"
-	  "  )\n",
-	  module_height/2 + 4.6 + 1
-	  );
-  fprintf(out,
-	  "  (fp_text user \"${REFERENCE}\" (at %f %f 90 unlocked) (layer \"F.Fab\")\n"
-	  "      (effects (font (size 1 1) (thickness 0.15)))\n"
-	  "    (tstamp 515e6e66-058b-44a5-b9cf-9ec3e273dd1c)\n"
-	  "  )\n",
-	  -module_width/2 - 2.54 * 0.8,
-	  0.0
-	  );
-
-  // VCC and GND bridge silkscreen marks
-  draw_line(out,"F.SilkS",
-	    -module_width/2,-(module_height/2+2.54*1.75+0),
-	    -module_width/2,-(module_height/2+2.54*1.75+1.4));
-  draw_line(out,"F.SilkS",
-	    -module_width/2,-(module_height/2+2.54*1.75+1.4),
-	    module_width/2,-(module_height/2+2.54*1.75+1.4));
-  draw_line(out,"F.SilkS",
-	    module_width/2,-(module_height/2+2.54*1.75+0),
-	    module_width/2,-(module_height/2+2.54*1.75+1.4));
-
-  draw_line(out,"F.SilkS",
-	    -module_width/2,(module_height/2+2.54*1.75+0),
-	    -module_width/2,(module_height/2+2.54*1.75+1.4));
-  draw_line(out,"F.SilkS",
-	    -module_width/2,(module_height/2+2.54*1.75+1.4),
-	    module_width/2,(module_height/2+2.54*1.75+1.4));
-  draw_line(out,"F.SilkS",
-	    module_width/2,(module_height/2+2.54*1.75+0),
-	    module_width/2,(module_height/2+2.54*1.75+1.4));
-
-  // Module outline silkscreen
-  fprintf(out,
-	  "   (fp_rect (start %f %f) (end %f %f)\n"
-	  "    (stroke (width 0.1) (type default)) (fill none) (layer \"F.SilkS\") (tstamp 1b929847-1a5f-4d05-bc4e-9961861a32f5))\n",
-	  -module_width/2,-module_height/2,
-	  module_width/2,module_height/2
-	  );
-
-  // Draw QR-code style registration boxes
-  draw_qr_corner(out,-module_width/2-2.54,-module_height/2,1);
-  draw_qr_corner(out,module_width/2+2.54*2.5,-module_height/2,1);
-  draw_qr_corner(out,-module_width/2-2.54,module_height/2+3.81,0);
-  draw_qr_corner(out,module_width/2+2.54*2.5,module_height/2+3.81,1);
-
-  // Cut-outs for pry zones and component area
-  fprintf(out,
-	  "     (fp_rect (start %f %f) (end %f %f)\n"
-	  "    (stroke (width 0.05) (type default)) (fill none) (layer \"Edge.Cuts\") (tstamp 0442aa54-1eb9-4247-b784-158a997ff791))\n",
-	  -co_width/2,-co_height/2,
-	  co_width/2,co_height/2);
-  fprintf(out,
-	  "  (fp_rect (start -2 %f) (end 2 %f)\n"
-	  "    (stroke (width 0.05) (type default)) (fill none) (layer \"Edge.Cuts\") (tstamp 7fe4220e-eec5-4f8b-b02e-8e7654d86bc8))\n",
-	  -module_height/2 + 1.27,
-	  -module_height/2 + 1.27 - 4
-	  );
-  fprintf(out,
-	  "  (fp_rect (start -2 %f) (end 2 %f)\n"
-	  "    (stroke (width 0.05) (type default)) (fill none) (layer \"Edge.Cuts\") (tstamp 47058791-feaf-409b-812c-7a0cb6797c8a))\n",
-	  module_height/2 - 1.27,
-	  module_height/2 - 1.27 + 4
-	  
-	  );
-  
-
-  fprintf(out,
-	  "  (pad \"A1\" smd roundrect (at %f %f) (size 2.54 2.54) (layers \"F.Cu\" \"F.Paste\" \"F.Mask\") (roundrect_rratio 0.25)\n"
-	  "    (thermal_bridge_angle 45) (tstamp ae5fa498-358c-4c43-a1ea-5a55b816d453))\n",
-	  -module_width/2,-(module_height/2+3)
-	  );
-  fprintf(out,
-	  "  (pad \"A2\" smd roundrect (at %f %f) (size 2.54 2.54) (layers \"F.Cu\" \"F.Paste\" \"F.Mask\") (roundrect_rratio 0.25)\n"
-	  "    (thermal_bridge_angle 45) (tstamp 77e20813-8ea5-4ba4-b0e8-526d94c0eb31))\n",
-	  module_width/2,-(module_height/2+3)
-	  );
-  fprintf(out,
-	  "  (pad \"B1\" smd roundrect (at %f %f) (size 2.54 2.54) (layers \"F.Cu\" \"F.Paste\" \"F.Mask\") (roundrect_rratio 0.25)\n"
-	  "    (thermal_bridge_angle 45) (tstamp 91b8277f-56f9-4a55-be1f-442d27436309))\n",
-	  -module_width/2,(module_height/2+3)
-	  );
-  fprintf(out,
-	  "  (pad \"B2\" smd roundrect (at %f %f) (size 2.54 2.54) (layers \"F.Cu\" \"F.Paste\" \"F.Mask\") (roundrect_rratio 0.25)\n"
-	  "    (thermal_bridge_angle 45) (tstamp 83e83792-c3a6-4e3b-a658-764e96850587))\n",
-	  module_width/2,(module_height/2+3)
-	  );
-
-  
-  for(int i=0;i<half_pin_count;i++)
-    {
-      if (pin_present(i+1,pin_mask))
-	fprintf(out,
-		"       (pad \"%d\" smd roundrect\n"
-		"                (at %f %f)\n"
-		"                (size 2.54 2)\n"
-		"                (layers \"F.Cu\" \"F.Paste\" \"F.Mask\")\n"
-		"                (roundrect_rratio 0.25)\n"
-		"                (thermal_bridge_angle 45) (tstamp 93e18f82-86ef-4410-989e-eb27a6ef3dd8)\n"
-		"        )\n",
-		i+1,
-		-module_width/2,
-		-module_height/2 + 2.54/2.0 + 2.54*i
-		);
+    if (!edge_type) {
+      fprintf(out,
+	      "  (fp_text user \"VCC Bridge\" (at -3.81 %f unlocked) (layer \"F.SilkS\")\n"
+	      "      (effects (font (size 1 1) (thickness 0.1)) (justify left bottom))\n"
+	      "    (tstamp c3f3f8b2-4d95-4798-a62c-fde882be7a8f)\n"
+	      "  )\n",
+	      -(module_height/2 + 4.6)
+	      );
     }
-  
-  for(int i=0;i<half_pin_count;i++)
-    {
-      if (pin_present(i+half_pin_count+1,pin_mask))
-	fprintf(out,
-		"       (pad \"%d\" smd roundrect\n"
-		"                (at %f %f)\n"
-		"                (size 2.54 2)\n"
-		"                (layers \"F.Cu\" \"F.Paste\" \"F.Mask\")\n"
-		"                (roundrect_rratio 0.25)\n"
-		"                (thermal_bridge_angle 45) (tstamp 93e18f82-86ef-4410-989e-eb27a6ef3dd8)\n"
-		"        )\n",
-		i+1+half_pin_count,
-		module_width/2,
-		-module_height/2 + 2.54/2.0 + 2.54*i
-		);
+    
+    fprintf(out,
+	    "  (fp_text user \"GND Bridge\" (at -4.226381 %f unlocked) (layer \"F.SilkS\")\n"
+	    "      (effects (font (size 1 1) (thickness 0.1)) (justify left bottom))\n"
+	    "    (tstamp ececdf77-5944-4d0f-945c-855ee7843a28)\n"
+	    "  )\n",
+	    module_height/2 + 4.6 + 1
+	    );
+    fprintf(out,
+	    "  (fp_text user \"${REFERENCE}\" (at %f %f 90 unlocked) (layer \"F.Fab\")\n"
+	    "      (effects (font (size 1 1) (thickness 0.15)))\n"
+	    "    (tstamp 515e6e66-058b-44a5-b9cf-9ec3e273dd1c)\n"
+	    "  )\n",
+	    -module_width/2 - 2.54 * 0.8,
+	    0.0
+	    );
+    
+    // VCC and GND bridge silkscreen marks
+    if (!edge_type) {
+      draw_line(out,"F.SilkS",
+		-module_width/2,-(module_height/2+2.54*1.75+0),
+		-module_width/2,-(module_height/2+2.54*1.75+1.4));
+      draw_line(out,"F.SilkS",
+		-module_width/2,-(module_height/2+2.54*1.75+1.4),
+		module_width/2,-(module_height/2+2.54*1.75+1.4));
+      draw_line(out,"F.SilkS",
+		module_width/2,-(module_height/2+2.54*1.75+0),
+		module_width/2,-(module_height/2+2.54*1.75+1.4));
     }
+    
+    draw_line(out,"F.SilkS",
+	      -module_width/2,(module_height/2+2.54*1.75+0),
+	      -module_width/2,(module_height/2+2.54*1.75+1.4));
+    draw_line(out,"F.SilkS",
+	      -module_width/2,(module_height/2+2.54*1.75+1.4),
+	      module_width/2,(module_height/2+2.54*1.75+1.4));
+    draw_line(out,"F.SilkS",
+	      module_width/2,(module_height/2+2.54*1.75+0),
+	      module_width/2,(module_height/2+2.54*1.75+1.4));
+    
+    // Module outline silkscreen
+    fprintf(out,
+	    "   (fp_rect (start %f %f) (end %f %f)\n"
+	    "    (stroke (width 0.1) (type default)) (fill none) (layer \"F.SilkS\") (tstamp 1b929847-1a5f-4d05-bc4e-9961861a32f5))\n",
+	    -module_width/2,-module_height/2,
+	    module_width/2,module_height/2
+	    );
+    
+    // Draw QR-code style registration boxes
+    if (!edge_type) {
+      draw_qr_corner(out,-module_width/2-2.54,-module_height/2,1);
+      draw_qr_corner(out,module_width/2+2.54*2.5,-module_height/2,1);
+    } else {
+      draw_qr_corner(out,-module_width/2-2.54,-module_height/2 + 3.81,1);
+      draw_qr_corner(out,module_width/2+2.54*2.5,-module_height/2 + 3.81,1);
+    }
+    draw_qr_corner(out,-module_width/2-2.54,module_height/2+3.81,0);
+    draw_qr_corner(out,module_width/2+2.54*2.5,module_height/2+3.81,1);
+    
+    // Cut-outs for pry zones and component area
+    if (with_cutout)
+      fprintf(out,
+	      "     (fp_rect (start %f %f) (end %f %f)\n"
+	      "    (stroke (width 0.05) (type default)) (fill none) (layer \"Edge.Cuts\") (tstamp 0442aa54-1eb9-4247-b784-158a997ff791))\n",
+	      -co_width/2,-co_height/2,
+	      co_width/2,co_height/2);
+    if (edge_type) {
+      fprintf(out,
+	      "  (fp_rect (start -2 %f) (end 2 %f)\n"
+	      "    (stroke (width 0.05) (type default)) (fill none) (layer \"Edge.Cuts\") (tstamp 7fe4220e-eec5-4f8b-b02e-8e7654d86bc8))\n",
+	      -module_height/2 + 1.27,
+	      -module_height/2 + 1.27
+	      );
+    } else {
+      fprintf(out,
+	      "  (fp_rect (start -2 %f) (end 2 %f)\n"
+	      "    (stroke (width 0.05) (type default)) (fill none) (layer \"Edge.Cuts\") (tstamp 7fe4220e-eec5-4f8b-b02e-8e7654d86bc8))\n",
+	      -module_height/2 + 1.27,
+	      -module_height/2 + 1.27 - 4
+	      );
+    }
+    fprintf(out,
+	    "  (fp_rect (start -2 %f) (end 2 %f)\n"
+	    "    (stroke (width 0.05) (type default)) (fill none) (layer \"Edge.Cuts\") (tstamp 47058791-feaf-409b-812c-7a0cb6797c8a))\n",
+	    module_height/2 - 1.27,
+	    module_height/2 - 1.27 + 4
+	    
+	    );
+    
 
-  fprintf(out,")\n");  
-  fclose(out);
+    if (!edge_type) {
+      fprintf(out,
+	      "  (pad \"A1\" smd roundrect (at %f %f) (size 2.54 2.54) (layers \"F.Cu\" \"F.Paste\" \"F.Mask\") (roundrect_rratio 0.25)\n"
+	      "    (thermal_bridge_angle 45) (tstamp ae5fa498-358c-4c43-a1ea-5a55b816d453))\n",
+	      -module_width/2,-(module_height/2+3)
+	      );
+      fprintf(out,
+	      "  (pad \"A2\" smd roundrect (at %f %f) (size 2.54 2.54) (layers \"F.Cu\" \"F.Paste\" \"F.Mask\") (roundrect_rratio 0.25)\n"
+	      "    (thermal_bridge_angle 45) (tstamp 77e20813-8ea5-4ba4-b0e8-526d94c0eb31))\n",
+	      module_width/2,-(module_height/2+3)
+	      );
+    }
+    fprintf(out,
+	    "  (pad \"B1\" smd roundrect (at %f %f) (size 2.54 2.54) (layers \"F.Cu\" \"F.Paste\" \"F.Mask\") (roundrect_rratio 0.25)\n"
+	    "    (thermal_bridge_angle 45) (tstamp 91b8277f-56f9-4a55-be1f-442d27436309))\n",
+	    -module_width/2,(module_height/2+3)
+	    );
+    fprintf(out,
+	    "  (pad \"B2\" smd roundrect (at %f %f) (size 2.54 2.54) (layers \"F.Cu\" \"F.Paste\" \"F.Mask\") (roundrect_rratio 0.25)\n"
+	    "    (thermal_bridge_angle 45) (tstamp 83e83792-c3a6-4e3b-a658-764e96850587))\n",
+	    module_width/2,(module_height/2+3)
+	    );
+    
+    
+    for(int i=0;i<half_pin_count;i++)
+      {
+	if (pin_present(i+1,pin_mask))
+	  fprintf(out,
+		  "       (pad \"%d\" smd roundrect\n"
+		  "                (at %f %f)\n"
+		  "                (size 2.54 2)\n"
+		  "                (layers \"F.Cu\" \"F.Paste\" \"F.Mask\")\n"
+		  "                (roundrect_rratio 0.25)\n"
+		  "                (thermal_bridge_angle 45) (tstamp 93e18f82-86ef-4410-989e-eb27a6ef3dd8)\n"
+		  "        )\n",
+		  i+1,
+		  -module_width/2,
+		  -module_height/2 + 2.54/2.0 + 2.54*i
+		  );
+      }
+    
+    for(int i=0;i<half_pin_count;i++)
+      {
+	if (pin_present(i+half_pin_count+1,pin_mask))
+	  fprintf(out,
+		  "       (pad \"%d\" smd roundrect\n"
+		  "                (at %f %f)\n"
+		  "                (size 2.54 2)\n"
+		  "                (layers \"F.Cu\" \"F.Paste\" \"F.Mask\")\n"
+		  "                (roundrect_rratio 0.25)\n"
+		  "                (thermal_bridge_angle 45) (tstamp 93e18f82-86ef-4410-989e-eb27a6ef3dd8)\n"
+		  "        )\n",
+		  i+1+half_pin_count,
+		  module_width/2,
+		  -module_height/2 + 2.54/2.0 + 2.54*i
+		  );
+      }
+    
+    fprintf(out,")\n");  
+    fclose(out);
+  }
+  }
   
   return 0;
 }
