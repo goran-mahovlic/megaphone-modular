@@ -204,7 +204,149 @@ int main(int argc, char **argv)
 		-module_height/2 + 0.08
 		);
 
-
+	 // Component and track exclusion zones for pry zones
+	 printf(
+		"	 (zone\n"
+		"                (net 0)\n"
+		"                (net_name \"\")\n"
+		"                (layer \"B.Cu\")\n"
+		"                (uuid \"2d931374-edf7-43e7-92d4-bb3e10af8b39\")\n"
+		"                (name \"Upper Pry Zone\")\n"
+		"                (hatch edge 0.5)\n"
+		"                (connect_pads\n"
+		"                        (clearance 0)\n"
+		"                )\n"
+		"                (min_thickness 0.25)\n"
+		"                (filled_areas_thickness no)\n"
+		"                (keepout\n"
+		"                        (tracks not_allowed)\n"
+		"                        (vias not_allowed)\n"
+		"                        (pads not_allowed)\n"
+		"                        (copperpour allowed)\n"
+		"                        (footprints not_allowed)\n"
+		"                )\n"
+		"                (fill\n"
+		"                        (thermal_gap 0.5)\n"
+		"                        (thermal_bridge_width 0.5)\n"
+		"                )\n"
+		"                (polygon\n"
+		"                        (pts\n"
+		"                                (xy -1.984241 %f) (xy -1.984241 %f) (xy 2.019516 %f) (xy 2.019516 %f)\n"
+		"                        )\n"
+		"                )\n"
+		"        )\n",
+		module_height/2 - 0.08 - pry_height,
+		module_height/2 - 0.08,
+		module_height/2 - 0.08,
+		module_height/2 - 0.08 - pry_height		
+		);
+	 
+	 printf(
+		"	 (zone\n"
+		"                (net 0)\n"
+		"                (net_name \"\")\n"
+		"                (layer \"B.Cu\")\n"
+		"                (uuid \"2d931374-edf7-43e7-92d4-bb3e10af8b39\")\n"
+		"                (name \"Upper Pry Zone\")\n"
+		"                (hatch edge 0.5)\n"
+		"                (connect_pads\n"
+		"                        (clearance 0)\n"
+		"                )\n"
+		"                (min_thickness 0.25)\n"
+		"                (filled_areas_thickness no)\n"
+		"                (keepout\n"
+		"                        (tracks not_allowed)\n"
+		"                        (vias not_allowed)\n"
+		"                        (pads not_allowed)\n"
+		"                        (copperpour allowed)\n"
+		"                        (footprints not_allowed)\n"
+		"                )\n"
+		"                (fill\n"
+		"                        (thermal_gap 0.5)\n"
+		"                        (thermal_bridge_width 0.5)\n"
+		"                )\n"
+		"                (polygon\n"
+		"                        (pts\n"
+		"                                (xy -1.984241 %f) (xy -1.984241 %f) (xy 2.019516 %f) (xy 2.019516 %f)\n"
+		"                        )\n"
+		"                )\n"
+		"        )\n",
+		-module_height/2 + 0.08 + pry_height,
+		-module_height/2 + 0.08,
+		-module_height/2 + 0.08,
+		-module_height/2 + 0.08 + pry_height		
+		);
+	 
+	 // Exclusion zone for footprints outside of cut-out on rear
+	 printf(
+		"       (zone\n"
+		"                (net 0)\n"
+		"                (net_name \"\")\n"
+		"                (layer \"B.Cu\")\n"
+		"                (uuid \"ae5d0a55-9783-4f23-9325-7c00d54e0c32\")\n"
+		"                (hatch edge 0.5)\n"
+		"                (connect_pads\n"
+		"                        (clearance 0)\n"
+		"                )\n"
+		"                (min_thickness 0.25)\n"
+		"                (filled_areas_thickness no)\n"
+		"                (keepout\n"
+		"                        (tracks allowed)\n"
+		"                        (vias allowed)\n"
+		"                        (pads allowed)\n"
+		"                        (copperpour allowed)\n"
+		"                        (footprints not_allowed)\n"
+		"                )\n"
+		"                (fill\n"
+		"                        (thermal_gap 0.5)\n"
+		"                        (thermal_bridge_width 0.5)\n"
+		"                )\n"
+		"                (polygon\n"
+		"                        (pts\n"
+		"                                (xy %f %f) (xy %f %f) (xy %f %f) (xy %f %f)\n"
+		"                        )\n"
+		"                )\n"
+		"        )\n",
+		-module_width/2,module_height/2,
+		-module_width/2,-module_height/2,
+		-co_width/2,-module_height/2,
+		-co_width/2,module_height/2		
+		);
+	 printf(
+		"       (zone\n"
+		"                (net 0)\n"
+		"                (net_name \"\")\n"
+		"                (layer \"B.Cu\")\n"
+		"                (uuid \"ae5d0a55-9783-4f23-9325-7c00d54e0c32\")\n"
+		"                (hatch edge 0.5)\n"
+		"                (connect_pads\n"
+		"                        (clearance 0)\n"
+		"                )\n"
+		"                (min_thickness 0.25)\n"
+		"                (filled_areas_thickness no)\n"
+		"                (keepout\n"
+		"                        (tracks allowed)\n"
+		"                        (vias allowed)\n"
+		"                        (pads allowed)\n"
+		"                        (copperpour allowed)\n"
+		"                        (footprints not_allowed)\n"
+		"                )\n"
+		"                (fill\n"
+		"                        (thermal_gap 0.5)\n"
+		"                        (thermal_bridge_width 0.5)\n"
+		"                )\n"
+		"                (polygon\n"
+		"                        (pts\n"
+		"                                (xy %f %f) (xy %f %f) (xy %f %f) (xy %f %f)\n"
+		"                        )\n"
+		"                )\n"
+		"        )\n",
+		module_width/2,module_height/2,
+		module_width/2,-module_height/2,
+		co_width/2,-module_height/2,
+		co_width/2,module_height/2		
+		);
+	 
 	 
 	 // Draw rectangle for component area on rear for cut-out
 	 printf("         (fp_rect\n"
