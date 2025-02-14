@@ -3,6 +3,145 @@
 #include <unistd.h>
 #include <string.h>
 #include <strings.h>
+#include <stdbool.h>
+
+#define MAX_M 64  // Limit to 64-bit for unsigned long long
+
+// Function to reverse bits in an unsigned long long
+unsigned long long reverse_bits(unsigned long long num, int m) {
+    unsigned long long rev = 0;
+    for (int i = 0; i < m; i++) {
+        if (num & (1ULL << i)) {
+            rev |= (1ULL << (m - 1 - i));
+        }
+    }
+    return rev;
+}
+
+// Function to compute flipped (mirrored) bit vector
+unsigned long long flip_bits(unsigned long long num, int m) {
+    unsigned long long flipped = 0;
+    for (int i = 0; i < m / 2; i++) {
+        int j = m - 1 - i;
+        bool left = num & (1ULL << i);
+        bool right = num & (1ULL << j);
+        if (left) flipped |= (1ULL << j);
+        if (right) flipped |= (1ULL << i);
+    }
+    if (m % 2 == 1) { // Preserve middle bit if odd length
+        flipped |= (num & (1ULL << (m / 2)));
+    }
+    return flipped;
+}
+
+// Function to check if a vector is unique under transformations
+bool is_unique(unsigned long long value, unsigned long long *unique_set, int count, int m) {
+    unsigned long long rotated = reverse_bits(value, m);
+    unsigned long long flipped = flip_bits(value, m);
+    unsigned long long flipped_rotated = reverse_bits(flipped, m);
+    
+    for (int i = 0; i < count; i++) {
+        if (unique_set[i] == value || unique_set[i] == rotated || unique_set[i] == flipped || unique_set[i] == flipped_rotated) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Function to generate the n-th unique valid vector
+unsigned long long find_nth_valid_vector(int m, int n, int target_index) {
+
+  fprintf(stderr,"m=%d, n=%d\n",m,n);
+  
+  if (m > MAX_M) {
+      fprintf(stderr,"ERROR: m exceeds maximum limit of %d\n", MAX_M);
+      exit(-1);
+    }
+    
+    int fixed_positions[] = {0, m - 1, m / 2 - 1, m / 2};
+    int num_fixed = 4;
+    int num_free_positions = m - num_fixed;
+    int num_select = n - num_fixed;
+    
+    if (num_select > num_free_positions) {
+      fprintf(stderr,"ERROR: Not enough free positions to select %d additional pins.\n", num_select);
+      exit(-1);
+    }
+    
+    unsigned long long unique_vectors[10000]; // Store unique solutions
+    int unique_count = 0;
+    
+    // Iterate through all bit combinations for the free positions
+    for (unsigned long long mask = 0; mask < (1ULL << num_free_positions); mask++) {
+        if (__builtin_popcountll(mask) == num_select) {
+            unsigned long long vector = 0;
+            
+            // Place the fixed positions
+            for (int i = 0; i < num_fixed; i++) {
+                vector |= (1ULL << fixed_positions[i]);
+            }
+            
+            // Map selected positions to the bitmask
+            int free_idx = 0;
+            for (int i = 0; i < m; i++) {
+                bool is_fixed = false;
+                for (int j = 0; j < num_fixed; j++) {
+                    if (i == fixed_positions[j]) {
+                        is_fixed = true;
+                        break;
+                    }
+                }
+                if (!is_fixed && (mask & (1ULL << free_idx))) {
+                    vector |= (1ULL << i);
+                }
+                if (!is_fixed) {
+                    free_idx++;
+                }
+            }
+            
+            // Check if it's a unique configuration
+	    fprintf(stderr,"DEBUG: Vector = %016llx\n",vector);
+            if (is_unique(vector, unique_vectors, unique_count, m)) {
+                unique_vectors[unique_count++] = vector;
+                if (unique_count == target_index) {
+                    return vector;
+                }
+            }
+        }
+    }
+    
+    fprintf(stderr,"FATAL: Could not find the %d-th unique vector.\n", target_index);
+    exit(-1);
+}
+
+
+
+
+
+#define MAX_PADS 64
+int pad_present[MAX_PADS];
+
+#define MAX_VARIANTS 1024
+unsigned long long variant_pads[MAX_VARIANTS];
+
+unsigned long long find_variant(int half_pin_count,int pins_used,int variant)
+{
+  fprintf(stderr,"DEBUG: half_pin_count=%d, pins_used=%d\n",
+	  half_pin_count,pins_used);
+  unsigned long long v = find_nth_valid_vector(half_pin_count*2, pins_used, variant);
+  fprintf(stderr,"vector = %016llx\n",v);
+  return v;
+}
+
+int pin_present(int pin_num,unsigned long long vector)
+{
+  int shift = pin_num - 1;
+  unsigned long long shifted = (vector >> shift);
+  return shifted & 1;
+}
+
+
+
 
 void usage(void)
 {
@@ -48,7 +187,6 @@ void footprint_exclusion_zone(float x1, float y1, float x2, float y2)
 	 );
 }
 
-
 int main(int argc, char **argv)
 {
   if (argc!=5) {
@@ -58,7 +196,7 @@ int main(int argc, char **argv)
   float co_width=atof(argv[1]);
   float co_height=atof(argv[2]);
   float pins_used=atof(argv[3]);
-  float variant=atof(argv[4]);
+  int variant=atoi(argv[4]);
 
   double module_height = co_height + 2.4 + 2.4;
   double module_width = co_width + 1.8 + 1.8;
@@ -72,6 +210,12 @@ int main(int argc, char **argv)
 
   int half_pin_count = module_height / 2.54;
 
+  while (pins_used >= (half_pin_count*2) ) {
+    half_pin_count++;
+  }
+  
+  unsigned long long pin_mask = find_variant(half_pin_count,pins_used,variant);
+  
   while ( (half_pin_count*2-1) < pins_used ) half_pin_count++;
 
   module_height = half_pin_count * 2.54;
@@ -345,38 +489,40 @@ int main(int argc, char **argv)
 
 	 for(int i=0;i<half_pin_count;i++)
 	   {
-	     printf("       (pad \"%d\" thru_hole rect\n"
-		    "                (at %f %f)\n"
-		    "                (size 2.54 2)\n"
-		    "                (drill oval 2 1.5)\n"
-		    "                (property pad_prop_castellated)\n"
-		    "                (layers \"*.Cu\" \"*.Mask\")\n"
-		    "                (remove_unused_layers no)\n"
-		    "                (thermal_bridge_angle 45)\n"
-		    "                (uuid \"f85e55df-ccf1-4a29-ab8b-2b081b1da284\")\n"
-		    "        )\n",
-		    i+1,
-		    -module_width/2,
-		    -module_height/2 + 2.54/2.0 + 2.54*i
-		    );
+	     if (pin_present(i+1,pin_mask))
+	       printf("       (pad \"%d\" thru_hole rect\n"
+		      "                (at %f %f)\n"
+		      "                (size 2.54 2)\n"
+		      "                (drill oval 2 1.5)\n"
+		      "                (property pad_prop_castellated)\n"
+		      "                (layers \"*.Cu\" \"*.Mask\")\n"
+		      "                (remove_unused_layers no)\n"
+		      "                (thermal_bridge_angle 45)\n"
+		      "                (uuid \"f85e55df-ccf1-4a29-ab8b-2b081b1da284\")\n"
+		      "        )\n",
+		      i+1,
+		      -module_width/2,
+		      -module_height/2 + 2.54/2.0 + 2.54*i
+		      );
 	   }
 
 	 for(int i=0;i<half_pin_count;i++)
 	   {
-	     printf("       (pad \"%d\" thru_hole rect\n"
-		    "                (at %f %f)\n"
-		    "                (size 2.54 2)\n"
-		    "                (drill oval 2 1.5)\n"
-		    "                (property pad_prop_castellated)\n"
-		    "                (layers \"*.Cu\" \"*.Mask\")\n"
-		    "                (remove_unused_layers no)\n"
-		    "                (thermal_bridge_angle 45)\n"
-		    "                (uuid \"f85e55df-ccf1-4a29-ab8b-2b081b1da284\")\n"
-		    "        )\n",
-		    i+1+half_pin_count,
-		    module_width/2,
-		    -module_height/2 + 2.54/2.0 + 2.54*i
-		    );
+	     if (pin_present(i+half_pin_count+1,pin_mask))
+	       printf("       (pad \"%d\" thru_hole rect\n"
+		      "                (at %f %f)\n"
+		      "                (size 2.54 2)\n"
+		      "                (drill oval 2 1.5)\n"
+		      "                (property pad_prop_castellated)\n"
+		      "                (layers \"*.Cu\" \"*.Mask\")\n"
+		      "                (remove_unused_layers no)\n"
+		      "                (thermal_bridge_angle 45)\n"
+		      "                (uuid \"f85e55df-ccf1-4a29-ab8b-2b081b1da284\")\n"
+		      "        )\n",
+		      i+1+half_pin_count,
+		      module_width/2,
+		      -module_height/2 + 2.54/2.0 + 2.54*i
+		      );
 	   }
 	 
 	 
