@@ -51,8 +51,6 @@ bool is_unique(unsigned long long value, unsigned long long *unique_set, int cou
 // Function to generate the n-th unique valid vector
 unsigned long long find_nth_valid_vector(int m, int n, int target_index) {
 
-  fprintf(stderr,"m=%d, n=%d\n",m,n);
-  
   if (m > MAX_M) {
       fprintf(stderr,"ERROR: m exceeds maximum limit of %d\n", MAX_M);
       exit(-1);
@@ -123,6 +121,8 @@ int pad_present[MAX_PADS];
 #define MAX_VARIANTS 1024
 unsigned long long variant_pads[MAX_VARIANTS];
 
+char suffix[1024]="";
+
 unsigned long long find_variant(int half_pin_count,int pins_used,int variant)
 {
   if (variant<1) {
@@ -130,7 +130,13 @@ unsigned long long find_variant(int half_pin_count,int pins_used,int variant)
     exit(-1);
   }
   unsigned long long v = find_nth_valid_vector(half_pin_count*2, pins_used, variant);
-  return v;
+  if (half_pin_count&1) {
+    // pin count won't be a whole nybl, so shift left 2 bits first.
+    sprintf(suffix,"-M%X",v<<2);
+  } else 
+    sprintf(suffix,"-M%X",v);
+  fprintf(stderr,"INFO: Variant is %s\n",suffix);
+  return reverse_bits(v,half_pin_count*2);
 }
 
 int pin_present(int pin_num,unsigned long long vector)
