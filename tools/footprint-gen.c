@@ -719,7 +719,7 @@ int main(int argc, char **argv)
 	      "  (fp_rect (start -2 %f) (end 2 %f)\n"
 	      "    (stroke (width 0.05) (type default)) (fill none) (layer \"Edge.Cuts\") (tstamp 7fe4220e-eec5-4f8b-b02e-8e7654d86bc8))\n",
 	      -module_height/2 + 1.27,
-	      -module_height/2 + 1.27
+	      -module_height/2
 	      );
     } else {
       fprintf(out,
@@ -760,6 +760,27 @@ int main(int argc, char **argv)
 	    "    (thermal_bridge_angle 45) (tstamp 83e83792-c3a6-4e3b-a658-764e96850587))\n",
 	    module_width/2,(module_height/2+3)
 	    );
+
+    // Draw front courtyard outline
+    draw_line(out,"F.CrtYd",
+	      -(module_width/2+2.54*1.0),-(module_height/2+2.54*1.75*(1-edge_type)+0),
+	      -(module_width/2+2.54*1.0),(module_height/2+2.54*1.75+0)
+	      );
+
+    draw_line(out,"F.CrtYd",
+	      -(module_width/2+2.54*1.0),(module_height/2+2.54*1.75+0),
+	      (module_width/2+2.54*1.0),(module_height/2+2.54*1.75+0)
+	      );    
+    
+    draw_line(out,"F.CrtYd",
+	      (module_width/2+2.54*1.0),-(module_height/2+2.54*1.75*(1-edge_type)+0),
+	      (module_width/2+2.54*1.0),(module_height/2+2.54*1.75+0)
+	      );
+
+    draw_line(out,"F.CrtYd",
+	      (module_width/2+2.54*1.0),-(module_height/2+2.54*1.75*(1-edge_type)+0),
+	      -(module_width/2+2.54*1.0),-(module_height/2+2.54*1.75*(1-edge_type)+0)
+	      );    
     
     
     for(int i=0;i<half_pin_count;i++)
