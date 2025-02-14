@@ -10,6 +10,45 @@ void usage(void)
   exit(-1);
 }
 
+void footprint_exclusion_zone(float x1, float y1, float x2, float y2)
+{
+  printf(
+	 "       (zone\n"
+	 "                (net 0)\n"
+	 "                (net_name \"\")\n"
+	 "                (layer \"B.Cu\")\n"
+	 "                (uuid \"ae5d0a55-9783-4f23-9325-7c00d54e0c32\")\n"
+	 "                (hatch edge 0.5)\n"
+	 "                (connect_pads\n"
+	 "                        (clearance 0)\n"
+	 "                )\n"
+	 "                (min_thickness 0.25)\n"
+	 "                (filled_areas_thickness no)\n"
+	 "                (keepout\n"
+	 "                        (tracks allowed)\n"
+	 "                        (vias allowed)\n"
+	 "                        (pads allowed)\n"
+	 "                        (copperpour allowed)\n"
+	 "                        (footprints not_allowed)\n"
+	 "                )\n"
+	 "                (fill\n"
+	 "                        (thermal_gap 0.5)\n"
+	 "                        (thermal_bridge_width 0.5)\n"
+	 "                )\n"
+	 "                (polygon\n"
+	 "                        (pts\n"
+	 "                                (xy %f %f) (xy %f %f) (xy %f %f) (xy %f %f)\n"
+	 "                        )\n"
+	 "                )\n"
+	 "        )\n",
+	 x1,y1,
+	 x1,y2,
+	 x2,y2,
+	 x2,y1
+	 );
+}
+
+
 int main(int argc, char **argv)
 {
   if (argc!=5) {
@@ -278,74 +317,14 @@ int main(int argc, char **argv)
 		);
 	 
 	 // Exclusion zone for footprints outside of cut-out on rear
-	 printf(
-		"       (zone\n"
-		"                (net 0)\n"
-		"                (net_name \"\")\n"
-		"                (layer \"B.Cu\")\n"
-		"                (uuid \"ae5d0a55-9783-4f23-9325-7c00d54e0c32\")\n"
-		"                (hatch edge 0.5)\n"
-		"                (connect_pads\n"
-		"                        (clearance 0)\n"
-		"                )\n"
-		"                (min_thickness 0.25)\n"
-		"                (filled_areas_thickness no)\n"
-		"                (keepout\n"
-		"                        (tracks allowed)\n"
-		"                        (vias allowed)\n"
-		"                        (pads allowed)\n"
-		"                        (copperpour allowed)\n"
-		"                        (footprints not_allowed)\n"
-		"                )\n"
-		"                (fill\n"
-		"                        (thermal_gap 0.5)\n"
-		"                        (thermal_bridge_width 0.5)\n"
-		"                )\n"
-		"                (polygon\n"
-		"                        (pts\n"
-		"                                (xy %f %f) (xy %f %f) (xy %f %f) (xy %f %f)\n"
-		"                        )\n"
-		"                )\n"
-		"        )\n",
-		-module_width/2,module_height/2,
-		-module_width/2,-module_height/2,
-		-co_width/2,-module_height/2,
-		-co_width/2,module_height/2		
-		);
-	 printf(
-		"       (zone\n"
-		"                (net 0)\n"
-		"                (net_name \"\")\n"
-		"                (layer \"B.Cu\")\n"
-		"                (uuid \"ae5d0a55-9783-4f23-9325-7c00d54e0c32\")\n"
-		"                (hatch edge 0.5)\n"
-		"                (connect_pads\n"
-		"                        (clearance 0)\n"
-		"                )\n"
-		"                (min_thickness 0.25)\n"
-		"                (filled_areas_thickness no)\n"
-		"                (keepout\n"
-		"                        (tracks allowed)\n"
-		"                        (vias allowed)\n"
-		"                        (pads allowed)\n"
-		"                        (copperpour allowed)\n"
-		"                        (footprints not_allowed)\n"
-		"                )\n"
-		"                (fill\n"
-		"                        (thermal_gap 0.5)\n"
-		"                        (thermal_bridge_width 0.5)\n"
-		"                )\n"
-		"                (polygon\n"
-		"                        (pts\n"
-		"                                (xy %f %f) (xy %f %f) (xy %f %f) (xy %f %f)\n"
-		"                        )\n"
-		"                )\n"
-		"        )\n",
-		module_width/2,module_height/2,
-		module_width/2,-module_height/2,
-		co_width/2,-module_height/2,
-		co_width/2,module_height/2		
-		);
+	 footprint_exclusion_zone(-module_width/2,module_height/2,
+				  -co_width/2,-module_height/2);
+	 footprint_exclusion_zone(module_width/2,module_height/2,
+				  co_width/2,-module_height/2);
+	 footprint_exclusion_zone(-co_width/2,module_height/2,
+				  co_width/2,co_height/2);
+	 footprint_exclusion_zone(-co_width/2,-module_height/2,
+				  co_width/2,-co_height/2);
 	 
 	 
 	 // Draw rectangle for component area on rear for cut-out
