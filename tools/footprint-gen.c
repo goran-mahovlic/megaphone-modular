@@ -689,14 +689,25 @@ int main(int argc, char **argv)
   draw_qr_corner(out,module_width/2+2.54*2.5,-module_height/2,1);
   draw_qr_corner(out,-module_width/2-2.54,module_height/2+3.81,0);
   draw_qr_corner(out,module_width/2+2.54*2.5,module_height/2+3.81,1);
-  
+
+  // Cut-outs for pry zones and component area
   fprintf(out,
-	  "     (fp_rect (start -3.4 3.4) (end 3.4 -3.4)\n"
-	  "    (stroke (width 0.05) (type default)) (fill none) (layer \"Edge.Cuts\") (tstamp 0442aa54-1eb9-4247-b784-158a997ff791))\n"
-	  "  (fp_rect (start -2 -8.89) (end 2 -4.89)\n"
-	  "    (stroke (width 0.05) (type default)) (fill none) (layer \"Edge.Cuts\") (tstamp 7fe4220e-eec5-4f8b-b02e-8e7654d86bc8))\n"
-	  "  (fp_rect (start -2 8.89) (end 2 4.89)\n"
-	  "    (stroke (width 0.05) (type default)) (fill none) (layer \"Edge.Cuts\") (tstamp 47058791-feaf-409b-812c-7a0cb6797c8a))\n"
+	  "     (fp_rect (start %f %f) (end %f %f)\n"
+	  "    (stroke (width 0.05) (type default)) (fill none) (layer \"Edge.Cuts\") (tstamp 0442aa54-1eb9-4247-b784-158a997ff791))\n",
+	  -co_width/2,-co_height/2,
+	  co_width/2,co_height/2);
+  fprintf(out,
+	  "  (fp_rect (start -2 %f) (end 2 %f)\n"
+	  "    (stroke (width 0.05) (type default)) (fill none) (layer \"Edge.Cuts\") (tstamp 7fe4220e-eec5-4f8b-b02e-8e7654d86bc8))\n",
+	  -module_height/2 + 1.27,
+	  -module_height/2 + 1.27 - 4
+	  );
+  fprintf(out,
+	  "  (fp_rect (start -2 %f) (end 2 %f)\n"
+	  "    (stroke (width 0.05) (type default)) (fill none) (layer \"Edge.Cuts\") (tstamp 47058791-feaf-409b-812c-7a0cb6797c8a))\n",
+	  module_height/2 - 1.27,
+	  module_height/2 - 1.27 + 4
+	  
 	  );
   
 
