@@ -122,6 +122,7 @@ int pad_present[MAX_PADS];
 unsigned long long variant_pads[MAX_VARIANTS];
 
 char suffix[1024]="";
+char footprint_name[1024];
 
 unsigned long long find_variant(int half_pin_count,int pins_used,int variant,
 				float co_width,float co_height)
@@ -136,9 +137,10 @@ unsigned long long find_variant(int half_pin_count,int pins_used,int variant,
     sprintf(suffix,"-M%X",v<<2);
   } else 
     sprintf(suffix,"-M%X",v);
-  fprintf(stderr,"INFO: Variant is MegaCastle2x%d-Module-I%.1fx%.1f%s\n",
+  sprintf(footprint_name,"MegaCastle2x%d-Module-I%.1fx%.1f%s",
 	  half_pin_count,co_width,co_height,
 	  suffix);
+  fprintf(stderr,"INFO: Variant is %s\n",footprint_name);
   return reverse_bits(v,half_pin_count*2);
 }
 
@@ -238,27 +240,27 @@ int main(int argc, char **argv)
 					     co_width,co_height);
   
   
-  printf("(footprint \"MegaCastle2x%d-Module-Mfoo\"\n"
-	   "        (version 20240108)\n"
-	   "	    (generator \"pcbnew\")\n"
-	   "        (generator_version \"8.0\")\n"
-	   "        (layer \"F.Cu\")\n"
-	   "        (property \"Reference\" \"REF**\"\n"
-	   "                (at 0 11.43 0)\n"   // XXX - Set position of REF**
-	   "                (unlocked yes)\n"
-	   "	 (layer \"F.SilkS\")\n"
-	   "                (uuid \"08d1cbd6-6dbd-4696-9477-43e1380128be\")\n"
-	   "                (effects\n"
-	   "                        (font\n"
-	   "                                (size 1 1)\n"
-	   "                                (thickness 0.1)\n"
-	   "                        )\n"
-	   "                )\n"
-	   "        )\n",
-	   half_pin_count
+  printf("(footprint \"%s\"\n"
+	 "        (version 20240108)\n"
+	 "	    (generator \"pcbnew\")\n"
+	 "        (generator_version \"8.0\")\n"
+	 "        (layer \"F.Cu\")\n"
+	 "        (property \"Reference\" \"REF**\"\n"
+	 "                (at 0 11.43 0)\n"   // XXX - Set position of REF**
+	 "                (unlocked yes)\n"
+	 "	 (layer \"F.SilkS\")\n"
+	 "                (uuid \"08d1cbd6-6dbd-4696-9477-43e1380128be\")\n"
+	 "                (effects\n"
+	 "                        (font\n"
+	 "                                (size 1 1)\n"
+	 "                                (thickness 0.1)\n"
+	 "                        )\n"
+	 "                )\n"
+	 "        )\n",
+	 footprint_name
 	   );
 
-	 printf("        (property \"Value\" \"MegaCastle2x%d-Module-Mfoo\"\n"
+	 printf("        (property \"Value\" \"%s\"\n"
 		"                (at 0 12.47 0)\n"
 		"                (unlocked yes)\n"
 		"                (layer \"F.Fab\")\n"
@@ -270,7 +272,7 @@ int main(int argc, char **argv)
 		"                        )\n"
 		"                )\n"
 		"        )\n",
-		half_pin_count);
+	        footprint_name);
 
 	 printf("        (property \"Footprint\" \"\"\n"
 		"                (at 0 0 0)\n"
