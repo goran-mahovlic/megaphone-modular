@@ -617,14 +617,14 @@ int main(int argc, char **argv)
 	  "      (effects (font (size 1 1) (thickness 0.1)) (justify left bottom))\n"
 	  "    (tstamp c3f3f8b2-4d95-4798-a62c-fde882be7a8f)\n"
 	  "  )\n",
-	  -(module_height/2 + 3)
+	  -(module_height/2 + 4.6)
 	  );
   fprintf(out,
 	  "  (fp_text user \"GND Bridge\" (at -4.226381 %f unlocked) (layer \"F.SilkS\")\n"
 	  "      (effects (font (size 1 1) (thickness 0.1)) (justify left bottom))\n"
 	  "    (tstamp ececdf77-5944-4d0f-945c-855ee7843a28)\n"
 	  "  )\n",
-	  module_height/2 + 3 + 1
+	  module_height/2 + 4.6 + 1
 	  );
   fprintf(out,
 	  "  (fp_text user \"${REFERENCE}\" (at %f %f 90 unlocked) (layer \"F.Fab\")\n"
@@ -636,15 +636,48 @@ int main(int argc, char **argv)
 	  );
 
   draw_line(out,"F.SilkS",
-	    -module_width/2,-(module_height/2+2.54*.0),
-	    -module_width/2,-(module_height/2+2.54*.5+3));
+	    -module_width/2,-(module_height/2+2.54*1.75+0),
+	    -module_width/2,-(module_height/2+2.54*1.75+1.4));
   draw_line(out,"F.SilkS",
-	    -module_width/2,-(module_height/2+2.54*.5+3),
-	    module_width/2,-(module_height/2+2.54*.5+3));
+	    -module_width/2,-(module_height/2+2.54*1.75+1.4),
+	    module_width/2,-(module_height/2+2.54*1.75+1.4));
   draw_line(out,"F.SilkS",
-	    module_width/2,-(module_height/2+2.54*.0),
-	    module_width/2,-(module_height/2+2.54*.5+3));
+	    module_width/2,-(module_height/2+2.54*1.75+0),
+	    module_width/2,-(module_height/2+2.54*1.75+1.4));
 
+  draw_line(out,"F.SilkS",
+	    -module_width/2,(module_height/2+2.54*1.75+0),
+	    -module_width/2,(module_height/2+2.54*1.75+1.4));
+  draw_line(out,"F.SilkS",
+	    -module_width/2,(module_height/2+2.54*1.75+1.4),
+	    module_width/2,(module_height/2+2.54*1.75+1.4));
+  draw_line(out,"F.SilkS",
+	    module_width/2,(module_height/2+2.54*1.75+0),
+	    module_width/2,(module_height/2+2.54*1.75+1.4));
+
+
+  fprintf(out,
+	  "  (pad \"A1\" smd roundrect (at %f %f) (size 2.54 2.54) (layers \"F.Cu\" \"F.Paste\" \"F.Mask\") (roundrect_rratio 0.25)\n"
+	  "    (thermal_bridge_angle 45) (tstamp ae5fa498-358c-4c43-a1ea-5a55b816d453))\n",
+	  -module_width/2,-(module_height/2+3)
+	  );
+  fprintf(out,
+	  "  (pad \"A2\" smd roundrect (at %f %f) (size 2.54 2.54) (layers \"F.Cu\" \"F.Paste\" \"F.Mask\") (roundrect_rratio 0.25)\n"
+	  "    (thermal_bridge_angle 45) (tstamp 77e20813-8ea5-4ba4-b0e8-526d94c0eb31))\n",
+	  module_width/2,-(module_height/2+3)
+	  );
+  fprintf(out,
+	  "  (pad \"B1\" smd roundrect (at %f %f) (size 2.54 2.54) (layers \"F.Cu\" \"F.Paste\" \"F.Mask\") (roundrect_rratio 0.25)\n"
+	  "    (thermal_bridge_angle 45) (tstamp 91b8277f-56f9-4a55-be1f-442d27436309))\n",
+	  -module_width/2,(module_height/2+3)
+	  );
+  fprintf(out,
+	  "  (pad \"B2\" smd roundrect (at %f %f) (size 2.54 2.54) (layers \"F.Cu\" \"F.Paste\" \"F.Mask\") (roundrect_rratio 0.25)\n"
+	  "    (thermal_bridge_angle 45) (tstamp 83e83792-c3a6-4e3b-a658-764e96850587))\n",
+	  module_width/2,(module_height/2+3)
+	  );
+
+  
   for(int i=0;i<half_pin_count;i++)
     {
       if (pin_present(i+1,pin_mask))
