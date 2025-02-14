@@ -121,7 +121,7 @@ int pad_present[MAX_PADS];
 #define MAX_VARIANTS 1024
 unsigned long long variant_pads[MAX_VARIANTS];
 
-char suffix[1024]="";
+char suffix[128]="";
 char footprint_name[1024];
 
 unsigned long long find_variant(int half_pin_count,int pins_used,int variant,
@@ -134,9 +134,9 @@ unsigned long long find_variant(int half_pin_count,int pins_used,int variant,
   unsigned long long v = find_nth_valid_vector(half_pin_count*2, pins_used, variant);
   if (half_pin_count&1) {
     // pin count won't be a whole nybl, so shift left 2 bits first.
-    sprintf(suffix,"-M%X",v<<2);
+    sprintf(suffix,"-M%llX",v<<2);
   } else 
-    sprintf(suffix,"-M%X",v);
+    sprintf(suffix,"-M%llX",v);
   sprintf(footprint_name,"MegaCastle2x%d-Module-I%.1fx%.1f%s",
 	  half_pin_count,co_width,co_height,
 	  suffix);
@@ -246,7 +246,7 @@ int main(int argc, char **argv)
 	 "        (generator_version \"8.0\")\n"
 	 "        (layer \"F.Cu\")\n"
 	 "        (property \"Reference\" \"REF**\"\n"
-	 "                (at 0 11.43 0)\n"   // XXX - Set position of REF**
+	 "                (at 0 %f 0)\n"   // XXX - Set position of REF**
 	 "                (unlocked yes)\n"
 	 "	 (layer \"F.SilkS\")\n"
 	 "                (uuid \"08d1cbd6-6dbd-4696-9477-43e1380128be\")\n"
@@ -257,11 +257,12 @@ int main(int argc, char **argv)
 	 "                        )\n"
 	 "                )\n"
 	 "        )\n",
-	 footprint_name
-	   );
+	 footprint_name,
+	 module_height/2 + 2
+	 );
 
 	 printf("        (property \"Value\" \"%s\"\n"
-		"                (at 0 12.47 0)\n"
+		"                (at 0 %f 0)\n"
 		"                (unlocked yes)\n"
 		"                (layer \"F.Fab\")\n"
 		"                (uuid \"7848b12f-b698-40ff-9b18-5d3dc1ad63e0\")\n"
@@ -272,7 +273,9 @@ int main(int argc, char **argv)
 		"                        )\n"
 		"                )\n"
 		"        )\n",
-	        footprint_name);
+	        footprint_name,
+		module_height/2 + 4
+		);
 
 	 printf("        (property \"Footprint\" \"\"\n"
 		"                (at 0 0 0)\n"
