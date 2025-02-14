@@ -117,6 +117,91 @@ int main(int argc, char **argv)
 		"        (attr smd)\n"
 		);
 
+	 printf(
+		"       (fp_rect\n"
+		"                (start %.2f %.2f)\n"
+		"                (end %.2f %.2f)\n"
+		"                (stroke\n"
+		"                        (width 0.1)\n"
+		"                        (type default)\n"
+		"                )\n"
+		"                (fill none)\n"
+		"                (layer \"Edge.Cuts\")\n"
+		"                (uuid \"e0e166a7-b48f-4580-b2a9-bbb7fa1421f5\")\n"
+		"        )\n",
+		-module_width/2,module_height/2,
+		module_width/2,-module_height/2		
+		);
+
+	 // Labels for PRY zones
+	 printf(
+		"        (fp_text user \"PRY\"\n"
+		"                (at 0 %.2f 0)\n"
+		"                (unlocked yes)\n"
+		"                (layer \"B.SilkS\")\n"
+		"                (uuid \"1c67120b-cd38-4dc1-b421-22e46cf03846\")\n"
+		"                (effects\n"
+		"                        (font\n"
+		"                                (size 0.8 0.8)\n"
+		"                                (thickness 0.1)\n"
+		"                        )\n"
+		"                        (justify bottom mirror)\n"
+		"                )\n"
+		"        )\n",
+		-module_height/2.0 + 0.8 + 0.5
+		);
+	 printf(
+		"        (fp_text user \"PRY\"\n"
+		"                (at 0 %.2f 0)\n"
+		"                (unlocked yes)\n"
+		"                (layer \"B.SilkS\")\n"
+		"                (uuid \"1c67120b-cd38-4dc1-b421-22e46cf03846\")\n"
+		"                (effects\n"
+		"                        (font\n"
+		"                                (size 0.8 0.8)\n"
+		"                                (thickness 0.1)\n"
+		"                        )\n"
+		"                        (justify bottom mirror)\n"
+		"                )\n"
+		"        )\n",
+		module_height/2.0 - 0.3
+		);
+
+	 // Rectangles for PRY zones
+	 float pry_height = 6.268592 - 4.8;
+	 printf(
+		"	 (fp_rect\n"
+		"                (start -1.984241 %.3f)\n"
+		"                (end 2.019516 %.3f)\n"
+		"                (stroke\n"
+		"                        (width 0.1)\n"
+		"                        (type default)\n"
+		"                )\n"
+		"                (fill none)\n"
+		"                (layer \"B.SilkS\")\n"
+		"                (uuid \"966a509b-00f8-4763-8fcb-dbbd2ac08dcd\")\n"
+		"        )\n",
+		module_height/2 - 0.08 - pry_height,
+		module_height/2 - 0.08
+		);
+	 printf(
+		"	 (fp_rect\n"
+		"                (start -1.984241 %.3f)\n"
+		"                (end 2.019516 %.3f)\n"
+		"                (stroke\n"
+		"                        (width 0.1)\n"
+		"                        (type default)\n"
+		"                )\n"
+		"                (fill none)\n"
+		"                (layer \"B.SilkS\")\n"
+		"                (uuid \"966a509b-00f8-4763-8fcb-dbbd2ac08dcd\")\n"
+		"        )\n",
+		-module_height/2 + 0.08 + pry_height,
+		-module_height/2 + 0.08
+		);
+
+
+	 
 	 // Draw rectangle for component area on rear for cut-out
 	 printf("         (fp_rect\n"
 		"                (start %.2f %.2f)\n"
