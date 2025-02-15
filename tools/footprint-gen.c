@@ -165,13 +165,18 @@ void usage(void)
 
 void symbol_write(FILE *out,char *symbol,int bay, int half_pin_count, unsigned long long pin_mask, int edge_type, int with_cutout)
 {
+  
+  float symbol_height = (half_pin_count + 1) * 2.54;
+  float symbol_top = (symbol_height / 2);
+  float symbol_bottom = - ( symbol_height / 2 ); 
+
   fprintf(out,
 	  "\t(symbol \"%s\"\n"
 	  "                (exclude_from_sim no)\n"
 	  "                (in_bom yes)\n"
 	  "                (on_board yes)\n"
 "                (property \"Reference\" \"M\"\n"
-	  "                        (at 0 0 0)\n"
+	  "                        (at 0 %f 0)\n"
 	  "                        (effects\n"
 	  "                                (font\n"
 	  "                                        (size 1.27 1.27)\n"
@@ -215,6 +220,7 @@ void symbol_write(FILE *out,char *symbol,int bay, int half_pin_count, unsigned l
 	  "                )\n"
 	  ,
 	  symbol,
+	  symbol_top - 2.54 * (half_pin_count + 2),
 	  symbol);
 
   // Output rectangles for the symbol and the GND and (if not edge version) VCC straps.
@@ -253,11 +259,6 @@ void symbol_write(FILE *out,char *symbol,int bay, int half_pin_count, unsigned l
 	    "                        )\n"
 	    );
   }
-  
-  float symbol_height = (half_pin_count + 1) * 2.54;
-  float symbol_top = (symbol_height / 2);
-  float symbol_bottom = - ( symbol_height / 2 );
-  
   
   // Main rectangle for the pins
   fprintf(out,
@@ -335,6 +336,39 @@ void symbol_write(FILE *out,char *symbol,int bay, int half_pin_count, unsigned l
 	      "                        )\n"
 	      );
   }
+
+  if (edge_type) {
+      fprintf(out,
+	      "                        (text \" BOARD EDGE\"\n"
+	      "                                (at 0 %f 0)\n"
+	      "                                (effects\n"
+	      "                                        (font\n"
+	      "                                                (size 1.27 1.27)\n"
+	      "                                        )\n"
+	      "                                )\n"
+	      "                        )\n"
+	      ,
+	      symbol_top + 2.54 * 0.5
+	      );
+
+  }
+
+  if (with_cutout) {
+      fprintf(out,
+	      "                        (text \"%s\"\n"
+	      "                                (at 0.5 0 900)\n"
+	      "                                (effects\n"
+	      "                                        (font\n"
+	      "                                                (size 1 1)\n"
+	      "                                        )\n"
+	      "                                )\n"
+	      "                        )\n"
+	      ,
+	      bay ? "CUTOUT" : "REAR ZONE"
+	      );
+
+  }
+
   
   // Add pins down left hand side      
   for(int i=1;i<=half_pin_count;i++) {
