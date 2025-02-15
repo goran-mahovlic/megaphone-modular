@@ -948,7 +948,10 @@ int main(int argc, char **argv)
       // Output rectangles for the symbol and the GND and (if not edge version) VCC straps.
 
       fprintf(out,
-	      "                (symbol \"%s_0_1\"\n"
+	      "                (symbol \"%s_0_1\"\n",
+	      filename);
+      if (!edge_type)
+	fprintf(out,
 	      "                        (rectangle\n"
 	      "                                (start -27.94 16.51)\n"
 	      "                                (end -12.7 10.16)\n"
@@ -959,22 +962,21 @@ int main(int argc, char **argv)
 	      "                                (fill\n"
 	      "                                        (type none)\n"
 	      "                                )\n"
-	      "                        )\n",
-	      filename);
-      if (!edge_type)
-	fprintf(out,
-		"                        (rectangle\n"
-		"                                (start -19.05 -8.89)\n"
-		"                                (end -12.7 -15.24)\n"
-		"                                (stroke\n"
-		"                                        (width 0)\n"
-		"                                        (type default)\n"
-		"                                )\n"
-		"                                (fill\n"
-		"                                        (type none)\n"
-		"                                )\n"
-		"                        )\n"
+	      "                        )\n"
 		);
+      fprintf(out,
+	      "                        (rectangle\n"
+	      "                                (start -27.94 -8.89)\n"
+	      "                                (end -12.7 -15.24)\n"
+	      "                                (stroke\n"
+	      "                                        (width 0)\n"
+	      "                                        (type default)\n"
+	      "                                )\n"
+	      "                                (fill\n"
+	      "                                        (type none)\n"
+	      "                                )\n"
+	      "                        )\n"
+	      );
       fprintf(out,
 	      "                        (rectangle\n"
 	      "                                (start -6.35 13.97)\n"
@@ -988,8 +990,9 @@ int main(int argc, char **argv)
 	      "                                )\n"
 	      "                        )\n"
 	      );
+
       fprintf(out,
-	      "\t\t)\n"
+	      "                )\n"
 	      );
       
 
@@ -1020,7 +1023,7 @@ int main(int argc, char **argv)
 		"                        )\n"
 		);
 
-      // Add pins down left hand side
+      // Add pins down left hand side      
       for(int i=1;i<=half_pin_count;i++) {
 
 	if (pin_present(i,pin_mask))	
@@ -1044,8 +1047,8 @@ int main(int argc, char **argv)
 		  "                                )\n"
 		  "                        )\n"
 		  ,
-		  11.43 + (i-1) * 2.54,
-		  (edge_type && (i==1)) ? "VCC" : ( ( i==half_pin_count ) ? "GND" : ""),
+		  11.43 - (i-1) * 2.54,
+		  ((!edge_type) && (i==1)) ? "VCC" : ( ( i==half_pin_count ) ? "GND" : ""),
 		  i
 		  );	       	
       }
@@ -1073,7 +1076,7 @@ int main(int argc, char **argv)
 		  "                                )\n"
 		  "                        )\n"
 		  ,
-		  11.43 + (i-1) * 2.54,
+		  11.43 - (i-1) * 2.54,
 		  "",
 		  i+half_pin_count
 		  );	       	
@@ -1157,7 +1160,11 @@ int main(int argc, char **argv)
 	      "                                )\n"
 	      "                        )\n"
 	      );
-			 
+
+      fprintf(out,
+	      "\t\t)\n"
+	      );
+
 
       fprintf(out,
 	      "\t)\n"
@@ -1193,13 +1200,10 @@ int main(int argc, char **argv)
 	      "                                (fill\n"
 	      "                                        (type none)\n"
 	      "                                )\n"
-	      "                        )\n",
+	      "                        )\n"
+	      "                )\n",
 	      filename);
 
-      fprintf(out,
-	      "\t\t)\n"
-	      );
-            
       
       fprintf(out,
 	      "\t)\n"
