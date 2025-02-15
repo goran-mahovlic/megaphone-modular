@@ -977,10 +977,17 @@ int main(int argc, char **argv)
 	      "                                )\n"
 	      "                        )\n"
 	      );
+
+      float symbol_height = (half_pin_count + 1) * 2.54;
+      float symbol_top = (symbol_height / 2);
+      float symbol_bottom = - ( symbol_height / 2 );
+      
+      
+      // Main rectangle for the pins
       fprintf(out,
 	      "                        (rectangle\n"
-	      "                                (start -6.35 13.97)\n"
-	      "                                (end 7.62 -12.7)\n"
+	      "                                (start -6.35 %f)\n"
+	      "                                (end 7.62 %f)\n"
 	      "                                (stroke\n"
 	      "                                        (width 0)\n"
 	      "                                        (type default)\n"
@@ -989,7 +996,32 @@ int main(int argc, char **argv)
 	      "                                        (type none)\n"
 	      "                                )\n"
 	      "                        )\n"
+	      ,
+	      symbol_top,
+	      symbol_bottom
 	      );
+
+      if (with_cutout) {
+      // Main rectangle for the pins
+	fprintf(out,
+		"                        (rectangle\n"
+		"                                (start -3.35 %f)\n"
+		"                                (end 4.62 %f)\n"
+		"                                (stroke\n"
+		"                                        (width 0)\n"
+		"                                        (type default)\n"
+		"                                )\n"
+		"                                (fill\n"
+		"                                        (type none)\n"
+		"                                )\n"
+		"                        )\n"
+		,
+		symbol_top - 2.54*2,
+		symbol_bottom + 2.54*2
+		);
+
+
+      }
 
       fprintf(out,
 	      "                )\n"
@@ -1047,7 +1079,7 @@ int main(int argc, char **argv)
 		  "                                )\n"
 		  "                        )\n"
 		  ,
-		  11.43 - (i-1) * 2.54,
+		  symbol_top - i * 2.54,
 		  ((!edge_type) && (i==1)) ? "VCC" : ( ( i==half_pin_count ) ? "GND" : ""),
 		  i
 		  );	       	
@@ -1076,7 +1108,7 @@ int main(int argc, char **argv)
 		  "                                )\n"
 		  "                        )\n"
 		  ,
-		  11.43 - (i-1) * 2.54,
+		  symbol_top - i * 2.54,
 		  "",
 		  i+half_pin_count
 		  );	       	
