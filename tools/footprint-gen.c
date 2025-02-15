@@ -874,6 +874,38 @@ int main(int argc, char **argv)
     line[0]=0; fgets(line,8192,in);
   }
   fclose(in);
+
+  // Output bay symbols
+  for(int edge_type=0;edge_type<2;edge_type++) {
+    for(int with_cutout=0;with_cutout<2;with_cutout++) {
+      
+      snprintf(filename,8192,"%s%s%s",
+	       bay_footprint_name,
+	       with_cutout?"":"-NOCUTOUT",
+	       edge_type?"-EDGE":""
+	       );
+
+      fprintf(stderr,"INFO: Writing KiCad symbol '%s'\n",filename);
+      
+    }
+  }
+
+  // Output module symbols
+  for(int edge_type=0;edge_type<2;edge_type++) {
+    for(int with_cutout=0;with_cutout<2;with_cutout++) {
+      
+      snprintf(filename,8192,"%s%s%s",
+	       footprint_name,
+	       with_cutout?"":"-NOCUTOUT",
+	       edge_type?"-EDGE":""
+	       );
+
+      fprintf(stderr,"INFO: Writing KiCad symbol '%s'\n",filename);
+      
+    }
+  }
+
+  
   
   fprintf(out,")\n");
   fclose(out);
