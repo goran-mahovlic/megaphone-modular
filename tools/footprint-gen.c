@@ -163,6 +163,62 @@ void usage(void)
   exit(-1);
 }
 
+void symbol_write_furniture(FILE *out,char *symbol)
+{
+  fprintf(out,
+	  "\t(symbol \"%s\"\n"
+	  "                (exclude_from_sim no)\n"
+	  "                (in_bom yes)\n"
+	  "                (on_board yes)\n"
+"                (property \"Reference\" \"M\"\n"
+	  "                        (at 0 0 0)\n"
+	  "                        (effects\n"
+	  "                                (font\n"
+	  "                                        (size 1.27 1.27)\n"
+	  "                                )\n"
+	  "                        )\n"
+	  "                )\n"
+	  "                (property \"Value\" \"\"\n"
+	  "                        (at 0 5.08 0)\n"
+	  "                        (effects\n"
+	  "                                (font\n"
+	  "                                        (size 1.27 1.27)\n"
+	  "                                )\n"
+	  "                        )\n"
+	  "                )\n"
+"                (property \"Footprint\" \"MegaCastle:%s\"\n"
+	  "                        (at 0 5.08 0)\n"
+	  "                        (effects\n"
+	  "                                (font\n"
+	  "                                        (size 1.27 1.27)\n"
+	  "                                )\n"
+	  "                                (hide yes)\n"
+	  "                        )\n"
+	  "                )\n"
+	  "                (property \"Datasheet\" \"\"\n"
+	  "                        (at 0 5.08 0)\n"
+	  "                        (effects\n"
+	  "                                (font\n"
+	  "                                        (size 1.27 1.27)\n"
+	  "                                )\n"
+	  "                                (hide yes)\n"
+	  "                        )\n"
+	  "                )\n"
+	  "                (property \"Description\" \"\"\n"
+	  "                        (at 0 0 0)\n"
+	  "                        (effects\n"
+	  "                                (font\n"
+	  "                                        (size 1.27 1.27)\n"
+	  "                                )\n"
+	  "                                (hide yes)\n"
+	  "                        )\n"
+	  "                )\n"
+	  ,
+	  symbol,
+	  symbol);
+}
+
+
 void draw_qr_corner(FILE *out,float x, float y, int draw_outer)
 {
   fprintf(out,
@@ -886,6 +942,59 @@ int main(int argc, char **argv)
 	       );
 
       fprintf(stderr,"INFO: Writing KiCad symbol '%s'\n",filename);
+
+      symbol_write_furniture(out,filename);
+
+      // Output rectangles for the symbol and the GND and (if not edge version) VCC straps.
+
+      fprintf(out,
+	      "                (symbol \"%s_0_1\"\n"
+	      "                        (rectangle\n"
+	      "                                (start -27.94 16.51)\n"
+	      "                                (end -12.7 10.16)\n"
+	      "                                (stroke\n"
+	      "                                        (width 0)\n"
+	      "                                        (type default)\n"
+	      "                                )\n"
+	      "                                (fill\n"
+	      "                                        (type none)\n"
+	      "                                )\n"
+	      "                        )\n",
+	      filename);
+      fprintf(out,
+	      "                        (rectangle\n"
+	      "                                (start -19.05 -8.89)\n"
+	      "                                (end -12.7 -15.24)\n"
+	      "                                (stroke\n"
+	      "                                        (width 0)\n"
+	      "                                        (type default)\n"
+	      "                                )\n"
+	      "                                (fill\n"
+	      "                                        (type none)\n"
+	      "                                )\n"
+	      "                        )\n"
+	      );
+      fprintf(out,
+	      "                        (rectangle\n"
+	      "                                (start -6.35 13.97)\n"
+	      "                                (end 7.62 -12.7)\n"
+	      "                                (stroke\n"
+	      "                                        (width 0)\n"
+	      "                                        (type default)\n"
+	      "                                )\n"
+	      "                                (fill\n"
+	      "                                        (type none)\n"
+	      "                                )\n"
+	      "                        )\n"
+	      );
+      fprintf(out,
+	      "\t\t)\n"
+	      );
+      
+
+      fprintf(out,
+	      "\t)\n"
+	      );
       
     }
   }
@@ -901,6 +1010,15 @@ int main(int argc, char **argv)
 	       );
 
       fprintf(stderr,"INFO: Writing KiCad symbol '%s'\n",filename);
+
+      symbol_write_furniture(out,filename);
+
+      // Output rectangle for the symbol
+
+      
+      fprintf(out,
+	      "\t)\n"
+	      );
       
     }
   }
@@ -909,6 +1027,11 @@ int main(int argc, char **argv)
   
   fprintf(out,")\n");
   fclose(out);
+
+  fprintf(stderr,"INFO: Moving updated symbol library into place.\n");
+  char cmd[8192];
+  snprintf(cmd,8192,"mv %s/MegaCastle.kicad_sym.tmp %s/MegaCastle.kicad_sym",path,path);
+  system(cmd);
   
   return 0;
 }
