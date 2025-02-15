@@ -821,6 +821,62 @@ int main(int argc, char **argv)
     fclose(out);
   }
   }
+
+  /* ---------------------------------------------------------------------------------------------------------
+
+     Now create symbol entities.
+
+     --------------------------------------------------------------------------------------------------------- */
+  snprintf(filename,8192,"%s/MegaCastle.kicad_sym",
+	   path);
+  FILE *in=fopen(filename,"r");
+  if (!in) {
+    fprintf(stderr,"ERROR: Could not read '%s'\n",filename);
+    exit(-1);
+  }
+
+  snprintf(filename,8192,"%s/MegaCastle.kicad_sym.tmp",
+	   path);
+  out=fopen(filename,"w");
+  if (!out) {
+    fprintf(stderr,"ERROR: Could not write to '%s'\n",filename);
+    exit(-1);
+  }
+  
+  char match_module[8192];
+  char match_bay[8192];
+  snprintf(match_module,8192,"\t(symbol \"%s",footprint_name);
+  snprintf(match_bay,8192,"\t(symbol \"%s",bay_footprint_name);
+	     
+  
+  char line[8192];
+  int skipping=0;
+  line[0]=0; fgets(line,8192,in);
+  while(line[0]) {
+    if (!strncmp(line,match_module,strlen(match_module))) {
+      fprintf(stderr,"INFO: Removing old module symbol.\n");
+      skipping=1;
+    }
+    if (!strncmp(line,match_bay,strlen(match_bay))) {
+      skipping=1;
+      fprintf(stderr,"INFO: Removing old module symbol.\n");
+    }
+
+    if (!strncmp(line,")",1)) {
+      fprintf(stderr,"INFO: Found end of library. Preparing to append symbols.\n");
+      break;
+    }
+    
+    if (!skipping) fwrite(line,strlen(line),1,out);
+
+    if (!strncmp(line,"\t)",2)) skipping=0;
+
+    line[0]=0; fgets(line,8192,in);
+  }
+  fclose(in);
+  
+  fprintf(out,")\n");
+  fclose(out);
   
   return 0;
 }
