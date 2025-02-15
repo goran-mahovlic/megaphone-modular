@@ -163,7 +163,7 @@ void usage(void)
   exit(-1);
 }
 
-void symbol_write_furniture(FILE *out,char *symbol)
+void symbol_write(FILE *out,char *symbol,int bay, int half_pin_count, unsigned long long pin_mask, int edge_type, int with_cutout)
 {
   fprintf(out,
 	  "\t(symbol \"%s\"\n"
@@ -216,6 +216,275 @@ void symbol_write_furniture(FILE *out,char *symbol)
 	  ,
 	  symbol,
 	  symbol);
+
+  // Output rectangles for the symbol and the GND and (if not edge version) VCC straps.
+  
+  fprintf(out,
+	  "                (symbol \"%s_0_1\"\n",
+	  symbol);
+
+  if (bay) {
+  
+    if (!edge_type)
+      fprintf(out,
+	      "                        (rectangle\n"
+	      "                                (start -27.94 16.51)\n"
+	      "                                (end -12.7 10.16)\n"
+	      "                                (stroke\n"
+	      "                                        (width 0)\n"
+	      "                                        (type default)\n"
+	      "                                )\n"
+	      "                                (fill\n"
+	      "                                        (type none)\n"
+	      "                                )\n"
+	      "                        )\n"
+	      );
+    fprintf(out,
+	    "                        (rectangle\n"
+	    "                                (start -27.94 -8.89)\n"
+	    "                                (end -12.7 -15.24)\n"
+	    "                                (stroke\n"
+	    "                                        (width 0)\n"
+	    "                                        (type default)\n"
+	    "                                )\n"
+	    "                                (fill\n"
+	    "                                        (type none)\n"
+	    "                                )\n"
+	    "                        )\n"
+	    );
+  }
+  
+  float symbol_height = (half_pin_count + 1) * 2.54;
+  float symbol_top = (symbol_height / 2);
+  float symbol_bottom = - ( symbol_height / 2 );
+  
+  
+  // Main rectangle for the pins
+  fprintf(out,
+	  "                        (rectangle\n"
+	  "                                (start -6.35 %f)\n"
+	  "                                (end 7.62 %f)\n"
+	  "                                (stroke\n"
+	  "                                        (width 0)\n"
+	  "                                        (type default)\n"
+	  "                                )\n"
+	  "                                (fill\n"
+	  "                                        (type none)\n"
+	  "                                )\n"
+	  "                        )\n"
+	  ,
+	  symbol_top,
+	  symbol_bottom
+	  );
+
+  if (with_cutout) {
+    // Main rectangle for the pins
+    fprintf(out,
+	    "                        (rectangle\n"
+	    "                                (start -3.35 %f)\n"
+	    "                                (end 4.62 %f)\n"
+	    "                                (stroke\n"
+	    "                                        (width 0)\n"
+	    "                                        (type default)\n"
+	    "                                )\n"
+	    "                                (fill\n"
+	    "                                        (type none)\n"
+	    "                                )\n"
+	    "                        )\n"
+	    ,
+	    symbol_top - 2.54*2,
+	    symbol_bottom + 2.54*2
+	    );
+    
+    
+  }
+  
+  fprintf(out,
+	  "                )\n"
+	  );
+  
+  
+  // Add descriptions for GND and VCC bridge blocks
+  fprintf(out,
+	  "                (symbol \"%s_1_1\"\n",
+	  symbol
+	  );
+  
+  if (bay) {
+    fprintf(out,
+  	    "                        (text \"GND Bridge\\n(Connect B1 to %d,\\nB2 to GND)\"\n"
+	    "                                (at -17.78 -5.08 0)\n"
+	    "                                (effects\n"
+	    "                                        (font\n"
+	    "                                                (size 1.27 1.27)\n"
+	    "                                        )\n"
+	    "                                )\n"
+	    "                        )\n"
+	    ,
+	    half_pin_count
+	    );
+    if (!edge_type)
+      fprintf(out,
+	      "                        (text \"VCC Bridge\\n(Connect A1 to 1,\\nA2 to VCC)\"\n"
+	      "                                (at -17.78 6.35 0)\n"
+	      "                                (effects\n"
+	      "                                        (font\n"
+	      "                                                (size 1.27 1.27)\n"
+	      "                                        )\n"
+	      "                                )\n"
+	      "                        )\n"
+	      );
+  }
+  
+  // Add pins down left hand side      
+  for(int i=1;i<=half_pin_count;i++) {
+    
+    if (pin_present(i,pin_mask))	
+      fprintf(out,
+	      "                       (pin bidirectional line\n"
+	      "                                (at -6.35 %f 0)\n"
+	      "                                (length 2.54)\n"
+	      "                                (name \"%s\"\n"
+	      "                                        (effects\n"
+	      "                                                (font\n"
+	      "                                                        (size 1.27 1.27)\n"
+	      "                                                )\n"
+	      "                                        )\n"
+	      "                                )\n"
+	      "                                (number \"%d\"\n"
+	      "                                        (effects\n"
+	      "                                                (font\n"
+	      "                                                        (size 1.27 1.27)\n"
+	      "                                                )\n"
+	      "                                        )\n"
+	      "                                )\n"
+	      "                        )\n"
+	      ,
+	      symbol_top - i * 2.54,
+	      ((!edge_type) && (i==1)) ? "VCC" : ( ( i==half_pin_count ) ? "GND" : ""),
+	      i
+	      );	       	
+  }
+  
+  for(int i=1;i<=half_pin_count;i++) {
+    
+    if (pin_present(i+half_pin_count,pin_mask))
+      fprintf(out,
+	      "                       (pin bidirectional line\n"
+	      "                                (at 7.62 %f 180)\n"
+	      "                                (length 2.54)\n"
+	      "                                (name \"%s\"\n"
+	      "                                        (effects\n"
+	      "                                                (font\n"
+	      "                                                        (size 1.27 1.27)\n"
+	      "                                                )\n"
+	      "                                        )\n"
+	      "                                )\n"
+	      "                                (number \"%d\"\n"
+	      "                                        (effects\n"
+	      "                                                (font\n"
+	      "                                                        (size 1.27 1.27)\n"
+	      "                                                )\n"
+	      "                                        )\n"
+	      "                                )\n"
+	      "                        )\n"
+	      ,
+	      symbol_top - i * 2.54,
+	      "",
+	      i+half_pin_count
+	      );	       	
+  }
+
+  if (bay) {
+    if (!edge_type)
+      fprintf(out,
+	      "                       (pin bidirectional line\n"
+	      "                                (at -12.7 11.43 180)\n"
+	      "                                (length 2.54)\n"
+	      "                                (name \"Module_VCC\"\n"
+	      "                                        (effects\n"
+	      "                                                (font\n"
+	      "                                                        (size 1.27 1.27)\n"
+	      "                                                )\n"
+	      "                                        )\n"
+	      "                                )\n"
+	      "                                (number \"A1\"\n"
+	      "                                        (effects\n"
+	      "                                                (font\n"
+	      "                                                        (size 1.27 1.27)\n"
+	      "                                                )\n"
+	      "                                        )\n"
+	      "                                )\n"
+	      "                        )\n"
+	      "                        (pin bidirectional line\n"
+	      "                                (at -12.7 13.97 180)\n"
+	      "                                (length 2.54)\n"
+	      "                                (name \"Board_VCC\"\n"
+	      "                                        (effects\n"
+	      "                                                (font\n"
+	      "                                                        (size 1.27 1.27)\n"
+	      "                                                )\n"
+	      "                                        )\n"
+	      "                                )\n"
+	      "                                (number \"A2\"\n"
+	      "                                        (effects\n"
+	      "                                                (font\n"
+	      "                                                        (size 1.27 1.27)\n"
+	      "                                                )\n"
+	      "                                        )\n"
+	      "                                )\n"
+	      "                        )\n"
+	      );
+    
+    fprintf(out,
+	    "                       (pin bidirectional line\n"
+	    "                                (at -12.7 -11.43 180)\n"
+	    "                                (length 2.54)\n"
+	    "                                (name \"Module_GND\"\n"
+	    "                                        (effects\n"
+	    "                                                (font\n"
+	    "                                                        (size 1.27 1.27)\n"
+	    "                                                )\n"
+	    "                                        )\n"
+	    "                                )\n"
+	    "                                (number \"B1\"\n"
+	    "                                        (effects\n"
+	    "                                                (font\n"
+	    "                                                        (size 1.27 1.27)\n"
+	    "                                                )\n"
+	    "                                        )\n"
+	    "                                )\n"
+	    "                        )\n"
+	    "                        (pin bidirectional line\n"
+	    "                                (at -12.7 -13.97 180)\n"
+	    "                                (length 2.54)\n"
+	    "                                (name \"Board_GND\"\n"
+	    "                                        (effects\n"
+	    "                                                (font\n"
+	    "                                                        (size 1.27 1.27)\n"
+	    "                                                )\n"
+	    "                                        )\n"
+	    "                                )\n"
+	    "                                (number \"B2\"\n"
+	    "                                        (effects\n"
+	    "                                                (font\n"
+	    "                                                        (size 1.27 1.27)\n"
+	    "                                                )\n"
+	    "                                        )\n"
+	    "                                )\n"
+	    "                        )\n"
+	    );
+  }
+  
+  fprintf(out,
+	  "\t\t)\n"
+	  );
+  
+  
+  fprintf(out,
+	  "\t)\n"
+	  );
+  
 }
 
 
@@ -943,264 +1212,7 @@ int main(int argc, char **argv)
 
       fprintf(stderr,"INFO: Writing KiCad symbol '%s'\n",filename);
 
-      symbol_write_furniture(out,filename);
-
-      // Output rectangles for the symbol and the GND and (if not edge version) VCC straps.
-
-      fprintf(out,
-	      "                (symbol \"%s_0_1\"\n",
-	      filename);
-      if (!edge_type)
-	fprintf(out,
-	      "                        (rectangle\n"
-	      "                                (start -27.94 16.51)\n"
-	      "                                (end -12.7 10.16)\n"
-	      "                                (stroke\n"
-	      "                                        (width 0)\n"
-	      "                                        (type default)\n"
-	      "                                )\n"
-	      "                                (fill\n"
-	      "                                        (type none)\n"
-	      "                                )\n"
-	      "                        )\n"
-		);
-      fprintf(out,
-	      "                        (rectangle\n"
-	      "                                (start -27.94 -8.89)\n"
-	      "                                (end -12.7 -15.24)\n"
-	      "                                (stroke\n"
-	      "                                        (width 0)\n"
-	      "                                        (type default)\n"
-	      "                                )\n"
-	      "                                (fill\n"
-	      "                                        (type none)\n"
-	      "                                )\n"
-	      "                        )\n"
-	      );
-
-      float symbol_height = (half_pin_count + 1) * 2.54;
-      float symbol_top = (symbol_height / 2);
-      float symbol_bottom = - ( symbol_height / 2 );
-      
-      
-      // Main rectangle for the pins
-      fprintf(out,
-	      "                        (rectangle\n"
-	      "                                (start -6.35 %f)\n"
-	      "                                (end 7.62 %f)\n"
-	      "                                (stroke\n"
-	      "                                        (width 0)\n"
-	      "                                        (type default)\n"
-	      "                                )\n"
-	      "                                (fill\n"
-	      "                                        (type none)\n"
-	      "                                )\n"
-	      "                        )\n"
-	      ,
-	      symbol_top,
-	      symbol_bottom
-	      );
-
-      if (with_cutout) {
-      // Main rectangle for the pins
-	fprintf(out,
-		"                        (rectangle\n"
-		"                                (start -3.35 %f)\n"
-		"                                (end 4.62 %f)\n"
-		"                                (stroke\n"
-		"                                        (width 0)\n"
-		"                                        (type default)\n"
-		"                                )\n"
-		"                                (fill\n"
-		"                                        (type none)\n"
-		"                                )\n"
-		"                        )\n"
-		,
-		symbol_top - 2.54*2,
-		symbol_bottom + 2.54*2
-		);
-
-
-      }
-
-      fprintf(out,
-	      "                )\n"
-	      );
-      
-
-      // Add descriptions for GND and VCC bridge blocks
-      fprintf(out,
-	      "                (symbol \"%s_1_1\"\n"
-	      "                        (text \"GND Bridge\\n(Connect B1 to %d,\\nB2 to GND)\"\n"
-	      "                                (at -17.78 -5.08 0)\n"
-	      "                                (effects\n"
-	      "                                        (font\n"
-	      "                                                (size 1.27 1.27)\n"
-	      "                                        )\n"
-	      "                                )\n"
-	      "                        )\n"
-	      ,
-	      filename,
-	      half_pin_count
-	      );
-      if (!edge_type)
-	fprintf(out,
-		"                        (text \"VCC Bridge\\n(Connect A1 to 1,\\nA2 to VCC)\"\n"
-		"                                (at -17.78 6.35 0)\n"
-		"                                (effects\n"
-		"                                        (font\n"
-		"                                                (size 1.27 1.27)\n"
-		"                                        )\n"
-		"                                )\n"
-		"                        )\n"
-		);
-
-      // Add pins down left hand side      
-      for(int i=1;i<=half_pin_count;i++) {
-
-	if (pin_present(i,pin_mask))	
-	  fprintf(out,
-		  "                       (pin bidirectional line\n"
-		  "                                (at -6.35 %f 0)\n"
-		  "                                (length 2.54)\n"
-		  "                                (name \"%s\"\n"
-		  "                                        (effects\n"
-		  "                                                (font\n"
-		  "                                                        (size 1.27 1.27)\n"
-		  "                                                )\n"
-		  "                                        )\n"
-		  "                                )\n"
-		  "                                (number \"%d\"\n"
-		  "                                        (effects\n"
-		  "                                                (font\n"
-		  "                                                        (size 1.27 1.27)\n"
-		  "                                                )\n"
-		  "                                        )\n"
-		  "                                )\n"
-		  "                        )\n"
-		  ,
-		  symbol_top - i * 2.54,
-		  ((!edge_type) && (i==1)) ? "VCC" : ( ( i==half_pin_count ) ? "GND" : ""),
-		  i
-		  );	       	
-      }
-      
-      for(int i=1;i<=half_pin_count;i++) {
-
-	if (pin_present(i+half_pin_count,pin_mask))
-	  fprintf(out,
-		  "                       (pin bidirectional line\n"
-		  "                                (at 7.62 %f 180)\n"
-		  "                                (length 2.54)\n"
-		  "                                (name \"%s\"\n"
-		  "                                        (effects\n"
-		  "                                                (font\n"
-		  "                                                        (size 1.27 1.27)\n"
-		  "                                                )\n"
-		  "                                        )\n"
-		  "                                )\n"
-		  "                                (number \"%d\"\n"
-		  "                                        (effects\n"
-		  "                                                (font\n"
-		  "                                                        (size 1.27 1.27)\n"
-		  "                                                )\n"
-		  "                                        )\n"
-		  "                                )\n"
-		  "                        )\n"
-		  ,
-		  symbol_top - i * 2.54,
-		  "",
-		  i+half_pin_count
-		  );	       	
-      }
-
-      if (!edge_type)
-	fprintf(out,
-		"                       (pin bidirectional line\n"
-		"                                (at -12.7 11.43 180)\n"
-		"                                (length 2.54)\n"
-		"                                (name \"Module_VCC\"\n"
-		"                                        (effects\n"
-		"                                                (font\n"
-		"                                                        (size 1.27 1.27)\n"
-		"                                                )\n"
-		"                                        )\n"
-		"                                )\n"
-		"                                (number \"A1\"\n"
-		"                                        (effects\n"
-		"                                                (font\n"
-		"                                                        (size 1.27 1.27)\n"
-		"                                                )\n"
-		"                                        )\n"
-		"                                )\n"
-		"                        )\n"
-		"                        (pin bidirectional line\n"
-		"                                (at -12.7 13.97 180)\n"
-		"                                (length 2.54)\n"
-		"                                (name \"Board_VCC\"\n"
-		"                                        (effects\n"
-		"                                                (font\n"
-		"                                                        (size 1.27 1.27)\n"
-		"                                                )\n"
-		"                                        )\n"
-		"                                )\n"
-		"                                (number \"A2\"\n"
-		"                                        (effects\n"
-		"                                                (font\n"
-		"                                                        (size 1.27 1.27)\n"
-		"                                                )\n"
-		"                                        )\n"
-		"                                )\n"
-		"                        )\n"
-		);
-  
-      fprintf(out,
-	      "                       (pin bidirectional line\n"
-	      "                                (at -12.7 -11.43 180)\n"
-	      "                                (length 2.54)\n"
-	      "                                (name \"Module_GND\"\n"
-	      "                                        (effects\n"
-	      "                                                (font\n"
-	      "                                                        (size 1.27 1.27)\n"
-	      "                                                )\n"
-	      "                                        )\n"
-	      "                                )\n"
-	      "                                (number \"B1\"\n"
-	      "                                        (effects\n"
-	      "                                                (font\n"
-	      "                                                        (size 1.27 1.27)\n"
-	      "                                                )\n"
-	      "                                        )\n"
-	      "                                )\n"
-	      "                        )\n"
-	      "                        (pin bidirectional line\n"
-	      "                                (at -12.7 -13.97 180)\n"
-	      "                                (length 2.54)\n"
-	      "                                (name \"Board_GND\"\n"
-	      "                                        (effects\n"
-	      "                                                (font\n"
-	      "                                                        (size 1.27 1.27)\n"
-	      "                                                )\n"
-	      "                                        )\n"
-	      "                                )\n"
-	      "                                (number \"B2\"\n"
-	      "                                        (effects\n"
-	      "                                                (font\n"
-	      "                                                        (size 1.27 1.27)\n"
-	      "                                                )\n"
-	      "                                        )\n"
-	      "                                )\n"
-	      "                        )\n"
-	      );
-
-      fprintf(out,
-	      "\t\t)\n"
-	      );
-
-
-      fprintf(out,
-	      "\t)\n"
-	      );
+      symbol_write(out,filename,1,half_pin_count,pin_mask,edge_type,with_cutout);      
       
     }
   }
@@ -1217,29 +1229,7 @@ int main(int argc, char **argv)
 
       fprintf(stderr,"INFO: Writing KiCad symbol '%s'\n",filename);
 
-      symbol_write_furniture(out,filename);
-
-      // Output rectangle for the symbol
-      fprintf(out,
-	      "                (symbol \"%s_0_1\"\n"
-	      "                        (rectangle\n"
-	      "                                (start -27.94 16.51)\n"
-	      "                                (end -12.7 10.16)\n"
-	      "                                (stroke\n"
-	      "                                        (width 0)\n"
-	      "                                        (type default)\n"
-	      "                                )\n"
-	      "                                (fill\n"
-	      "                                        (type none)\n"
-	      "                                )\n"
-	      "                        )\n"
-	      "                )\n",
-	      filename);
-
-      
-      fprintf(out,
-	      "\t)\n"
-	      );
+      symbol_write(out,filename,0,half_pin_count,pin_mask,edge_type,with_cutout);
       
     }
   }
