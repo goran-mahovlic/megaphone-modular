@@ -5992,4 +5992,3826 @@
                         )
 		)
 	)
+	(symbol "MegaCastle2x23-I30.0x53.6-M80000307FFFC-NOCUTOUT"
+                (exclude_from_sim no)
+                (in_bom yes)
+                (on_board yes)
+                (property "Reference" "M"
+                        (at 0 -33.020000 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                        )
+                )
+                (property "Value" ""
+                        (at 0 5.08 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                        )
+                )
+                (property "Footprint" "MegaCastle:MegaCastle2x23-I30.0x53.6-M80000307FFFC-NOCUTOUT"
+                        (at 0 -38.100000 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (property "Datasheet" ""
+                        (at 0 5.08 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (property "Description" ""
+                        (at 0 0 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (symbol "MegaCastle2x23-I30.0x53.6-M80000307FFFC-NOCUTOUT_0_1"
+                        (rectangle
+                                (start -27.94 16.51)
+                                (end -12.7 10.16)
+                                (stroke
+                                        (width 0)
+                                        (type default)
+                                )
+                                (fill
+                                        (type none)
+                                )
+                        )
+                        (rectangle
+                                (start -27.94 -8.89)
+                                (end -12.7 -15.24)
+                                (stroke
+                                        (width 0)
+                                        (type default)
+                                )
+                                (fill
+                                        (type none)
+                                )
+                        )
+                        (rectangle
+                                (start -6.35 30.480000)
+                                (end 7.62 -30.480000)
+                                (stroke
+                                        (width 0)
+                                        (type default)
+                                )
+                                (fill
+                                        (type none)
+                                )
+                        )
+                )
+                (symbol "MegaCastle2x23-I30.0x53.6-M80000307FFFC-NOCUTOUT_1_1"
+                        (text "GND Bridge\n(Connect B1 to 23,\nB2 to GND)"
+                                (at -17.78 -5.08 0)
+                                (effects
+                                        (font
+                                                (size 1.27 1.27)
+                                        )
+                                )
+                        )
+                        (text "VCC Bridge\n(Connect A1 to 1,\nA2 to VCC)"
+                                (at -17.78 6.35 0)
+                                (effects
+                                        (font
+                                                (size 1.27 1.27)
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at -6.35 27.940000 0)
+                                (length 2.54)
+                                (name "VCC"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "1"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at -6.35 -27.940000 0)
+                                (length 2.54)
+                                (name "GND"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "23"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 27.940000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "24"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 12.700000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "30"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 10.160000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "31"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 7.620000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "32"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 5.080000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "33"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 2.540000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "34"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -0.000000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "35"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -2.540000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "36"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -5.080000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "37"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -7.620000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "38"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -10.160000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "39"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -12.700000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "40"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -15.240000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "41"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -17.780000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "42"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -20.320000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "43"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -22.860000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "44"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -25.400000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "45"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -27.940000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "46"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at -12.7 11.43 180)
+                                (length 2.54)
+                                (name "Module_VCC"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "A1"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                        (pin bidirectional line
+                                (at -12.7 13.97 180)
+                                (length 2.54)
+                                (name "Board_VCC"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "A2"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at -12.7 -11.43 180)
+                                (length 2.54)
+                                (name "Module_GND"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "B1"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                        (pin bidirectional line
+                                (at -12.7 -13.97 180)
+                                (length 2.54)
+                                (name "Board_GND"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "B2"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+		)
+	)
+	(symbol "MegaCastle2x23-I30.0x53.6-M80000307FFFC"
+                (exclude_from_sim no)
+                (in_bom yes)
+                (on_board yes)
+                (property "Reference" "M"
+                        (at 0 -33.020000 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                        )
+                )
+                (property "Value" ""
+                        (at 0 5.08 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                        )
+                )
+                (property "Footprint" "MegaCastle:MegaCastle2x23-I30.0x53.6-M80000307FFFC"
+                        (at 0 -38.100000 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (property "Datasheet" ""
+                        (at 0 5.08 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (property "Description" ""
+                        (at 0 0 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (symbol "MegaCastle2x23-I30.0x53.6-M80000307FFFC_0_1"
+                        (rectangle
+                                (start -27.94 16.51)
+                                (end -12.7 10.16)
+                                (stroke
+                                        (width 0)
+                                        (type default)
+                                )
+                                (fill
+                                        (type none)
+                                )
+                        )
+                        (rectangle
+                                (start -27.94 -8.89)
+                                (end -12.7 -15.24)
+                                (stroke
+                                        (width 0)
+                                        (type default)
+                                )
+                                (fill
+                                        (type none)
+                                )
+                        )
+                        (rectangle
+                                (start -6.35 30.480000)
+                                (end 7.62 -30.480000)
+                                (stroke
+                                        (width 0)
+                                        (type default)
+                                )
+                                (fill
+                                        (type none)
+                                )
+                        )
+                        (rectangle
+                                (start -3.35 25.400000)
+                                (end 4.62 -25.400000)
+                                (stroke
+                                        (width 0)
+                                        (type default)
+                                )
+                                (fill
+                                        (type none)
+                                )
+                        )
+                )
+                (symbol "MegaCastle2x23-I30.0x53.6-M80000307FFFC_1_1"
+                        (text "GND Bridge\n(Connect B1 to 23,\nB2 to GND)"
+                                (at -17.78 -5.08 0)
+                                (effects
+                                        (font
+                                                (size 1.27 1.27)
+                                        )
+                                )
+                        )
+                        (text "VCC Bridge\n(Connect A1 to 1,\nA2 to VCC)"
+                                (at -17.78 6.35 0)
+                                (effects
+                                        (font
+                                                (size 1.27 1.27)
+                                        )
+                                )
+                        )
+                        (text "CUTOUT"
+                                (at 0.5 0 900)
+                                (effects
+                                        (font
+                                                (size 1 1)
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at -6.35 27.940000 0)
+                                (length 2.54)
+                                (name "VCC"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "1"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at -6.35 -27.940000 0)
+                                (length 2.54)
+                                (name "GND"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "23"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 27.940000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "24"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 12.700000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "30"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 10.160000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "31"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 7.620000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "32"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 5.080000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "33"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 2.540000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "34"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -0.000000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "35"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -2.540000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "36"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -5.080000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "37"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -7.620000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "38"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -10.160000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "39"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -12.700000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "40"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -15.240000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "41"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -17.780000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "42"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -20.320000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "43"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -22.860000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "44"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -25.400000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "45"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -27.940000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "46"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at -12.7 11.43 180)
+                                (length 2.54)
+                                (name "Module_VCC"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "A1"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                        (pin bidirectional line
+                                (at -12.7 13.97 180)
+                                (length 2.54)
+                                (name "Board_VCC"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "A2"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at -12.7 -11.43 180)
+                                (length 2.54)
+                                (name "Module_GND"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "B1"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                        (pin bidirectional line
+                                (at -12.7 -13.97 180)
+                                (length 2.54)
+                                (name "Board_GND"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "B2"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+		)
+	)
+	(symbol "MegaCastle2x23-I30.0x53.6-M80000307FFFC-NOCUTOUT-EDGE"
+                (exclude_from_sim no)
+                (in_bom yes)
+                (on_board yes)
+                (property "Reference" "M"
+                        (at 0 -33.020000 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                        )
+                )
+                (property "Value" ""
+                        (at 0 5.08 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                        )
+                )
+                (property "Footprint" "MegaCastle:MegaCastle2x23-I30.0x53.6-M80000307FFFC-NOCUTOUT-EDGE"
+                        (at 0 -38.100000 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (property "Datasheet" ""
+                        (at 0 5.08 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (property "Description" ""
+                        (at 0 0 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (symbol "MegaCastle2x23-I30.0x53.6-M80000307FFFC-NOCUTOUT-EDGE_0_1"
+                        (rectangle
+                                (start -27.94 -8.89)
+                                (end -12.7 -15.24)
+                                (stroke
+                                        (width 0)
+                                        (type default)
+                                )
+                                (fill
+                                        (type none)
+                                )
+                        )
+                        (rectangle
+                                (start -6.35 30.480000)
+                                (end 7.62 -30.480000)
+                                (stroke
+                                        (width 0)
+                                        (type default)
+                                )
+                                (fill
+                                        (type none)
+                                )
+                        )
+                )
+                (symbol "MegaCastle2x23-I30.0x53.6-M80000307FFFC-NOCUTOUT-EDGE_1_1"
+                        (text "GND Bridge\n(Connect B1 to 23,\nB2 to GND)"
+                                (at -17.78 -5.08 0)
+                                (effects
+                                        (font
+                                                (size 1.27 1.27)
+                                        )
+                                )
+                        )
+                        (text " BOARD EDGE"
+                                (at 0 31.750000 0)
+                                (effects
+                                        (font
+                                                (size 1.27 1.27)
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at -6.35 27.940000 0)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "1"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at -6.35 -27.940000 0)
+                                (length 2.54)
+                                (name "GND"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "23"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 27.940000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "24"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 12.700000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "30"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 10.160000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "31"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 7.620000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "32"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 5.080000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "33"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 2.540000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "34"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -0.000000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "35"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -2.540000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "36"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -5.080000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "37"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -7.620000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "38"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -10.160000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "39"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -12.700000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "40"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -15.240000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "41"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -17.780000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "42"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -20.320000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "43"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -22.860000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "44"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -25.400000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "45"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -27.940000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "46"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at -12.7 -11.43 180)
+                                (length 2.54)
+                                (name "Module_GND"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "B1"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                        (pin bidirectional line
+                                (at -12.7 -13.97 180)
+                                (length 2.54)
+                                (name "Board_GND"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "B2"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+		)
+	)
+	(symbol "MegaCastle2x23-I30.0x53.6-M80000307FFFC-EDGE"
+                (exclude_from_sim no)
+                (in_bom yes)
+                (on_board yes)
+                (property "Reference" "M"
+                        (at 0 -33.020000 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                        )
+                )
+                (property "Value" ""
+                        (at 0 5.08 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                        )
+                )
+                (property "Footprint" "MegaCastle:MegaCastle2x23-I30.0x53.6-M80000307FFFC-EDGE"
+                        (at 0 -38.100000 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (property "Datasheet" ""
+                        (at 0 5.08 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (property "Description" ""
+                        (at 0 0 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (symbol "MegaCastle2x23-I30.0x53.6-M80000307FFFC-EDGE_0_1"
+                        (rectangle
+                                (start -27.94 -8.89)
+                                (end -12.7 -15.24)
+                                (stroke
+                                        (width 0)
+                                        (type default)
+                                )
+                                (fill
+                                        (type none)
+                                )
+                        )
+                        (rectangle
+                                (start -6.35 30.480000)
+                                (end 7.62 -30.480000)
+                                (stroke
+                                        (width 0)
+                                        (type default)
+                                )
+                                (fill
+                                        (type none)
+                                )
+                        )
+                        (rectangle
+                                (start -3.35 25.400000)
+                                (end 4.62 -25.400000)
+                                (stroke
+                                        (width 0)
+                                        (type default)
+                                )
+                                (fill
+                                        (type none)
+                                )
+                        )
+                )
+                (symbol "MegaCastle2x23-I30.0x53.6-M80000307FFFC-EDGE_1_1"
+                        (text "GND Bridge\n(Connect B1 to 23,\nB2 to GND)"
+                                (at -17.78 -5.08 0)
+                                (effects
+                                        (font
+                                                (size 1.27 1.27)
+                                        )
+                                )
+                        )
+                        (text " BOARD EDGE"
+                                (at 0 31.750000 0)
+                                (effects
+                                        (font
+                                                (size 1.27 1.27)
+                                        )
+                                )
+                        )
+                        (text "CUTOUT"
+                                (at 0.5 0 900)
+                                (effects
+                                        (font
+                                                (size 1 1)
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at -6.35 27.940000 0)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "1"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at -6.35 -27.940000 0)
+                                (length 2.54)
+                                (name "GND"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "23"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 27.940000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "24"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 12.700000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "30"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 10.160000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "31"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 7.620000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "32"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 5.080000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "33"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 2.540000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "34"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -0.000000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "35"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -2.540000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "36"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -5.080000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "37"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -7.620000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "38"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -10.160000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "39"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -12.700000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "40"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -15.240000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "41"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -17.780000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "42"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -20.320000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "43"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -22.860000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "44"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -25.400000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "45"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -27.940000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "46"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at -12.7 -11.43 180)
+                                (length 2.54)
+                                (name "Module_GND"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "B1"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                        (pin bidirectional line
+                                (at -12.7 -13.97 180)
+                                (length 2.54)
+                                (name "Board_GND"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "B2"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+		)
+	)
+	(symbol "MegaCastle2x23-Module-I30.0x53.6-M80000307FFFC-NOCUTOUT"
+                (exclude_from_sim no)
+                (in_bom yes)
+                (on_board yes)
+                (property "Reference" "M"
+                        (at 0 -33.020000 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                        )
+                )
+                (property "Value" ""
+                        (at 0 5.08 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                        )
+                )
+                (property "Footprint" "MegaCastle:MegaCastle2x23-Module-I30.0x53.6-M80000307FFFC-NOCUTOUT"
+                        (at 0 -35.560000 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (property "Datasheet" ""
+                        (at 0 5.08 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (property "Description" ""
+                        (at 0 0 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (symbol "MegaCastle2x23-Module-I30.0x53.6-M80000307FFFC-NOCUTOUT_0_1"
+                        (rectangle
+                                (start -6.35 30.480000)
+                                (end 7.62 -30.480000)
+                                (stroke
+                                        (width 0)
+                                        (type default)
+                                )
+                                (fill
+                                        (type none)
+                                )
+                        )
+                )
+                (symbol "MegaCastle2x23-Module-I30.0x53.6-M80000307FFFC-NOCUTOUT_1_1"
+                       (pin bidirectional line
+                                (at -6.35 27.940000 0)
+                                (length 2.54)
+                                (name "VCC"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "1"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at -6.35 -27.940000 0)
+                                (length 2.54)
+                                (name "GND"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "23"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 27.940000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "24"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 12.700000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "30"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 10.160000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "31"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 7.620000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "32"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 5.080000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "33"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 2.540000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "34"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -0.000000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "35"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -2.540000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "36"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -5.080000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "37"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -7.620000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "38"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -10.160000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "39"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -12.700000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "40"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -15.240000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "41"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -17.780000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "42"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -20.320000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "43"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -22.860000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "44"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -25.400000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "45"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -27.940000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "46"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+		)
+	)
+	(symbol "MegaCastle2x23-Module-I30.0x53.6-M80000307FFFC"
+                (exclude_from_sim no)
+                (in_bom yes)
+                (on_board yes)
+                (property "Reference" "M"
+                        (at 0 -33.020000 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                        )
+                )
+                (property "Value" ""
+                        (at 0 5.08 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                        )
+                )
+                (property "Footprint" "MegaCastle:MegaCastle2x23-Module-I30.0x53.6-M80000307FFFC"
+                        (at 0 -35.560000 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (property "Datasheet" ""
+                        (at 0 5.08 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (property "Description" ""
+                        (at 0 0 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (symbol "MegaCastle2x23-Module-I30.0x53.6-M80000307FFFC_0_1"
+                        (rectangle
+                                (start -6.35 30.480000)
+                                (end 7.62 -30.480000)
+                                (stroke
+                                        (width 0)
+                                        (type default)
+                                )
+                                (fill
+                                        (type none)
+                                )
+                        )
+                        (rectangle
+                                (start -3.35 25.400000)
+                                (end 4.62 -25.400000)
+                                (stroke
+                                        (width 0)
+                                        (type default)
+                                )
+                                (fill
+                                        (type none)
+                                )
+                        )
+                )
+                (symbol "MegaCastle2x23-Module-I30.0x53.6-M80000307FFFC_1_1"
+                        (text "REAR ZONE"
+                                (at 0.5 0 900)
+                                (effects
+                                        (font
+                                                (size 1 1)
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at -6.35 27.940000 0)
+                                (length 2.54)
+                                (name "VCC"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "1"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at -6.35 -27.940000 0)
+                                (length 2.54)
+                                (name "GND"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "23"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 27.940000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "24"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 12.700000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "30"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 10.160000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "31"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 7.620000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "32"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 5.080000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "33"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 2.540000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "34"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -0.000000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "35"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -2.540000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "36"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -5.080000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "37"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -7.620000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "38"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -10.160000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "39"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -12.700000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "40"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -15.240000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "41"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -17.780000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "42"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -20.320000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "43"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -22.860000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "44"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -25.400000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "45"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -27.940000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "46"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+		)
+	)
+	(symbol "MegaCastle2x23-Module-I30.0x53.6-M80000307FFFC-NOCUTOUT-EDGE"
+                (exclude_from_sim no)
+                (in_bom yes)
+                (on_board yes)
+                (property "Reference" "M"
+                        (at 0 -33.020000 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                        )
+                )
+                (property "Value" ""
+                        (at 0 5.08 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                        )
+                )
+                (property "Footprint" "MegaCastle:MegaCastle2x23-Module-I30.0x53.6-M80000307FFFC-NOCUTOUT-EDGE"
+                        (at 0 -35.560000 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (property "Datasheet" ""
+                        (at 0 5.08 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (property "Description" ""
+                        (at 0 0 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (symbol "MegaCastle2x23-Module-I30.0x53.6-M80000307FFFC-NOCUTOUT-EDGE_0_1"
+                        (rectangle
+                                (start -6.35 30.480000)
+                                (end 7.62 -30.480000)
+                                (stroke
+                                        (width 0)
+                                        (type default)
+                                )
+                                (fill
+                                        (type none)
+                                )
+                        )
+                )
+                (symbol "MegaCastle2x23-Module-I30.0x53.6-M80000307FFFC-NOCUTOUT-EDGE_1_1"
+                        (text " BOARD EDGE"
+                                (at 0 31.750000 0)
+                                (effects
+                                        (font
+                                                (size 1.27 1.27)
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at -6.35 27.940000 0)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "1"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at -6.35 -27.940000 0)
+                                (length 2.54)
+                                (name "GND"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "23"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 27.940000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "24"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 12.700000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "30"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 10.160000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "31"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 7.620000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "32"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 5.080000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "33"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 2.540000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "34"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -0.000000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "35"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -2.540000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "36"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -5.080000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "37"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -7.620000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "38"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -10.160000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "39"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -12.700000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "40"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -15.240000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "41"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -17.780000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "42"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -20.320000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "43"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -22.860000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "44"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -25.400000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "45"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -27.940000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "46"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+		)
+	)
+	(symbol "MegaCastle2x23-Module-I30.0x53.6-M80000307FFFC-EDGE"
+                (exclude_from_sim no)
+                (in_bom yes)
+                (on_board yes)
+                (property "Reference" "M"
+                        (at 0 -33.020000 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                        )
+                )
+                (property "Value" ""
+                        (at 0 5.08 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                        )
+                )
+                (property "Footprint" "MegaCastle:MegaCastle2x23-Module-I30.0x53.6-M80000307FFFC-EDGE"
+                        (at 0 -35.560000 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (property "Datasheet" ""
+                        (at 0 5.08 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (property "Description" ""
+                        (at 0 0 0)
+                        (effects
+                                (font
+                                        (size 1.27 1.27)
+                                )
+                                (hide yes)
+                        )
+                )
+                (symbol "MegaCastle2x23-Module-I30.0x53.6-M80000307FFFC-EDGE_0_1"
+                        (rectangle
+                                (start -6.35 30.480000)
+                                (end 7.62 -30.480000)
+                                (stroke
+                                        (width 0)
+                                        (type default)
+                                )
+                                (fill
+                                        (type none)
+                                )
+                        )
+                        (rectangle
+                                (start -3.35 25.400000)
+                                (end 4.62 -25.400000)
+                                (stroke
+                                        (width 0)
+                                        (type default)
+                                )
+                                (fill
+                                        (type none)
+                                )
+                        )
+                )
+                (symbol "MegaCastle2x23-Module-I30.0x53.6-M80000307FFFC-EDGE_1_1"
+                        (text " BOARD EDGE"
+                                (at 0 31.750000 0)
+                                (effects
+                                        (font
+                                                (size 1.27 1.27)
+                                        )
+                                )
+                        )
+                        (text "REAR ZONE"
+                                (at 0.5 0 900)
+                                (effects
+                                        (font
+                                                (size 1 1)
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at -6.35 27.940000 0)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "1"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at -6.35 -27.940000 0)
+                                (length 2.54)
+                                (name "GND"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "23"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 27.940000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "24"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 12.700000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "30"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 10.160000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "31"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 7.620000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "32"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 5.080000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "33"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 2.540000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "34"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -0.000000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "35"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -2.540000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "36"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -5.080000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "37"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -7.620000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "38"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -10.160000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "39"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -12.700000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "40"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -15.240000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "41"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -17.780000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "42"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -20.320000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "43"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -22.860000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "44"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -25.400000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "45"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+                       (pin bidirectional line
+                                (at 7.62 -27.940000 180)
+                                (length 2.54)
+                                (name ""
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                                (number "46"
+                                        (effects
+                                                (font
+                                                        (size 1.27 1.27)
+                                                )
+                                        )
+                                )
+                        )
+		)
+	)
 )

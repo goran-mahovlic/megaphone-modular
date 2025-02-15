@@ -192,7 +192,7 @@ void symbol_write(FILE *out,char *symbol,int bay, int half_pin_count, unsigned l
 	  "                        )\n"
 	  "                )\n"
 "                (property \"Footprint\" \"MegaCastle:%s\"\n"
-	  "                        (at 0 5.08 0)\n"
+	  "                        (at 0 %f 0)\n"
 	  "                        (effects\n"
 	  "                                (font\n"
 	  "                                        (size 1.27 1.27)\n"
@@ -221,7 +221,9 @@ void symbol_write(FILE *out,char *symbol,int bay, int half_pin_count, unsigned l
 	  ,
 	  symbol,
 	  symbol_top - 2.54 * (half_pin_count + 2),
-	  symbol);
+	  symbol,
+	  symbol_top - 2.54 * (half_pin_count + (3 + bay))
+	  );
 
   // Output rectangles for the symbol and the GND and (if not edge version) VCC straps.
   
