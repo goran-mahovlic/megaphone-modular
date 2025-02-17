@@ -1,10 +1,10 @@
-(footprint "MegaCastle2x23-Module-I30.0x53.6-M80000307FFFC"
+(footprint "MegaCastle2x5-Module-I6.0x7.9-MBFC-PANEL"
         (version 20240108)
 	    (generator "pcbnew")
         (generator_version "8.0")
         (layer "F.Cu")
         (property "Reference" "REF**"
-                (at 0 31.210000 0)
+                (at 0 12.350000 0)
                 (unlocked yes)
 	 (layer "F.SilkS")
                 (uuid "08d1cbd6-6dbd-4696-9477-43e1380128be")
@@ -15,8 +15,8 @@
                         )
                 )
         )
-        (property "Value" "MegaCastle2x23-Module-I30.0x53.6-M80000307FFFC"
-                (at 0 33.210000 0)
+        (property "Value" "MegaCastle2x5-Module-I6.0x7.9-MBFC-PANEL"
+                (at 0 14.350000 0)
                 (unlocked yes)
                 (layer "F.Fab")
                 (uuid "7848b12f-b698-40ff-9b18-5d3dc1ad63e0")
@@ -64,16 +64,114 @@
                 )
         )
         (attr smd)
-  (fp_line (start -17.780001 29.209999) (end 17.780001 29.209999)
+  (fp_line (start -5.080000 6.350000) (end -2.522500 6.350000)
     (stroke (width 0.050000) (type default)) (layer "Edge.Cuts") (tstamp 2c385f8a-f9bf-4768-8345-7af626d58ca0))
-  (fp_line (start -17.780001 -29.209999) (end 17.780001 -29.209999)
+  (fp_line (start 2.522500 6.350000) (end 5.080000 6.350000)
     (stroke (width 0.050000) (type default)) (layer "Edge.Cuts") (tstamp 2c385f8a-f9bf-4768-8345-7af626d58ca0))
-  (fp_line (start -17.780001 -29.209999) (end -17.780001 29.209999)
+  (fp_line (start -2.522500 6.350000) (end -2.122500 6.350000)
     (stroke (width 0.050000) (type default)) (layer "Edge.Cuts") (tstamp 2c385f8a-f9bf-4768-8345-7af626d58ca0))
-  (fp_line (start 17.780001 -29.209999) (end 17.780001 29.209999)
+  (fp_line (start -2.522500 7.950000) (end -2.122500 7.950000)
+    (stroke (width 0.050000) (type default)) (layer "Edge.Cuts") (tstamp 2c385f8a-f9bf-4768-8345-7af626d58ca0))
+  (fp_line (start 2.522500 6.350000) (end 2.122500 6.350000)
+    (stroke (width 0.050000) (type default)) (layer "Edge.Cuts") (tstamp 2c385f8a-f9bf-4768-8345-7af626d58ca0))
+  (fp_line (start 2.522500 7.950000) (end 2.122500 7.950000)
+    (stroke (width 0.050000) (type default)) (layer "Edge.Cuts") (tstamp 2c385f8a-f9bf-4768-8345-7af626d58ca0))
+       (fp_arc
+                (start -2.122500 6.350000)
+                (mid -1.322500 7.150000)
+                (end -2.122500 7.950000)
+                (stroke
+                        (width 0.05)
+                        (type default)
+                )
+                (layer "Edge.Cuts")
+                (uuid "2cfe695a-89f3-455b-b40e-f067e5aa3651")
+        )
+       (fp_arc
+                (start 2.122500 6.350000)
+                (mid 1.322500 7.150000)
+                (end 2.122500 7.950000)
+                (stroke
+                        (width 0.05)
+                        (type default)
+                )
+                (layer "Edge.Cuts")
+                (uuid "2cfe695a-89f3-455b-b40e-f067e5aa3651")
+        )
+         (fp_circle
+                (center -2.122500 6.350000)
+                (end -2.122500 6.050000)
+                (stroke
+                        (width 0.050000)
+                        (type default)
+                )
+                (fill none)
+                (layer "Edge.Cuts")
+                (uuid "8b9af24b-14b8-4655-9676-2e957c2621b0")
+        )
+         (fp_circle
+                (center -1.200000 6.350000)
+                (end -1.200000 6.125000)
+                (stroke
+                        (width 0.050000)
+                        (type default)
+                )
+                (fill none)
+                (layer "Edge.Cuts")
+                (uuid "8b9af24b-14b8-4655-9676-2e957c2621b0")
+        )
+         (fp_circle
+                (center -0.400000 6.350000)
+                (end -0.400000 6.125000)
+                (stroke
+                        (width 0.050000)
+                        (type default)
+                )
+                (fill none)
+                (layer "Edge.Cuts")
+                (uuid "8b9af24b-14b8-4655-9676-2e957c2621b0")
+        )
+         (fp_circle
+                (center 0.400000 6.350000)
+                (end 0.400000 6.125000)
+                (stroke
+                        (width 0.050000)
+                        (type default)
+                )
+                (fill none)
+                (layer "Edge.Cuts")
+                (uuid "8b9af24b-14b8-4655-9676-2e957c2621b0")
+        )
+         (fp_circle
+                (center 1.200000 6.350000)
+                (end 1.200000 6.125000)
+                (stroke
+                        (width 0.050000)
+                        (type default)
+                )
+                (fill none)
+                (layer "Edge.Cuts")
+                (uuid "8b9af24b-14b8-4655-9676-2e957c2621b0")
+        )
+         (fp_circle
+                (center 2.122500 6.350000)
+                (end 2.122500 6.050000)
+                (stroke
+                        (width 0.050000)
+                        (type default)
+                )
+                (fill none)
+                (layer "Edge.Cuts")
+                (uuid "8b9af24b-14b8-4655-9676-2e957c2621b0")
+        )
+  (fp_line (start -5.080000 -6.350000) (end 5.080000 -6.350000)
+    (stroke (width 0.050000) (type default)) (layer "Edge.Cuts") (tstamp 2c385f8a-f9bf-4768-8345-7af626d58ca0))
+  (fp_line (start -5.080000 -6.350000) (end -5.080000 6.350000)
+    (stroke (width 0.050000) (type default)) (layer "Edge.Cuts") (tstamp 2c385f8a-f9bf-4768-8345-7af626d58ca0))
+  (fp_line (start 5.080000 -6.350000) (end 5.080000 6.350000)
     (stroke (width 0.050000) (type default)) (layer "Edge.Cuts") (tstamp 2c385f8a-f9bf-4768-8345-7af626d58ca0))
         (fp_text user "PRY"
-                (at 0 -27.91 0)
+                (at 0 -5.05 0)
                 (unlocked yes)
                 (layer "B.SilkS")
                 (uuid "1c67120b-cd38-4dc1-b421-22e46cf03846")
@@ -86,7 +184,7 @@
                 )
         )
         (fp_text user "PRY"
-                (at 0 28.91 0)
+                (at 0 6.05 0)
                 (unlocked yes)
                 (layer "B.SilkS")
                 (uuid "1c67120b-cd38-4dc1-b421-22e46cf03846")
@@ -99,8 +197,8 @@
                 )
         )
 	 (fp_rect
-                (start -1.984241 27.661)
-                (end 2.019516 29.130)
+                (start -1.984241 4.801)
+                (end 2.019516 6.270)
                 (stroke
                         (width 0.1)
                         (type default)
@@ -110,8 +208,8 @@
                 (uuid "966a509b-00f8-4763-8fcb-dbbd2ac08dcd")
         )
 	 (fp_rect
-                (start -1.984241 -27.661)
-                (end 2.019516 -29.130)
+                (start -1.984241 -4.801)
+                (end 2.019516 -6.270)
                 (stroke
                         (width 0.1)
                         (type default)
@@ -145,7 +243,7 @@
                 )
                 (polygon
                         (pts
-                                (xy -1.984241 27.661408) (xy -1.984241 29.130000) (xy 2.019516 29.130000) (xy 2.019516 27.661408)
+                                (xy -1.984241 4.801408) (xy -1.984241 6.270000) (xy 2.019516 6.270000) (xy 2.019516 4.801408)
                         )
                 )
         )
@@ -174,7 +272,7 @@
                 )
                 (polygon
                         (pts
-                                (xy -1.984241 -27.661408) (xy -1.984241 -29.130000) (xy 2.019516 -29.130000) (xy 2.019516 -27.661408)
+                                (xy -1.984241 -4.801408) (xy -1.984241 -6.270000) (xy 2.019516 -6.270000) (xy 2.019516 -4.801408)
                         )
                 )
         )
@@ -202,7 +300,7 @@
                 )
                 (polygon
                         (pts
-                                (xy -17.780001 29.209999) (xy -17.780001 -29.209999) (xy -15.000000 -29.209999) (xy -15.000000 29.209999)
+                                (xy -5.080000 6.350000) (xy -5.080000 -6.350000) (xy -3.000000 -6.350000) (xy -3.000000 6.350000)
                         )
                 )
         )
@@ -230,7 +328,7 @@
                 )
                 (polygon
                         (pts
-                                (xy 17.780001 29.209999) (xy 17.780001 -29.209999) (xy 15.000000 -29.209999) (xy 15.000000 29.209999)
+                                (xy 5.080000 6.350000) (xy 5.080000 -6.350000) (xy 3.000000 -6.350000) (xy 3.000000 6.350000)
                         )
                 )
         )
@@ -258,7 +356,7 @@
                 )
                 (polygon
                         (pts
-                                (xy -15.000000 29.209999) (xy -15.000000 26.809999) (xy 15.000000 26.809999) (xy 15.000000 29.209999)
+                                (xy -3.000000 6.350000) (xy -3.000000 3.950000) (xy 3.000000 3.950000) (xy 3.000000 6.350000)
                         )
                 )
         )
@@ -286,13 +384,13 @@
                 )
                 (polygon
                         (pts
-                                (xy -15.000000 -29.209999) (xy -15.000000 -26.809999) (xy 15.000000 -26.809999) (xy 15.000000 -29.209999)
+                                (xy -3.000000 -6.350000) (xy -3.000000 -3.950000) (xy 3.000000 -3.950000) (xy 3.000000 -6.350000)
                         )
                 )
         )
          (fp_rect
-                (start -15.00 26.81)
-                (end 15.00 -26.81)
+                (start -3.00 3.95)
+                (end 3.00 -3.95)
                 (stroke
                         (width 0.05)
                         (type default)
@@ -302,7 +400,7 @@
                 (uuid "a267cc7c-3519-453e-849e-e978b46e7c98")
 	   )
        (pad "1" thru_hole rect
-                (at -17.780000 -27.940000)
+                (at -5.080000 -5.080000)
                 (size 2.54 2)
                 (drill oval 2 1.5)
                 (property pad_prop_castellated)
@@ -311,8 +409,8 @@
                 (thermal_bridge_angle 45)
                 (uuid "f85e55df-ccf1-4a29-ab8b-2b081b1da284")
         )
-       (pad "23" thru_hole rect
-                (at -17.780000 27.940000)
+       (pad "3" thru_hole rect
+                (at -5.080000 0.000000)
                 (size 2.54 2)
                 (drill oval 2 1.5)
                 (property pad_prop_castellated)
@@ -321,8 +419,8 @@
                 (thermal_bridge_angle 45)
                 (uuid "f85e55df-ccf1-4a29-ab8b-2b081b1da284")
         )
-       (pad "24" thru_hole rect
-                (at 17.780000 -27.940000)
+       (pad "4" thru_hole rect
+                (at -5.080000 2.540000)
                 (size 2.54 2)
                 (drill oval 2 1.5)
                 (property pad_prop_castellated)
@@ -331,8 +429,8 @@
                 (thermal_bridge_angle 45)
                 (uuid "f85e55df-ccf1-4a29-ab8b-2b081b1da284")
         )
-       (pad "30" thru_hole rect
-                (at 17.780000 -12.700000)
+       (pad "5" thru_hole rect
+                (at -5.080000 5.080000)
                 (size 2.54 2)
                 (drill oval 2 1.5)
                 (property pad_prop_castellated)
@@ -341,8 +439,8 @@
                 (thermal_bridge_angle 45)
                 (uuid "f85e55df-ccf1-4a29-ab8b-2b081b1da284")
         )
-       (pad "31" thru_hole rect
-                (at 17.780000 -10.160000)
+       (pad "6" thru_hole rect
+                (at 5.080000 -5.080000)
                 (size 2.54 2)
                 (drill oval 2 1.5)
                 (property pad_prop_castellated)
@@ -351,8 +449,8 @@
                 (thermal_bridge_angle 45)
                 (uuid "f85e55df-ccf1-4a29-ab8b-2b081b1da284")
         )
-       (pad "32" thru_hole rect
-                (at 17.780000 -7.620000)
+       (pad "7" thru_hole rect
+                (at 5.080000 -2.540000)
                 (size 2.54 2)
                 (drill oval 2 1.5)
                 (property pad_prop_castellated)
@@ -361,8 +459,8 @@
                 (thermal_bridge_angle 45)
                 (uuid "f85e55df-ccf1-4a29-ab8b-2b081b1da284")
         )
-       (pad "33" thru_hole rect
-                (at 17.780000 -5.080000)
+       (pad "8" thru_hole rect
+                (at 5.080000 0.000000)
                 (size 2.54 2)
                 (drill oval 2 1.5)
                 (property pad_prop_castellated)
@@ -371,8 +469,8 @@
                 (thermal_bridge_angle 45)
                 (uuid "f85e55df-ccf1-4a29-ab8b-2b081b1da284")
         )
-       (pad "34" thru_hole rect
-                (at 17.780000 -2.540000)
+       (pad "9" thru_hole rect
+                (at 5.080000 2.540000)
                 (size 2.54 2)
                 (drill oval 2 1.5)
                 (property pad_prop_castellated)
@@ -381,118 +479,8 @@
                 (thermal_bridge_angle 45)
                 (uuid "f85e55df-ccf1-4a29-ab8b-2b081b1da284")
         )
-       (pad "35" thru_hole rect
-                (at 17.780000 0.000000)
-                (size 2.54 2)
-                (drill oval 2 1.5)
-                (property pad_prop_castellated)
-                (layers "*.Cu" "*.Mask")
-                (remove_unused_layers no)
-                (thermal_bridge_angle 45)
-                (uuid "f85e55df-ccf1-4a29-ab8b-2b081b1da284")
-        )
-       (pad "36" thru_hole rect
-                (at 17.780000 2.540000)
-                (size 2.54 2)
-                (drill oval 2 1.5)
-                (property pad_prop_castellated)
-                (layers "*.Cu" "*.Mask")
-                (remove_unused_layers no)
-                (thermal_bridge_angle 45)
-                (uuid "f85e55df-ccf1-4a29-ab8b-2b081b1da284")
-        )
-       (pad "37" thru_hole rect
-                (at 17.780000 5.080000)
-                (size 2.54 2)
-                (drill oval 2 1.5)
-                (property pad_prop_castellated)
-                (layers "*.Cu" "*.Mask")
-                (remove_unused_layers no)
-                (thermal_bridge_angle 45)
-                (uuid "f85e55df-ccf1-4a29-ab8b-2b081b1da284")
-        )
-       (pad "38" thru_hole rect
-                (at 17.780000 7.620000)
-                (size 2.54 2)
-                (drill oval 2 1.5)
-                (property pad_prop_castellated)
-                (layers "*.Cu" "*.Mask")
-                (remove_unused_layers no)
-                (thermal_bridge_angle 45)
-                (uuid "f85e55df-ccf1-4a29-ab8b-2b081b1da284")
-        )
-       (pad "39" thru_hole rect
-                (at 17.780000 10.160000)
-                (size 2.54 2)
-                (drill oval 2 1.5)
-                (property pad_prop_castellated)
-                (layers "*.Cu" "*.Mask")
-                (remove_unused_layers no)
-                (thermal_bridge_angle 45)
-                (uuid "f85e55df-ccf1-4a29-ab8b-2b081b1da284")
-        )
-       (pad "40" thru_hole rect
-                (at 17.780000 12.700000)
-                (size 2.54 2)
-                (drill oval 2 1.5)
-                (property pad_prop_castellated)
-                (layers "*.Cu" "*.Mask")
-                (remove_unused_layers no)
-                (thermal_bridge_angle 45)
-                (uuid "f85e55df-ccf1-4a29-ab8b-2b081b1da284")
-        )
-       (pad "41" thru_hole rect
-                (at 17.780000 15.240000)
-                (size 2.54 2)
-                (drill oval 2 1.5)
-                (property pad_prop_castellated)
-                (layers "*.Cu" "*.Mask")
-                (remove_unused_layers no)
-                (thermal_bridge_angle 45)
-                (uuid "f85e55df-ccf1-4a29-ab8b-2b081b1da284")
-        )
-       (pad "42" thru_hole rect
-                (at 17.780000 17.780000)
-                (size 2.54 2)
-                (drill oval 2 1.5)
-                (property pad_prop_castellated)
-                (layers "*.Cu" "*.Mask")
-                (remove_unused_layers no)
-                (thermal_bridge_angle 45)
-                (uuid "f85e55df-ccf1-4a29-ab8b-2b081b1da284")
-        )
-       (pad "43" thru_hole rect
-                (at 17.780000 20.320000)
-                (size 2.54 2)
-                (drill oval 2 1.5)
-                (property pad_prop_castellated)
-                (layers "*.Cu" "*.Mask")
-                (remove_unused_layers no)
-                (thermal_bridge_angle 45)
-                (uuid "f85e55df-ccf1-4a29-ab8b-2b081b1da284")
-        )
-       (pad "44" thru_hole rect
-                (at 17.780000 22.860000)
-                (size 2.54 2)
-                (drill oval 2 1.5)
-                (property pad_prop_castellated)
-                (layers "*.Cu" "*.Mask")
-                (remove_unused_layers no)
-                (thermal_bridge_angle 45)
-                (uuid "f85e55df-ccf1-4a29-ab8b-2b081b1da284")
-        )
-       (pad "45" thru_hole rect
-                (at 17.780000 25.400000)
-                (size 2.54 2)
-                (drill oval 2 1.5)
-                (property pad_prop_castellated)
-                (layers "*.Cu" "*.Mask")
-                (remove_unused_layers no)
-                (thermal_bridge_angle 45)
-                (uuid "f85e55df-ccf1-4a29-ab8b-2b081b1da284")
-        )
-       (pad "46" thru_hole rect
-                (at 17.780000 27.940000)
+       (pad "10" thru_hole rect
+                (at 5.080000 5.080000)
                 (size 2.54 2)
                 (drill oval 2 1.5)
                 (property pad_prop_castellated)
