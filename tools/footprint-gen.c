@@ -570,6 +570,24 @@ void draw_circle(FILE *out, char *layer, float x, float y, float diameter, float
 	  x,y,x,y-diameter/2,width,layer);
 }
 
+void draw_drill_hole(FILE *out, float x, float y, float diameter)
+{
+  fprintf(out,
+	  "       (pad \"\" np_thru_hole circle\n"
+	  "               (at %f %f)\n"
+	  "               (size %f %f)\n"
+	  "               (drill %f)\n"
+	  "               (layers \"F&B.Cu\" \"Edge.Cuts\")\n"
+	  "               (uuid \"39334884-b6dc-45d8-b64f-0368d5b22370\")\n"
+	  "       )\n"
+	  ,
+	  x,y,
+	  diameter,
+	  diameter,
+	  diameter
+	  );
+}
+
 
 void draw_arc(FILE *out, char *layer, float x1, float y1, float xm, float ym, float x2, float y2, float width)
 {
@@ -837,9 +855,10 @@ int main(int argc, char **argv)
 	float diameters[6]={.6,.45,.45,.45,.45,.6};
 	float offset=0.1 + diameters[0]/2;
 	for(int i=0;i<6;i++) {
-	  draw_circle(out,"Edge.Cuts",
-		      -module_width/2 + tab_offset + offset,
-		      module_height/2, diameters[i], 0.05);
+	  draw_drill_hole(out,
+			  -module_width/2 + tab_offset + offset,
+			  module_height/2,
+			  diameters[i]);
 	  offset += circle_offsets[i];
 	}		 
       }
