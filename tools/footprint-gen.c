@@ -544,12 +544,52 @@ void draw_qr_corner(FILE *out,float x, float y, int draw_outer)
 }
 	  
 
-void draw_line(FILE *out,char *layer,float x1, float y1, float x2, float y2)
+void draw_line(FILE *out,char *layer,float x1, float y1, float x2, float y2, float width)
 {
   fprintf(out,
 	  "  (fp_line (start %f %f) (end %f %f)\n"
-	  "    (stroke (width 0.1) (type default)) (layer \"%s\") (tstamp 2c385f8a-f9bf-4768-8345-7af626d58ca0))\n",
-	  x1,y1,x2,y2,layer);
+	  "    (stroke (width %f) (type default)) (layer \"%s\") (tstamp 2c385f8a-f9bf-4768-8345-7af626d58ca0))\n",
+	  x1,y1,x2,y2,width,layer);
+}
+
+void draw_circle(FILE *out, char *layer, float x, float y, float diameter, float width)
+{
+  fprintf(out,
+	  "         (fp_circle\n"
+	  "                (center %f %f)\n"
+	  "                (end %f %f)\n"
+	  "                (stroke\n"
+	  "                        (width %f)\n"
+	  "                        (type default)\n"
+	  "                )\n"
+	  "                (fill none)\n"
+	  "                (layer \"%s\")\n"
+	  "                (uuid \"8b9af24b-14b8-4655-9676-2e957c2621b0\")\n"
+	  "        )\n"
+	  ,
+	  x,y,x,y-diameter/2,width,layer);
+}
+
+
+void draw_arc(FILE *out, char *layer, float x1, float y1, float xm, float ym, float x2, float y2, float width)
+{
+  fprintf(out,
+	  "       (fp_arc\n"
+	  "                (start %f %f)\n"
+	  "                (mid %f %f)\n"
+	  "                (end %f %f)\n"
+	  "                (stroke\n"
+	  "                        (width 0.05)\n"
+	  "                        (type default)\n"
+	  "                )\n"
+	  "                (layer \"%s\")\n"
+	  "                (uuid \"2cfe695a-89f3-455b-b40e-f067e5aa3651\")\n"
+	  "        )\n"
+	  ,
+	  x1,y1,xm,ym,x2,y2,
+	  layer
+	  );
+  
 }
 
 void footprint_exclusion_zone(FILE *out, float x1, float y1, float x2, float y2)
@@ -733,32 +773,84 @@ int main(int argc, char **argv)
 	    );
     
     if (panelised) {
-      float tab_width =  ( .6 + .4 + .35 + .4 + .35 + .4 + .35 + .4 + .35 + .4 + .6 );
+      float tab_width =  ( .1 + .6 + .3975 + .45 + .35 + .45 + .35 + .45 + .35 + .45 + .3975 + .6 + .1 );
       int num_tabs=2;
-      if (module_width < 11 ) num_tabs=1;
-      float first_tab_offset= 0.4;
-      float second_tab_offset = module_width - 0.4 - tab_width;
-      if (num_tabs == 1 ) second_tab_offset = first_tab_offset;
-      draw_line(out,"Edge.Cuts",-module_width/2,module_height/2,-module_width/2 + first_tab_offset,module_height/2);
+      // If not room for two tabs, have just one
+      if (module_width < ( 2+ tab_width + 2 + tab_width + 2 ) ) num_tabs=1;
+      float first_tab_offset= 2;
+      float second_tab_offset = module_width - 2 - tab_width;
+      if (num_tabs == 1 ) {
+	first_tab_offset = module_width/2 - tab_width/2;
+	second_tab_offset = first_tab_offset;
+      }
+
+      // Draw lines either side of the tab(s)
+      draw_line(out,"Edge.Cuts",-module_width/2,module_height/2,-module_width/2 + first_tab_offset,module_height/2,0.05);
       if (num_tabs == 2) {
 	draw_line(out,"Edge.Cuts",
 		  -module_width/2 + first_tab_offset + tab_width,module_height/2,
-		  -module_width/2 + second_tab_offset,module_height/2);
+		  -module_width/2 + second_tab_offset,module_height/2, 0.05);
 	draw_line(out,"Edge.Cuts",
 		  -module_width/2 + second_tab_offset + tab_width,module_height/2,
-		  module_width/2,module_height/2);
+		  module_width/2,module_height/2, 0.05);
       } else {
 	draw_line(out,"Edge.Cuts",
 		  -module_width/2 + first_tab_offset + tab_width,module_height/2,
-		  module_width/2,module_height/2);
+		  module_width/2,module_height/2,0.05);		
       }
+
+      for(int tab = 0;tab < num_tabs ; tab++ ) {
+	float tab_offset = first_tab_offset;
+	if (tab) tab_offset = second_tab_offset;
+
+	// Draw parallel lines around groove
+	draw_line(out,"Edge.Cuts",
+		  -module_width/2 + tab_offset, module_height/2,
+		  -module_width/2 + tab_offset + (.1 + 0.6/2), module_height/2,0.05);
+	draw_line(out,"Edge.Cuts",
+		-module_width/2 + tab_offset, module_height/2 + 1.6,
+		  -module_width/2 + tab_offset + (.1 + 0.6/2), module_height/2 + 1.6,
+		  0.05
+		);
+	draw_line(out,"Edge.Cuts",
+		-module_width/2 + tab_offset + tab_width, module_height/2,
+		  -module_width/2 + tab_offset + tab_width - (.1 + 0.6/2), module_height/2, 0.05);
+	draw_line(out,"Edge.Cuts",
+		-module_width/2 + tab_offset + tab_width, module_height/2 + 1.6,
+		  -module_width/2 + tab_offset + tab_width - (.1 + 0.6/2), module_height/2 + 1.6,
+		  0.05
+		);
+
+	// Draw arcs connecting the lower and upper sides of the groove
+	draw_arc(out,"Edge.Cuts",
+		  -module_width/2 + tab_offset + .4, module_height/2,
+		  -module_width/2 + tab_offset + .4 + 0.8, module_height/2 + 0.8,		 
+		  -module_width/2 + tab_offset + .4, module_height/2 + 1.6,
+		 0.05);
+	draw_arc(out,"Edge.Cuts",
+		  -module_width/2 + tab_offset + tab_width - 0.4, module_height/2,
+		  -module_width/2 + tab_offset + tab_width - 0.4 - 0.8, module_height/2 + 0.8,		 
+		  -module_width/2 + tab_offset + tab_width - 0.4, module_height/2 + 1.6,
+		 0.05);
+
+	float circle_offsets[6]={.9225,.8,.8,.8,.9225,0};
+	float diameters[6]={.6,.45,.45,.45,.45,.6};
+	float offset=0.1 + diameters[0]/2;
+	for(int i=0;i<6;i++) {
+	  draw_circle(out,"Edge.Cuts",
+		      -module_width/2 + tab_offset + offset,
+		      module_height/2, diameters[i], 0.05);
+	  offset += circle_offsets[i];
+	}		 
+      }
+      
     } else {
       // Non-panelised, so just draw the line at the bottom
-      draw_line(out,"Edge.Cuts",-module_width/2,module_height/2,module_width/2,module_height/2);
+      draw_line(out,"Edge.Cuts",-module_width/2,module_height/2,module_width/2,module_height/2,0.05);
     }
-    draw_line(out,"Edge.Cuts",-module_width/2,-module_height/2,module_width/2,-module_height/2);
-    draw_line(out,"Edge.Cuts",-module_width/2,-module_height/2,-module_width/2,module_height/2);
-    draw_line(out,"Edge.Cuts",module_width/2,-module_height/2,module_width/2,module_height/2);
+    draw_line(out,"Edge.Cuts",-module_width/2,-module_height/2,module_width/2,-module_height/2,0.05);
+    draw_line(out,"Edge.Cuts",-module_width/2,-module_height/2,-module_width/2,module_height/2,0.05);
+    draw_line(out,"Edge.Cuts",module_width/2,-module_height/2,module_width/2,module_height/2,0.05);
     
     // Labels for PRY zones
     fprintf(out,
@@ -1046,24 +1138,24 @@ int main(int argc, char **argv)
     if (!edge_type) {
       draw_line(out,"F.SilkS",
 		-module_width/2,-(module_height/2+2.54*1.75+0),
-		-module_width/2,-(module_height/2+2.54*1.75+1.4));
+		-module_width/2,-(module_height/2+2.54*1.75+1.4),0.1);
       draw_line(out,"F.SilkS",
 		-module_width/2,-(module_height/2+2.54*1.75+1.4),
-		module_width/2,-(module_height/2+2.54*1.75+1.4));
+		module_width/2,-(module_height/2+2.54*1.75+1.4),0.1);
       draw_line(out,"F.SilkS",
 		module_width/2,-(module_height/2+2.54*1.75+0),
-		module_width/2,-(module_height/2+2.54*1.75+1.4));
+		module_width/2,-(module_height/2+2.54*1.75+1.4),0.1);
     }
     
     draw_line(out,"F.SilkS",
 	      -module_width/2,(module_height/2+2.54*1.75+0),
-	      -module_width/2,(module_height/2+2.54*1.75+1.4));
+	      -module_width/2,(module_height/2+2.54*1.75+1.4),0.1);
     draw_line(out,"F.SilkS",
 	      -module_width/2,(module_height/2+2.54*1.75+1.4),
-	      module_width/2,(module_height/2+2.54*1.75+1.4));
+	      module_width/2,(module_height/2+2.54*1.75+1.4),0.1);
     draw_line(out,"F.SilkS",
 	      module_width/2,(module_height/2+2.54*1.75+0),
-	      module_width/2,(module_height/2+2.54*1.75+1.4));
+	      module_width/2,(module_height/2+2.54*1.75+1.4),0.1);
     
     // Module outline silkscreen
     fprintf(out,
@@ -1141,22 +1233,22 @@ int main(int argc, char **argv)
     // Draw front courtyard outline
     draw_line(out,"F.CrtYd",
 	      -(module_width/2+2.54*1.0),-(module_height/2+2.54*1.75*(1-edge_type)+0),
-	      -(module_width/2+2.54*1.0),(module_height/2+2.54*1.75+0)
+	      -(module_width/2+2.54*1.0),(module_height/2+2.54*1.75+0),0.05
 	      );
 
     draw_line(out,"F.CrtYd",
 	      -(module_width/2+2.54*1.0),(module_height/2+2.54*1.75+0),
-	      (module_width/2+2.54*1.0),(module_height/2+2.54*1.75+0)
+	      (module_width/2+2.54*1.0),(module_height/2+2.54*1.75+0),0.05
 	      );    
     
     draw_line(out,"F.CrtYd",
 	      (module_width/2+2.54*1.0),-(module_height/2+2.54*1.75*(1-edge_type)+0),
-	      (module_width/2+2.54*1.0),(module_height/2+2.54*1.75+0)
+	      (module_width/2+2.54*1.0),(module_height/2+2.54*1.75+0),0.05
 	      );
 
     draw_line(out,"F.CrtYd",
 	      (module_width/2+2.54*1.0),-(module_height/2+2.54*1.75*(1-edge_type)+0),
-	      -(module_width/2+2.54*1.0),-(module_height/2+2.54*1.75*(1-edge_type)+0)
+	      -(module_width/2+2.54*1.0),-(module_height/2+2.54*1.75*(1-edge_type)+0), 0.05
 	      );    
     
     
