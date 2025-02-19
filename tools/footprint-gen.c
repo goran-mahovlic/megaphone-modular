@@ -877,10 +877,10 @@ int main(int argc, char **argv)
 
 
       // Top Edge cut
-      draw_line(out,"Edge.Cuts",cut_width,-module_height/2,cut_width,module_height/2,0.05);
+      draw_line(out,"Edge.Cuts",-cut_width,-module_height/2,cut_width,-module_height/2,0.05);
 
       // Sides
-      draw_line(out,"Edge.Cuts",cut_width,-module_height/2,cut_width,-module_height/2,0.05);
+      draw_line(out,"Edge.Cuts",cut_width,-module_height/2,cut_width,module_height/2,0.05);
       draw_line(out,"Edge.Cuts",-cut_width,-module_height/2,-cut_width,module_height/2,0.05);
     
       // Labels for PRY zones
