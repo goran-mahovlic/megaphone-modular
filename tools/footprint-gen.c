@@ -163,7 +163,7 @@ void usage(void)
   exit(-1);
 }
 
-void symbol_write(FILE *out,char *symbol,int bay, int half_pin_count, unsigned long long pin_mask, int edge_type, int with_cutout)
+void symbol_write(FILE *out,char *symbol,char *footprint,int bay, int half_pin_count, unsigned long long pin_mask, int edge_type, int with_cutout, char **argv)
 {
   
   float symbol_height = (half_pin_count + 1) * 2.54;
@@ -221,9 +221,9 @@ void symbol_write(FILE *out,char *symbol,int bay, int half_pin_count, unsigned l
 	  ,
 	  symbol,
 	  symbol_top - 2.54 * (half_pin_count + 2),
-	  symbol,
+	  footprint,
 	  symbol_top - 2.54 * (half_pin_count + (3 + bay)),
-	  argv[1],argv[2],argv[3],argv[4],argv[5],
+	  argv[1],argv[2],argv[3],argv[4],argv[5]
 	  );
 
   // Output rectangles for the symbol and the GND and (if not edge version) VCC straps.
@@ -668,8 +668,9 @@ int main(int argc, char **argv)
   double frac =  module_height - ((int)(module_height / 2.54))*2.54;
   if (frac > 0.001) module_height = module_height + (2.54 - frac);
 
-  frac =  module_width - ((int)(module_width / 2.54))*2.54;
-  if (frac > 0.001) module_width = module_width + (2.54 - frac);
+  // Does it really make sense to make the width align to .1" grid?
+  //  frac =  module_width - ((int)(module_width / 2.54))*2.54;
+  //  if (frac > 0.001) module_width = module_width + (2.54 - frac);
 
   int half_pin_count = module_height / 2.54;
 
@@ -1389,9 +1390,9 @@ int main(int argc, char **argv)
 	       edge_type?"-EDGE":""
 	       );
 
-      fprintf(stderr,"INFO: Writing KiCad symbol '%s'\n",filename);
+      fprintf(stderr,"INFO: Writing KiCad symbol '%s' with footprint '%s'\n",filename,bay_footprint_name);
 
-      symbol_write(out,filename,1,half_pin_count,pin_mask,edge_type,with_cutout);      
+      symbol_write(out,filename,bay_footprint_name,1,half_pin_count,pin_mask,edge_type,with_cutout,argv);
       
     }
   }
@@ -1406,9 +1407,9 @@ int main(int argc, char **argv)
 	       edge_type?"-EDGE":""
 	       );
 
-      fprintf(stderr,"INFO: Writing KiCad symbol '%s'\n",filename);
+      fprintf(stderr,"INFO: Writing KiCad symbol '%s' with footprint '%s'\n",filename,footprint_name);
 
-      symbol_write(out,filename,0,half_pin_count,pin_mask,edge_type,with_cutout);
+      symbol_write(out,filename,footprint_name,0,half_pin_count,pin_mask,edge_type,with_cutout,argv);
       
     }
   }
