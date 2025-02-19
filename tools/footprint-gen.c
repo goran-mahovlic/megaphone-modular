@@ -209,7 +209,7 @@ void symbol_write(FILE *out,char *symbol,int bay, int half_pin_count, unsigned l
 	  "                                (hide yes)\n"
 	  "                        )\n"
 	  "                )\n"
-	  "                (property \"Description\" \"\"\n"
+	  "                (property \"Description\" \"Generated using footprint-gen %s %s %s %s %s\"\n"
 	  "                        (at 0 0 0)\n"
 	  "                        (effects\n"
 	  "                                (font\n"
@@ -222,7 +222,8 @@ void symbol_write(FILE *out,char *symbol,int bay, int half_pin_count, unsigned l
 	  symbol,
 	  symbol_top - 2.54 * (half_pin_count + 2),
 	  symbol,
-	  symbol_top - 2.54 * (half_pin_count + (3 + bay))
+	  symbol_top - 2.54 * (half_pin_count + (3 + bay)),
+	  argv[1],argv[2],argv[3],argv[4],argv[5],
 	  );
 
   // Output rectangles for the symbol and the GND and (if not edge version) VCC straps.
@@ -778,7 +779,8 @@ int main(int argc, char **argv)
 	      "       )\n"
 	      );
     
-      fprintf(out,"	 (property \"Description\" \"\"\n"
+      fprintf(out,
+	      "                (property \"Description\" \"Generated using footprint-gen %s %s %s %s %s\"\n"
 	      "                (at 0 0 0)\n"
 	      "                (layer \"F.Fab\")\n"
 	      "                (hide yes)\n"
@@ -790,7 +792,8 @@ int main(int argc, char **argv)
 	      "                        )\n"
 	      "                )\n"
 	      "        )\n"
-	      "        (attr smd)\n"
+	      "        (attr smd)\n",
+	      argv[1],argv[2],argv[3],argv[4],argv[5]
 	      );
 
       // Add 1/16th of an inch to castellated pads if fabricating for nibbling the edges to make the castellations.
