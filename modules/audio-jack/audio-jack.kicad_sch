@@ -149,12 +149,12 @@
 				)
 			)
 		)
-		(symbol "MegaCastle:MegaCastle2x7-Module"
+		(symbol "MegaCastle:MegaCastle2x7-Module-I12.7x13.0-M8314-NOCUTOUT-EDGE"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
 			(property "Reference" "M"
-				(at 0 0 0)
+				(at 0 -12.7 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -169,8 +169,8 @@
 					)
 				)
 			)
-			(property "Footprint" "MegaCastle:MegaCastle2x10Wide"
-				(at 0 5.08 0)
+			(property "Footprint" "MegaCastle:MegaCastle2x7-Module-I12.7x13.0-M8314"
+				(at 0 -15.24 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -187,7 +187,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" ""
+			(property "Description" "Generated using footprint-gen .. 12.7 11.5 5 2"
 				(at 0 0 0)
 				(effects
 					(font
@@ -196,10 +196,10 @@
 					(hide yes)
 				)
 			)
-			(symbol "MegaCastle2x7-Module_0_1"
+			(symbol "MegaCastle2x7-Module-I12.7x13.0-M8314-NOCUTOUT-EDGE_0_1"
 				(rectangle
-					(start -6.35 13.97)
-					(end 7.62 -6.35)
+					(start -6.35 10.16)
+					(end 7.62 -10.16)
 					(stroke
 						(width 0)
 						(type default)
@@ -209,11 +209,19 @@
 					)
 				)
 			)
-			(symbol "MegaCastle2x7-Module_1_1"
+			(symbol "MegaCastle2x7-Module-I12.7x13.0-M8314-NOCUTOUT-EDGE_1_1"
+				(text " BOARD EDGE"
+					(at 0 11.43 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
 				(pin bidirectional line
-					(at -6.35 11.43 0)
+					(at -6.35 7.62 0)
 					(length 2.54)
-					(name "VCC"
+					(name ""
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -229,43 +237,7 @@
 					)
 				)
 				(pin bidirectional line
-					(at 7.62 6.35 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at 7.62 3.81 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at 7.62 1.27 180)
+					(at 7.62 -2.54 180)
 					(length 2.54)
 					(name ""
 						(effects
@@ -283,25 +255,7 @@
 					)
 				)
 				(pin bidirectional line
-					(at 7.62 -1.27 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "13"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at 7.62 -3.81 180)
+					(at 7.62 -7.62 180)
 					(length 2.54)
 					(name ""
 						(effects
@@ -319,79 +273,7 @@
 					)
 				)
 				(pin bidirectional line
-					(at -6.35 6.35 0)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at -6.35 3.81 0)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at -6.35 1.27 0)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at -6.35 -1.27 0)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at -6.35 -3.81 0)
+					(at -6.35 -7.62 0)
 					(length 2.54)
 					(name "GND"
 						(effects
@@ -409,7 +291,7 @@
 					)
 				)
 				(pin bidirectional line
-					(at 7.62 11.43 180)
+					(at 7.62 7.62 180)
 					(length 2.54)
 					(name ""
 						(effects
@@ -419,24 +301,6 @@
 						)
 					)
 					(number "8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at 7.62 8.89 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "9"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -921,40 +785,8 @@
 		)
 	)
 	(no_connect
-		(at 128.27 55.88)
-		(uuid "1cec884f-981f-4986-827e-febdd95973b0")
-	)
-	(no_connect
-		(at 128.27 53.34)
-		(uuid "377ee7e0-bbf3-4321-8ce9-12d936e11a0d")
-	)
-	(no_connect
-		(at 114.3 53.34)
-		(uuid "5c63a190-0fc8-4869-8170-068abb4d8fed")
-	)
-	(no_connect
-		(at 114.3 55.88)
-		(uuid "6276d991-2aed-4f27-8789-352c993567ef")
-	)
-	(no_connect
-		(at 128.27 48.26)
-		(uuid "6645b408-88cf-475a-815b-7d5001825558")
-	)
-	(no_connect
-		(at 128.27 58.42)
-		(uuid "720cac08-27db-48a4-a4b5-3206388d7970")
-	)
-	(no_connect
-		(at 128.27 50.8)
-		(uuid "9ce71cbb-e7ab-4a5e-a14a-904e6e9785d7")
-	)
-	(no_connect
 		(at 114.3 45.72)
 		(uuid "b0aa6e17-5f1d-4f10-852b-93b6e78accb0")
-	)
-	(no_connect
-		(at 114.3 58.42)
-		(uuid "dcc3e6f3-5718-4efd-9adb-cec1bd967d8f")
 	)
 	(wire
 		(pts
@@ -1032,22 +864,22 @@
 	)
 	(global_label "MIC"
 		(shape input)
-		(at 114.3 50.8 180)
+		(at 128.27 55.88 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
 		(uuid "45c6f997-8421-442f-89da-e7baaf5e41fc")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 107.9886 50.8 0)
+			(at 134.5814 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -1115,107 +947,6 @@
 				)
 				(justify left)
 				(hide yes)
-			)
-		)
-	)
-	(symbol
-		(lib_id "MegaCastle:MegaCastle2x7-Module")
-		(at 120.65 57.15 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "01372b1f-4569-4de8-bdca-2fa4a073645f")
-		(property "Reference" "M1"
-			(at 121.285 39.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "~"
-			(at 121.285 41.91 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "MegaCastle:MegaCastle2x7-Module-I12.7x11.5-MA304"
-			(at 120.65 52.07 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 120.65 52.07 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 120.65 57.15 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "3"
-			(uuid "ebeb36a0-b3b6-4c21-bdd1-53ba2cab2da9")
-		)
-		(pin "4"
-			(uuid "a61641cc-70d9-4fd0-b9ae-34a46b36d19a")
-		)
-		(pin "6"
-			(uuid "b3fb9cbc-b830-4182-a15c-82dd054488ac")
-		)
-		(pin "7"
-			(uuid "dd00f2d6-2822-4bd2-b651-3bcdb17c85ee")
-		)
-		(pin "1"
-			(uuid "a535af0d-79e6-46d5-b463-0d1b0d87fa15")
-		)
-		(pin "11"
-			(uuid "2f1b89ca-fcbe-424c-8c23-2f7d09e83fb2")
-		)
-		(pin "8"
-			(uuid "c997086a-af53-4369-bf4c-011d54e20516")
-		)
-		(pin "9"
-			(uuid "ee1dee85-694a-4a56-9de0-85a6e771b2aa")
-		)
-		(pin "5"
-			(uuid "111c6662-2303-4686-a484-3b32aee12851")
-		)
-		(pin "13"
-			(uuid "cf9129e4-8aa6-4754-9b45-ffefc3c0bc6c")
-		)
-		(pin "12"
-			(uuid "7a708e48-784f-4861-8dd2-9ef42a139a5a")
-		)
-		(pin "10"
-			(uuid "97e41f1c-d954-4a8b-a208-42eb5fdf2c17")
-		)
-		(pin "14"
-			(uuid "b0a18603-bb9e-4d7a-a58f-d3695d0e228e")
-		)
-		(instances
-			(project ""
-				(path "/11c40d59-ce80-46cc-9a27-56abc67b9c9a"
-					(reference "M1")
-					(unit 1)
-				)
 			)
 		)
 	)
@@ -1746,6 +1477,83 @@
 			(project "audio-jack"
 				(path "/11c40d59-ce80-46cc-9a27-56abc67b9c9a"
 					(reference "#PWR02")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MegaCastle:MegaCastle2x7-Module-I12.7x13.0-M8314-NOCUTOUT-EDGE")
+		(at 120.65 53.34 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f8c995de-9e6d-468e-92f7-a07ca18b5738")
+		(property "Reference" "M1"
+			(at 121.1538 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "~"
+			(at 121.1538 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "MegaCastle:MegaCastle2x7-Module-I12.7x13.0-M8314-PANEL-NIBBLE"
+			(at 120.65 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 120.65 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generated using footprint-gen .. 12.7 11.5 5 2"
+			(at 120.65 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "8"
+			(uuid "a138fed3-fd7f-47ca-a7a5-2f172c2d6757")
+		)
+		(pin "12"
+			(uuid "7c1a9377-fb81-4931-8f42-1b8a50039ad6")
+		)
+		(pin "1"
+			(uuid "e962aafc-8154-4b1f-9f37-450cb7936e92")
+		)
+		(pin "14"
+			(uuid "e48316e3-7d80-43d6-bf45-23b974ddfdec")
+		)
+		(pin "7"
+			(uuid "a5738b2b-75dc-4d85-9e75-03fb7e7c9bc6")
+		)
+		(instances
+			(project ""
+				(path "/11c40d59-ce80-46cc-9a27-56abc67b9c9a"
+					(reference "M1")
 					(unit 1)
 				)
 			)
