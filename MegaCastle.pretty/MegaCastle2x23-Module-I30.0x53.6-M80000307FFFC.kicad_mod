@@ -68,9 +68,9 @@
     (stroke (width 0.050000) (type default)) (layer "Edge.Cuts") (tstamp 2c385f8a-f9bf-4768-8345-7af626d58ca0))
   (fp_line (start -17.780001 -29.209999) (end 17.780001 -29.209999)
     (stroke (width 0.050000) (type default)) (layer "Edge.Cuts") (tstamp 2c385f8a-f9bf-4768-8345-7af626d58ca0))
-  (fp_line (start -17.780001 -29.209999) (end -17.780001 29.209999)
-    (stroke (width 0.050000) (type default)) (layer "Edge.Cuts") (tstamp 2c385f8a-f9bf-4768-8345-7af626d58ca0))
   (fp_line (start 17.780001 -29.209999) (end 17.780001 29.209999)
+    (stroke (width 0.050000) (type default)) (layer "Edge.Cuts") (tstamp 2c385f8a-f9bf-4768-8345-7af626d58ca0))
+  (fp_line (start -17.780001 -29.209999) (end -17.780001 29.209999)
     (stroke (width 0.050000) (type default)) (layer "Edge.Cuts") (tstamp 2c385f8a-f9bf-4768-8345-7af626d58ca0))
         (fp_text user "PRY"
                 (at 0 -27.91 0)
