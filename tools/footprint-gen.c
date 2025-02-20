@@ -125,14 +125,33 @@ char suffix[128]="";
 char footprint_name[1024];
 char bay_footprint_name[1024];
 
-unsigned long long find_variant(int half_pin_count,int pins_used,int variant,
+unsigned long long find_variant(int half_pin_count,int pins_used,char *variant_str,
 				float co_width,float co_height)
 {
-  if (variant<1) {
-    fprintf(stderr,"ERROR: Variant number must be >=1\n");
-    exit(-1);
+
+  unsigned int variant = atoi(variant_str);
+
+  unsigned long long v=0;
+  
+  if (variant_str[0]=='m'||variant_str[0]=='M') {
+    // Okay, at this point we know how many pins, and the user has requested a
+    // specific pin pattern. So parse out the pin mask directly.
+    // We should support both hex (since its how the files get named) and binary forms.
+    // But for now, we'll just take hex.
+    v = strtoll(&variant_str[1],NULL,16);
+    fprintf(stderr,"INFO: Explicitly selected pin_mask = 0x%x. No sanity checks made on this.\n",
+	    v);
+    if (half_pin_count&1) v=v>>2;
+    
+    // XXX - We could check for the corner pins being set, and the correct total number of bits being set
+    
+  } else {   
+    if (variant<1) {
+      fprintf(stderr,"ERROR: Variant number must be >=1\n");
+      exit(-1);
+    }
+    v = find_nth_valid_vector(half_pin_count*2, pins_used, variant);
   }
-  unsigned long long v = find_nth_valid_vector(half_pin_count*2, pins_used, variant);
   if (half_pin_count&1) {
     // pin count won't be a whole nybl, so shift left 2 bits first.
     sprintf(suffix,"-M%llX",v<<2);
@@ -659,7 +678,8 @@ int main(int argc, char **argv)
   float co_width=atof(argv[2]);
   float co_height=atof(argv[3]);
   float pins_used=atof(argv[4]);
-  int variant=atoi(argv[5]);
+  // variant now gets parsed as a string
+  // int variant=atoi(argv[5]);
 
   double module_height = co_height + 2.4 + 2.4;
   double module_width = co_width + 1.8 + 1.8;
@@ -689,8 +709,11 @@ int main(int argc, char **argv)
   fprintf(stderr,"INFO: Module size = %fx%f mm, %d pins each side.\n",
 	  module_width, module_height, half_pin_count);
 
-  unsigned long long pin_mask = find_variant(half_pin_count,pins_used,variant,
-					     co_width,co_height);
+  unsigned long long pin_mask = 0;
+
+  // Assume variant field is just an ordinal number
+  pin_mask = find_variant(half_pin_count,pins_used,argv[5],
+			  co_width,co_height);  
 
   /* ------------------------------------------------------------------------------
 
