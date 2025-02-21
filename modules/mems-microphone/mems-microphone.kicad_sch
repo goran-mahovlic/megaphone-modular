@@ -262,12 +262,12 @@
 				)
 			)
 		)
-		(symbol "MegaCastle:MegaCastle2x5-Module"
+		(symbol "MegaCastle:MegaCastle2x5-Module-I6.4x7.9-M9C4"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
 			(property "Reference" "M"
-				(at 0 0 0)
+				(at 0 -10.16 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -275,15 +275,15 @@
 				)
 			)
 			(property "Value" ""
-				(at 17.78 0 0)
+				(at 0 5.08 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
 			)
-			(property "Footprint" "MegaCastle:MegaCastle2x5-Module"
-				(at 11.43 -8.89 0)
+			(property "Footprint" "MegaCastle:MegaCastle2x5-Module-I6.4x7.9-M9C4"
+				(at 0 -12.7 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -292,7 +292,7 @@
 				)
 			)
 			(property "Datasheet" ""
-				(at 17.78 0 0)
+				(at 0 5.08 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -300,7 +300,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" ""
+			(property "Description" "Generated using footprint-gen .. 6.4 6 5 M9C4"
 				(at 0 0 0)
 				(effects
 					(font
@@ -309,10 +309,21 @@
 					(hide yes)
 				)
 			)
-			(symbol "MegaCastle2x5-Module_0_1"
+			(symbol "MegaCastle2x5-Module-I6.4x7.9-M9C4_0_1"
 				(rectangle
-					(start -6.35 6.35)
-					(end 6.35 -7.62)
+					(start -6.35 7.62)
+					(end 7.62 -7.62)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -3.35 2.54)
+					(end 4.62 -2.54)
 					(stroke
 						(width 0)
 						(type default)
@@ -322,9 +333,17 @@
 					)
 				)
 			)
-			(symbol "MegaCastle2x5-Module_1_1"
+			(symbol "MegaCastle2x5-Module-I6.4x7.9-M9C4_1_1"
+				(text "REAR ZONE"
+					(at 0.5 0 900)
+					(effects
+						(font
+							(size 1 1)
+						)
+					)
+				)
 				(pin bidirectional line
-					(at -6.35 3.81 0)
+					(at -6.35 5.08 0)
 					(length 2.54)
 					(name "VCC"
 						(effects
@@ -342,7 +361,7 @@
 					)
 				)
 				(pin bidirectional line
-					(at 6.35 -6.35 180)
+					(at 7.62 -5.08 180)
 					(length 2.54)
 					(name ""
 						(effects
@@ -360,25 +379,7 @@
 					)
 				)
 				(pin bidirectional line
-					(at -6.35 -1.27 0)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at -6.35 -3.81 0)
+					(at -6.35 -2.54 0)
 					(length 2.54)
 					(name ""
 						(effects
@@ -396,7 +397,7 @@
 					)
 				)
 				(pin bidirectional line
-					(at -6.35 -6.35 0)
+					(at -6.35 -5.08 0)
 					(length 2.54)
 					(name "GND"
 						(effects
@@ -414,7 +415,7 @@
 					)
 				)
 				(pin bidirectional line
-					(at 6.35 3.81 180)
+					(at 7.62 5.08 180)
 					(length 2.54)
 					(name ""
 						(effects
@@ -424,60 +425,6 @@
 						)
 					)
 					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at 6.35 1.27 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at 6.35 -1.27 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at 6.35 -3.81 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "9"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -794,22 +741,6 @@
 		(color 0 0 0 0)
 		(uuid "d37f17e0-cb51-4ebd-b3be-596fe8d7ab18")
 	)
-	(no_connect
-		(at 86.36 88.9)
-		(uuid "78e7fd6f-d26b-4acf-874f-b1137ceae91d")
-	)
-	(no_connect
-		(at 73.66 91.44)
-		(uuid "9d18fd41-cd8a-4802-bfc7-6b4aac412a06")
-	)
-	(no_connect
-		(at 86.36 93.98)
-		(uuid "cce4c0e5-76b5-4a1f-8cf6-f6c398b191d9")
-	)
-	(no_connect
-		(at 86.36 91.44)
-		(uuid "d13841a2-ddbc-466c-b106-f9782753803c")
-	)
 	(wire
 		(pts
 			(xy 87.63 45.72) (xy 77.47 45.72)
@@ -978,7 +909,7 @@
 	)
 	(global_label "DATA"
 		(shape output)
-		(at 86.36 96.52 0)
+		(at 87.63 96.52 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -988,7 +919,7 @@
 		)
 		(uuid "1b4996db-7397-47b6-9161-537bd97ec2c0")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 93.76 96.52 0)
+			(at 95.03 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1022,7 +953,7 @@
 	)
 	(global_label "CLOCK"
 		(shape input)
-		(at 86.36 86.36 0)
+		(at 87.63 86.36 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1032,7 +963,7 @@
 		)
 		(uuid "7df58df0-5905-4658-93ca-49676369e83f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 95.5138 86.36 0)
+			(at 96.7838 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1127,6 +1058,83 @@
 				)
 				(justify left)
 				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MegaCastle:MegaCastle2x5-Module-I6.4x7.9-M9C4")
+		(at 80.01 91.44 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0cc41671-26f2-4ac6-8592-6329c6f78452")
+		(property "Reference" "M1"
+			(at 80.645 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "~"
+			(at 80.645 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "MegaCastle:MegaCastle2x5-Module-I6.4x7.9-M9C4"
+			(at 80.01 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 80.01 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generated using footprint-gen .. 6.4 6 5 M9C4"
+			(at 80.01 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "4"
+			(uuid "1750b7c6-60b0-49c5-b8b0-72d3c91426de")
+		)
+		(pin "1"
+			(uuid "4693624d-f699-4d6d-a0c1-e98c92f4756b")
+		)
+		(pin "5"
+			(uuid "3e01cacb-3552-4391-9a56-a743cab60c4b")
+		)
+		(pin "10"
+			(uuid "61798337-c598-41e3-8348-7c5ebcc7457a")
+		)
+		(pin "6"
+			(uuid "cfeea445-f712-49de-a702-c7184ba27770")
+		)
+		(instances
+			(project ""
+				(path "/e00fa767-96d8-4813-9886-8a9eb239d9ae"
+					(reference "M1")
+					(unit 1)
+				)
 			)
 		)
 	)
@@ -1343,95 +1351,6 @@
 			(project ""
 				(path "/e00fa767-96d8-4813-9886-8a9eb239d9ae"
 					(reference "MK1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "MegaCastle:MegaCastle2x5-Module")
-		(at 80.01 90.17 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "4433a5b9-f5a8-4bb1-a4be-dc332e83cf48")
-		(property "Reference" "M1"
-			(at 80.01 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "~"
-			(at 80.01 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "MegaCastle:MegaCastle2x5-Module-M9C4"
-			(at 91.44 99.06 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 97.79 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 80.01 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "8"
-			(uuid "6c06e18a-476d-4e53-868a-95b50aca39e0")
-		)
-		(pin "6"
-			(uuid "19aecd19-bbb8-4df7-b321-8b846d351a82")
-		)
-		(pin "5"
-			(uuid "469ce790-843d-4fb3-af50-b51b59f70bdb")
-		)
-		(pin "4"
-			(uuid "8b8763ec-b740-45b8-a366-1d3335cf7944")
-		)
-		(pin "7"
-			(uuid "d5c98074-dff1-41f4-b5d5-cdc4191ad1e0")
-		)
-		(pin "10"
-			(uuid "317400c3-5c02-4e01-8b36-c41bf3ef21f7")
-		)
-		(pin "9"
-			(uuid "c541130d-0287-4025-b3ea-5b6eaa929b27")
-		)
-		(pin "3"
-			(uuid "7fbbdea4-4878-4ec0-9642-c2563d83bc88")
-		)
-		(pin "1"
-			(uuid "afba95f2-1ceb-42eb-b02d-215d2bbb6cd5")
-		)
-		(instances
-			(project ""
-				(path "/e00fa767-96d8-4813-9886-8a9eb239d9ae"
-					(reference "M1")
 					(unit 1)
 				)
 			)
