@@ -154,13 +154,13 @@ unsigned long long find_variant(int half_pin_count,int pins_used,char *variant_s
   }
   if (half_pin_count&1) {
     // pin count won't be a whole nybl, so shift left 2 bits first.
-    sprintf(suffix,"-M%llX",v<<2);
+    sprintf(suffix,"M%llX",v<<2);
   } else 
-    sprintf(suffix,"-M%llX",v);
-  sprintf(footprint_name,"MegaCastle2x%d-Module-I%.1fx%.1f%s",
+    sprintf(suffix,"M%llX",v);
+  sprintf(footprint_name,"MegaCastle2x%d-Module-I%.1fx%.1f-%s",
 	  half_pin_count,co_width,co_height,
 	  suffix);
-  sprintf(bay_footprint_name,"MegaCastle2x%d-I%.1fx%.1f%s",
+  sprintf(bay_footprint_name,"MegaCastle2x%d-I%.1fx%.1f-%s",
 	  half_pin_count,co_width,co_height,
 	  suffix);
   return reverse_bits(v,half_pin_count*2);
@@ -242,7 +242,7 @@ void symbol_write(FILE *out,char *symbol,char *footprint,int bay, int half_pin_c
 	  symbol_top - 2.54 * (half_pin_count + 2),
 	  footprint,
 	  symbol_top - 2.54 * (half_pin_count + (3 + bay)),
-	  argv[1],argv[2],argv[3],argv[4],argv[5]
+	  argv[1],argv[2],argv[3],argv[4],suffix
 	  );
 
   // Output rectangles for the symbol and the GND and (if not edge version) VCC straps.
@@ -817,7 +817,7 @@ int main(int argc, char **argv)
 	      "                )\n"
 	      "        )\n"
 	      "        (attr smd)\n",
-	      argv[1],argv[2],argv[3],argv[4],argv[5]
+	      argv[1],argv[2],argv[3],argv[4],suffix
 	      );
 
       // Add 1/16th of an inch to castellated pads if fabricating for nibbling the edges to make the castellations.
