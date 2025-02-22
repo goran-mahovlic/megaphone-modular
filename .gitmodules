@@ -1,3 +1,6 @@
 [submodule "modules/mppt-charge-controller"]
 	path = modules/mppt-charge-controller
 	url = git@github.com:gardners/mppt-charge-controller.git
+[submodule "modules/megaphone-low-current-dc-dc-converter"]
+	path = modules/megaphone-low-current-dc-dc-converter
+	url = git@github.com:gardners/megaphone-low-current-dc-dc-converter.git
