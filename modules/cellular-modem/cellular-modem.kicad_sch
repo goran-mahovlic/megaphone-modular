@@ -2486,7 +2486,7 @@
 				)
 			)
 		)
-		(symbol "MegaCastle:MegaCastle2x28-Module-I36.0x66.3-M800007FFFFFFFF-NOCUTOUT"
+		(symbol "MegaCastle:MegaCastle2x28-Module-I36.0x66.3-MB00007FFFFFFFF-NOCUTOUT"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -2506,7 +2506,7 @@
 					)
 				)
 			)
-			(property "Footprint" "MegaCastle:MegaCastle2x28-Module-I36.0x66.3-M800007FFFFFFFF"
+			(property "Footprint" "MegaCastle:MegaCastle2x28-Module-I36.0x66.3-MB00007FFFFFFFF"
 				(at 0 -41.91 0)
 				(effects
 					(font
@@ -2524,7 +2524,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Generated using footprint-gen .. 36 65 36 M800007FFFFFFFF"
+			(property "Description" "Generated using footprint-gen .. 36 65 36 MB00007FFFFFFFF"
 				(at 0 0 0)
 				(effects
 					(font
@@ -2533,7 +2533,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "MegaCastle2x28-Module-I36.0x66.3-M800007FFFFFFFF-NOCUTOUT_0_1"
+			(symbol "MegaCastle2x28-Module-I36.0x66.3-MB00007FFFFFFFF-NOCUTOUT_0_1"
 				(rectangle
 					(start -6.35 36.83)
 					(end 7.62 -36.83)
@@ -2546,7 +2546,7 @@
 					)
 				)
 			)
-			(symbol "MegaCastle2x28-Module-I36.0x66.3-M800007FFFFFFFF-NOCUTOUT_1_1"
+			(symbol "MegaCastle2x28-Module-I36.0x66.3-MB00007FFFFFFFF-NOCUTOUT_1_1"
 				(pin bidirectional line
 					(at -6.35 34.29 0)
 					(length 2.54)
@@ -2702,6 +2702,24 @@
 						)
 					)
 					(number "29"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -6.35 29.21 0)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2882,6 +2900,24 @@
 						)
 					)
 					(number "39"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -6.35 26.67 0)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -6773,6 +6809,28 @@
 			)
 		)
 	)
+	(global_label "1V8"
+		(shape bidirectional)
+		(at 30.48 124.46 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e5adb5bb-5517-4218-b750-ef1ce2e0807b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 22.8759 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "{slash}W_DISABLE_3V3"
 		(shape input)
 		(at 44.45 129.54 0)
@@ -6791,6 +6849,28 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "3V3"
+		(shape bidirectional)
+		(at 30.48 127 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "f376c5ee-ce8f-4cdc-b104-6e44291ccfdc")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 22.8759 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -7276,176 +7356,6 @@
 			(project "cellular-modem"
 				(path "/702a66ff-d41c-40a3-a8d1-3e4f59e31d29"
 					(reference "#PWR010")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "MegaCastle:MegaCastle2x28-Module-I36.0x66.3-M800007FFFFFFFF-NOCUTOUT")
-		(at 36.83 153.67 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "101f1c4b-df5d-4fd9-afca-ec7f480b680f")
-		(property "Reference" "M1"
-			(at 37.465 113.03 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "~"
-			(at 37.465 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "MegaCastle:MegaCastle2x28-Module-I36.0x66.3-M800007FFFFFFFF-NIBBLE"
-			(at 36.83 195.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 36.83 148.59 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generated using footprint-gen .. 36 65 36 M800007FFFFFFFF"
-			(at 36.83 153.67 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "35"
-			(uuid "f5236aa1-43fb-4103-9e38-670ca5919a25")
-		)
-		(pin "48"
-			(uuid "17222b00-099d-478c-8a6d-aec3f16333c1")
-		)
-		(pin "52"
-			(uuid "d77536e4-750b-4db0-83cc-47486a7411ad")
-		)
-		(pin "50"
-			(uuid "1d430d87-a91f-4728-82f9-f7ce284b61d8")
-		)
-		(pin "38"
-			(uuid "c3f5b743-9e1e-4a54-9611-ac655cba4eb4")
-		)
-		(pin "41"
-			(uuid "4b16d218-f969-4aba-90a4-85b0def87411")
-		)
-		(pin "29"
-			(uuid "7167c604-30f4-473f-8d82-bd8a8c5f01a5")
-		)
-		(pin "44"
-			(uuid "9ad06a6c-e6ec-468e-8819-90cbae4fe60b")
-		)
-		(pin "39"
-			(uuid "6a084c49-c903-498f-8997-fa9263008019")
-		)
-		(pin "34"
-			(uuid "c0ba6aff-6395-4223-9352-c9b73a1510cb")
-		)
-		(pin "49"
-			(uuid "7f223f9d-b4f6-4761-a60a-2f24ab1c4442")
-		)
-		(pin "1"
-			(uuid "5889bf99-4271-449f-a181-fbcc450187b2")
-		)
-		(pin "22"
-			(uuid "40014c82-04d6-4d22-9eb1-b5f2b1793883")
-		)
-		(pin "40"
-			(uuid "fea4b643-76a5-4b6c-aa9f-7d42a98e9daf")
-		)
-		(pin "23"
-			(uuid "b6055764-4002-42e9-a5ef-bf82a1af6a0a")
-		)
-		(pin "42"
-			(uuid "3f804801-5a41-48c5-b060-22dac457bf24")
-		)
-		(pin "25"
-			(uuid "767551b6-ec0d-4422-aadb-ab047e92f7a5")
-		)
-		(pin "27"
-			(uuid "4a43d30c-f25a-45df-b541-721e0ed9311c")
-		)
-		(pin "54"
-			(uuid "e08fa7bc-1ed0-44ca-bc1f-7d8d7019b889")
-		)
-		(pin "26"
-			(uuid "86652b84-c305-4f46-9f1d-7cbe9bdf4d8c")
-		)
-		(pin "32"
-			(uuid "969b3827-6abc-4784-b44c-f70db6c6434d")
-		)
-		(pin "36"
-			(uuid "7075d794-41d2-434b-8776-97b8a11bb5b2")
-		)
-		(pin "53"
-			(uuid "62d10457-1bdf-4b95-b3cb-321f659d694f")
-		)
-		(pin "51"
-			(uuid "44c6b683-2b65-4309-a2b3-a43a8fca5de6")
-		)
-		(pin "55"
-			(uuid "247a6844-e1fe-424c-90dd-20224d6ca4a9")
-		)
-		(pin "45"
-			(uuid "f44e3e45-4ceb-4533-8c74-a270069edaaf")
-		)
-		(pin "47"
-			(uuid "5b107cec-3a7c-4388-85ca-9dd5485befaf")
-		)
-		(pin "56"
-			(uuid "3d56e1f4-f402-4840-8d4e-69171791a24d")
-		)
-		(pin "24"
-			(uuid "a345a4f1-d8a9-476b-b4ad-84e5ac83fbe6")
-		)
-		(pin "28"
-			(uuid "88ce8807-3287-4b55-856e-271720544d66")
-		)
-		(pin "31"
-			(uuid "7d15dc8f-1177-44d0-b537-add7756426d0")
-		)
-		(pin "43"
-			(uuid "d7a80689-c4c7-4082-873a-272765220ee2")
-		)
-		(pin "33"
-			(uuid "5237ef13-ad1a-454b-8eaa-67db67e56c84")
-		)
-		(pin "46"
-			(uuid "c178fccf-00a3-44f7-9265-bd82b1c0655e")
-		)
-		(pin "37"
-			(uuid "c451d2b0-2f1c-4684-97d1-0c6200a3c00a")
-		)
-		(pin "30"
-			(uuid "b9bf410e-7f95-4828-8047-7d3de36683bf")
-		)
-		(instances
-			(project ""
-				(path "/702a66ff-d41c-40a3-a8d1-3e4f59e31d29"
-					(reference "M1")
 					(unit 1)
 				)
 			)
@@ -8479,6 +8389,182 @@
 			(project "cellular-modem"
 				(path "/702a66ff-d41c-40a3-a8d1-3e4f59e31d29"
 					(reference "#PWR09")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "MegaCastle:MegaCastle2x28-Module-I36.0x66.3-MB00007FFFFFFFF-NOCUTOUT")
+		(at 36.83 153.67 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "55fa7819-46ed-4ec8-a089-f8976ef3eda8")
+		(property "Reference" "M1"
+			(at 37.465 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "~"
+			(at 37.465 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "MegaCastle:MegaCastle2x28-Module-I36.0x66.3-MB00007FFFFFFFF-NIBBLE"
+			(at 36.83 195.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 36.83 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generated using footprint-gen .. 36 65 36 MB00007FFFFFFFF"
+			(at 36.83 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "39"
+			(uuid "6f26025a-6a98-44af-908e-328110ae9d21")
+		)
+		(pin "45"
+			(uuid "ad38292e-f5c3-4bf2-8190-3ee9513c7c8b")
+		)
+		(pin "4"
+			(uuid "cb759321-7735-47ff-9a1a-17618d873681")
+		)
+		(pin "29"
+			(uuid "fc8c2a6c-77a1-48cb-a143-eb21f758f9a8")
+		)
+		(pin "30"
+			(uuid "e0ccd2ef-4d2b-4f0e-8df2-31a7e82e0d7a")
+		)
+		(pin "52"
+			(uuid "ba44784d-75a5-46f3-a67e-a03f091d7e95")
+		)
+		(pin "51"
+			(uuid "ac8d232a-4089-4f8b-8e54-2694e4f0662c")
+		)
+		(pin "43"
+			(uuid "44fe5025-bc18-44ef-9b10-8bae84317a5a")
+		)
+		(pin "37"
+			(uuid "9d68d4fb-8afa-48f1-ba96-ded0fe96ee08")
+		)
+		(pin "49"
+			(uuid "6d016112-bfd0-49de-ba58-503ecec67f5b")
+		)
+		(pin "56"
+			(uuid "11affc48-cf20-4a2c-842a-ee9fec5592cc")
+		)
+		(pin "31"
+			(uuid "ca56435f-7e03-4158-84e4-78c25555c910")
+		)
+		(pin "36"
+			(uuid "e4e21b03-17fd-49e8-8292-071eb33b00b8")
+		)
+		(pin "53"
+			(uuid "e95c013f-3006-4556-aec6-2c006c516748")
+		)
+		(pin "44"
+			(uuid "b7b4f9d9-123e-46bc-9246-413284715b2f")
+		)
+		(pin "47"
+			(uuid "35c53aca-779f-4536-800c-ba42d27332df")
+		)
+		(pin "3"
+			(uuid "dcf2ec3f-0f1f-4f52-8428-e8ad74a9c0a0")
+		)
+		(pin "32"
+			(uuid "3e892e08-bb88-460b-8f85-5000646b311f")
+		)
+		(pin "26"
+			(uuid "291fb0fd-3c29-4aa4-91b1-171ce6d8ff7e")
+		)
+		(pin "25"
+			(uuid "fce3d1fa-a060-4237-a040-bc5862be14b1")
+		)
+		(pin "35"
+			(uuid "2a857d5f-85e9-400e-afc8-79161e60ed23")
+		)
+		(pin "40"
+			(uuid "e12b0d29-6174-49cf-b90c-551cce5ee3d8")
+		)
+		(pin "24"
+			(uuid "446ce175-e314-48e1-b489-75af2c33c226")
+		)
+		(pin "22"
+			(uuid "5de48ec9-2a94-49f6-8793-86c9e965f065")
+		)
+		(pin "38"
+			(uuid "112b0331-8420-4328-8765-ed0d4035e3ce")
+		)
+		(pin "27"
+			(uuid "7aa9ab67-1c62-4c04-881d-d234544b4390")
+		)
+		(pin "42"
+			(uuid "d3410518-09bc-44e2-a1e2-05b37bb4f2ca")
+		)
+		(pin "55"
+			(uuid "6d8664fb-842a-4165-9fb1-db3839ad13e0")
+		)
+		(pin "54"
+			(uuid "9392ff16-ba13-41b9-8507-bec925615044")
+		)
+		(pin "48"
+			(uuid "7c2ea802-687e-4389-b95a-8a6c0d5652b7")
+		)
+		(pin "23"
+			(uuid "62934c61-e185-452a-8452-83254dd890a8")
+		)
+		(pin "33"
+			(uuid "0289082e-d29d-4221-9222-d6a307632172")
+		)
+		(pin "1"
+			(uuid "90621857-284a-42db-a817-f721621f0f13")
+		)
+		(pin "46"
+			(uuid "34760968-c3ab-4558-beeb-8a6b4d702325")
+		)
+		(pin "34"
+			(uuid "f8baf12d-ee40-4db5-95e6-12c661fceea9")
+		)
+		(pin "50"
+			(uuid "d3cee43a-0846-4351-928a-6b9712fb4ace")
+		)
+		(pin "28"
+			(uuid "07e471c2-b2a8-4f00-b6da-907dae5d31bf")
+		)
+		(pin "41"
+			(uuid "086b6457-ccc0-4d72-8fd9-b747c72a9d66")
+		)
+		(instances
+			(project ""
+				(path "/702a66ff-d41c-40a3-a8d1-3e4f59e31d29"
+					(reference "M1")
 					(unit 1)
 				)
 			)
