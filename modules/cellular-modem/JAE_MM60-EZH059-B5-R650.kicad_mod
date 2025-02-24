@@ -1,5 +1,5 @@
 
-(footprint JAE_MM60-EZH059-B5-R650 (layer F.Cu) (tedit 67BB0B8C)
+(footprint JAE_MM60-EZH059-B5-R650 (layer F.Cu) (tedit 67BC87CB)
   (descr "")
   (attr smd)
   (fp_text reference REF** (at -11.575 -4.885 0) (layer F.SilkS)
