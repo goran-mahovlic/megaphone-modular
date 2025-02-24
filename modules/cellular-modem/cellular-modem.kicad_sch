@@ -1015,7 +1015,7 @@
 				)
 			)
 			(property "Value" "MM60-EZH059-B5-R650"
-				(at -7.62 -7.62 0)
+				(at -14.478 -15.24 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -1024,7 +1024,7 @@
 				)
 			)
 			(property "Footprint" "MM60-EZH059-B5-R650:JAE_MM60-EZH059-B5-R650"
-				(at 0 0 0)
+				(at -1.016 11.176 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -1052,7 +1052,7 @@
 				)
 			)
 			(property "PARTREV" "3"
-				(at 0 0 0)
+				(at 2.54 16.002 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -1062,7 +1062,7 @@
 				)
 			)
 			(property "MANUFACTURER" "JAE"
-				(at 0 0 0)
+				(at -2.54 15.748 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -1072,7 +1072,7 @@
 				)
 			)
 			(property "MAXIMUM_PACKAGE_HEIGHT" "7.0 mm"
-				(at 0 0 0)
+				(at -0.508 5.842 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -1082,7 +1082,7 @@
 				)
 			)
 			(property "STANDARD" "Manufacturer Recommendations"
-				(at 0 0 0)
+				(at -1.524 8.128 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -1093,8 +1093,8 @@
 			)
 			(symbol "MM60-EZH059-B5-R650_0_0"
 				(rectangle
-					(start -7.62 -5.08)
-					(end 7.62 5.08)
+					(start -7.62 5.08)
+					(end 3.81 -12.7)
 					(stroke
 						(width 0.254)
 						(type default)
@@ -1122,7 +1122,7 @@
 					)
 				)
 				(pin passive line
-					(at -12.7 -2.54 0)
+					(at -12.7 0 0)
 					(length 5.08)
 					(name "SHIELD2"
 						(effects
@@ -1132,6 +1132,80 @@
 						)
 					)
 					(number "S2_1"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+			)
+			(symbol "MM60-EZH059-B5-R650_1_0"
+				(pin passive line
+					(at -12.7 -2.54 0)
+					(length 5.08)
+					(name "SHIELD1"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "S1_2"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -12.7 -7.62 0)
+					(length 5.08)
+					(name "SHIELD1"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "S1_3"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -12.7 -5.08 0)
+					(length 5.08)
+					(name "SHIELD2"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "S2_2"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -12.7 -10.16 0)
+					(length 5.08)
+					(name "SHIELD2"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "S2_3"
 						(effects
 							(font
 								(size 1.016 1.016)
@@ -3591,6 +3665,24 @@
 		(uuid "3f859b1b-babb-4ccb-a0f5-75b7111ccad0")
 	)
 	(junction
+		(at 165.1 97.79)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4c526b73-258c-49bd-8aad-0b5e7911e638")
+	)
+	(junction
+		(at 165.1 107.95)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5023e910-1e18-4b4f-8ea0-a62c778cdcd6")
+	)
+	(junction
+		(at 165.1 105.41)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5bc34146-61d1-4dcd-8187-f7887e6b3927")
+	)
+	(junction
 		(at 104.14 21.59)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3601,6 +3693,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "861546a4-13e4-429c-bb20-b0570f6c1ec2")
+	)
+	(junction
+		(at 165.1 102.87)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8771c761-00b5-458c-857d-4f18d5d696a7")
 	)
 	(junction
 		(at 219.71 57.15)
@@ -3980,6 +4078,16 @@
 	)
 	(wire
 		(pts
+			(xy 165.1 105.41) (xy 165.1 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "35931f6d-4e55-4e3d-9bc8-307f1b1282fb")
+	)
+	(wire
+		(pts
 			(xy 219.71 54.61) (xy 219.71 57.15)
 		)
 		(stroke
@@ -3997,16 +4105,6 @@
 			(type default)
 		)
 		(uuid "409079dc-6dd0-4978-bbf8-248930e76ada")
-	)
-	(wire
-		(pts
-			(xy 165.1 100.33) (xy 165.1 105.41)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "430f178d-b0af-402e-b76c-7a840734a281")
 	)
 	(wire
 		(pts
@@ -4160,6 +4258,16 @@
 	)
 	(wire
 		(pts
+			(xy 165.1 97.79) (xy 165.1 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "75809257-c554-4b53-a742-b31f712acfc2")
+	)
+	(wire
+		(pts
 			(xy 91.44 95.25) (xy 99.06 95.25)
 		)
 		(stroke
@@ -4260,6 +4368,16 @@
 	)
 	(wire
 		(pts
+			(xy 165.1 100.33) (xy 165.1 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "abc13832-501a-4046-867a-01b3a15fe8b0")
+	)
+	(wire
+		(pts
 			(xy 181.61 142.24) (xy 181.61 144.78)
 		)
 		(stroke
@@ -4340,16 +4458,6 @@
 	)
 	(wire
 		(pts
-			(xy 165.1 95.25) (xy 165.1 100.33)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c57b1a4a-932e-49a6-a120-2aadb15bf650")
-	)
-	(wire
-		(pts
 			(xy 116.84 116.84) (xy 119.38 116.84)
 		)
 		(stroke
@@ -4357,6 +4465,16 @@
 			(type default)
 		)
 		(uuid "c8eb8ca1-dd12-4cab-a483-0855084633df")
+	)
+	(wire
+		(pts
+			(xy 165.1 107.95) (xy 165.1 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c98b2b04-6d62-4745-a103-6f1a94d976ec")
 	)
 	(wire
 		(pts
@@ -4440,6 +4558,16 @@
 	)
 	(wire
 		(pts
+			(xy 165.1 102.87) (xy 165.1 105.41)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ea0f010c-47a8-42a7-9f10-ab80db15313c")
+	)
+	(wire
+		(pts
 			(xy 119.38 116.84) (xy 119.38 121.92)
 		)
 		(stroke
@@ -4507,6 +4635,16 @@
 			(type default)
 		)
 		(uuid "f926c577-e7d8-4279-9c75-ae2d0b9dcf88")
+	)
+	(wire
+		(pts
+			(xy 165.1 95.25) (xy 165.1 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fcf320be-6cbd-45cd-82bd-89325ab4af0e")
 	)
 	(wire
 		(pts
@@ -10086,7 +10224,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "cellular-modem:JAE_MM60-EZH059-B5-R650"
+		(property "Footprint" "MM60-EZH059-B5-R650:JAE_MM60-EZH059-B5-R650"
 			(at 177.8 97.79 0)
 			(effects
 				(font
@@ -10159,6 +10297,18 @@
 		)
 		(pin "S1_1"
 			(uuid "19dc655a-4b3c-4f97-bce9-0e9b5365b283")
+		)
+		(pin "S2_3"
+			(uuid "8e1c3a5f-8293-47fb-829e-6ac4e732b9b8")
+		)
+		(pin "S1_3"
+			(uuid "0b51687c-412c-44a7-a8b9-b5cbaf0b3963")
+		)
+		(pin "S2_2"
+			(uuid "9617b694-1ce2-48f9-82c0-00bf9407ce6c")
+		)
+		(pin "S1_2"
+			(uuid "eb1ec5da-ec3b-4cac-a25e-5f66a163e7d1")
 		)
 		(instances
 			(project ""
@@ -10375,7 +10525,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 165.1 105.41 0)
+		(at 165.1 110.49 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10384,7 +10534,7 @@
 		(fields_autoplaced yes)
 		(uuid "f125cf0d-3614-454a-9abf-2e815bf66bca")
 		(property "Reference" "#PWR025"
-			(at 165.1 111.76 0)
+			(at 165.1 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10393,7 +10543,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 165.1 110.49 0)
+			(at 165.1 115.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10401,7 +10551,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 165.1 105.41 0)
+			(at 165.1 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10410,7 +10560,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 165.1 105.41 0)
+			(at 165.1 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10419,7 +10569,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 165.1 105.41 0)
+			(at 165.1 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)

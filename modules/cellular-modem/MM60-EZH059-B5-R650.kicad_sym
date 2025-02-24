@@ -19,7 +19,7 @@
 			)
 		)
 		(property "Value" "MM60-EZH059-B5-R650"
-			(at -7.62 -7.62 0)
+			(at -14.478 -15.24 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -28,7 +28,7 @@
 			)
 		)
 		(property "Footprint" "MM60-EZH059-B5-R650:JAE_MM60-EZH059-B5-R650"
-			(at 0 0 0)
+			(at -1.016 11.176 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -56,7 +56,7 @@
 			)
 		)
 		(property "PARTREV" "3"
-			(at 0 0 0)
+			(at 2.54 16.002 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -66,7 +66,7 @@
 			)
 		)
 		(property "MANUFACTURER" "JAE"
-			(at 0 0 0)
+			(at -2.54 15.748 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -76,7 +76,7 @@
 			)
 		)
 		(property "MAXIMUM_PACKAGE_HEIGHT" "7.0 mm"
-			(at 0 0 0)
+			(at -0.508 5.842 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -86,7 +86,7 @@
 			)
 		)
 		(property "STANDARD" "Manufacturer Recommendations"
-			(at 0 0 0)
+			(at -1.524 8.128 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -97,8 +97,8 @@
 		)
 		(symbol "MM60-EZH059-B5-R650_0_0"
 			(rectangle
-				(start -7.62 -5.08)
-				(end 7.62 5.08)
+				(start -7.62 5.08)
+				(end 3.81 -12.7)
 				(stroke
 					(width 0.254)
 					(type default)
@@ -126,7 +126,7 @@
 				)
 			)
 			(pin passive line
-				(at -12.7 -2.54 0)
+				(at -12.7 0 0)
 				(length 5.08)
 				(name "SHIELD2"
 					(effects
@@ -136,6 +136,80 @@
 					)
 				)
 				(number "S2_1"
+					(effects
+						(font
+							(size 1.016 1.016)
+						)
+					)
+				)
+			)
+		)
+		(symbol "MM60-EZH059-B5-R650_1_0"
+			(pin passive line
+				(at -12.7 -2.54 0)
+				(length 5.08)
+				(name "SHIELD1"
+					(effects
+						(font
+							(size 1.016 1.016)
+						)
+					)
+				)
+				(number "S1_2"
+					(effects
+						(font
+							(size 1.016 1.016)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -12.7 -7.62 0)
+				(length 5.08)
+				(name "SHIELD1"
+					(effects
+						(font
+							(size 1.016 1.016)
+						)
+					)
+				)
+				(number "S1_3"
+					(effects
+						(font
+							(size 1.016 1.016)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -12.7 -5.08 0)
+				(length 5.08)
+				(name "SHIELD2"
+					(effects
+						(font
+							(size 1.016 1.016)
+						)
+					)
+				)
+				(number "S2_2"
+					(effects
+						(font
+							(size 1.016 1.016)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -12.7 -10.16 0)
+				(length 5.08)
+				(name "SHIELD2"
+					(effects
+						(font
+							(size 1.016 1.016)
+						)
+					)
+				)
+				(number "S2_3"
 					(effects
 						(font
 							(size 1.016 1.016)
