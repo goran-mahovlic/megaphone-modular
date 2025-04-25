@@ -431,7 +431,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "bluetooth.kicad_pro",
+    "filename": "lcd-panel.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -466,7 +466,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "gerbers/",
+      "plot": "",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",
@@ -576,7 +576,7 @@
   },
   "sheets": [
     [
-      "12e2252b-55c0-462f-8222-acbf3d909cf0",
+      "a5393eb4-a687-4951-bf52-e6648ad19b9f",
       "Root"
     ]
   ],
