@@ -1,12 +1,14 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "e00fa767-96d8-4813-9886-8a9eb239d9ae")
 	(paper "A4")
 	(lib_symbols
 		(symbol "Device:C"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0.254)
 			)
@@ -79,7 +81,7 @@
 			(symbol "C_0_1"
 				(polyline
 					(pts
-						(xy -2.032 -0.762) (xy 2.032 -0.762)
+						(xy -2.032 0.762) (xy 2.032 0.762)
 					)
 					(stroke
 						(width 0.508)
@@ -91,7 +93,7 @@
 				)
 				(polyline
 					(pts
-						(xy -2.032 0.762) (xy 2.032 0.762)
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
 					)
 					(stroke
 						(width 0.508)
@@ -140,9 +142,12 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Device:R"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
 			)
@@ -261,6 +266,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "MegaCastle:MegaCastle2x5-Module-I6.4x7.9-M9C4"
 			(exclude_from_sim no)
@@ -361,24 +367,6 @@
 					)
 				)
 				(pin bidirectional line
-					(at 7.62 -5.08 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
 					(at -6.35 -2.54 0)
 					(length 2.54)
 					(name ""
@@ -432,7 +420,26 @@
 						)
 					)
 				)
+				(pin bidirectional line
+					(at 7.62 -5.08 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Sensor_Audio:SPH0641LU4H-1"
 			(exclude_from_sim no)
@@ -511,17 +518,6 @@
 						(type background)
 					)
 				)
-				(circle
-					(center -3.81 0)
-					(radius 1.27)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
 				(polyline
 					(pts
 						(xy -5.08 1.27) (xy -5.08 -1.27)
@@ -534,35 +530,28 @@
 						(type none)
 					)
 				)
-				(pin output line
-					(at 10.16 -2.54 180)
-					(length 2.54)
-					(name "DATA"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
+				(circle
+					(center -3.81 0)
+					(radius 1.27)
+					(stroke
+						(width 0.254)
+						(type default)
 					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
+					(fill
+						(type none)
 					)
 				)
-				(pin input line
-					(at 10.16 2.54 180)
+				(pin power_in line
+					(at 0 7.62 270)
 					(length 2.54)
-					(name "SEL"
+					(name "VDD"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "2"
+					(number "5"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -589,6 +578,24 @@
 					)
 				)
 				(pin input line
+					(at 10.16 2.54 180)
+					(length 2.54)
+					(name "SEL"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
 					(at 10.16 0 180)
 					(length 2.54)
 					(name "CLOCK"
@@ -606,17 +613,17 @@
 						)
 					)
 				)
-				(pin power_in line
-					(at 0 7.62 270)
+				(pin output line
+					(at 10.16 -2.54 180)
 					(length 2.54)
-					(name "VDD"
+					(name "DATA"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "5"
+					(number "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -625,12 +632,17 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:GND"
 			(power)
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -721,6 +733,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 	)
 	(junction
@@ -1087,7 +1100,7 @@
 				)
 			)
 		)
-		(property "Footprint" "MegaCastle:MegaCastle2x5-Module-I6.4x7.9-M9C4"
+		(property "Footprint" "MegaCastle:MegaCastle2x5-Module-I10.0x7.9-M9C4-SPAREPAD"
 			(at 80.01 104.14 0)
 			(effects
 				(font
@@ -1193,6 +1206,33 @@
 				(hide yes)
 			)
 		)
+		(property "Mouser" "https://eu.mouser.com/ProductDetail/KYOCERA-AVX/12066D104KAT4A?qs=np9tehfYv7O1LpY%2FkoBbBg%3D%3D"
+			(at 50.8 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser PN" " 581-12066D104KAT4A"
+			(at 50.8 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mfr. PN" " 12066D104KAT4A"
+			(at 50.8 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "ae991e04-33a7-40eb-adca-1dc376775611")
 		)
@@ -1254,6 +1294,33 @@
 		)
 		(property "Description" "Resistor"
 			(at 91.44 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser" "https://eu.mouser.com/ProductDetail/YAGEO/AC0603JR-07100RL?qs=ygRr%2FtkhtetP1ztKDq36TA%3D%3D"
+			(at 91.44 60.96 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser PN" "603-AC0603JR-07100RL"
+			(at 91.44 60.96 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mfr. PN" "AC0603JR-07100RL"
+			(at 91.44 60.96 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1324,6 +1391,33 @@
 			)
 		)
 		(property "Description" "Digital MEMS Microphone, LGA-5"
+			(at 77.47 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser" "https://eu.mouser.com/ProductDetail/Infineon-Technologies/IM69D130V01XTSA1?qs=W0yvOO0ixfHjr98Yrg6FIA%3D%3D"
+			(at 77.47 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser PN" "726-IM69D130V01XTSA1"
+			(at 77.47 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mfr. PN" "IM69D130V01XTSA1"
 			(at 77.47 60.96 0)
 			(effects
 				(font
@@ -1411,6 +1505,33 @@
 				(hide yes)
 			)
 		)
+		(property "Mouser" "https://eu.mouser.com/ProductDetail/YAGEO/AC0603JR-07100KL?qs=cGU37fGUGy%252BuVeV1ZRovkw%3D%3D"
+			(at 87.63 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser PN" "603-AC0603JR-07100KL"
+			(at 87.63 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mfr. PN" "AC0603JR-07100KL"
+			(at 87.63 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "8959fc3c-dde2-433e-bff9-8aa05e5c5c55")
 		)
@@ -1471,6 +1592,33 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 91.44 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mfr. PN" "AC0603JR-07100RL"
+			(at 91.44 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser" "https://eu.mouser.com/ProductDetail/YAGEO/AC0603JR-07100RL?qs=ygRr%2FtkhtetP1ztKDq36TA%3D%3D"
+			(at 91.44 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser PN" "603-AC0603JR-07100RL"
 			(at 91.44 71.12 0)
 			(effects
 				(font
@@ -1565,4 +1713,5 @@
 			(page "1")
 		)
 	)
+	(embedded_fonts no)
 )
