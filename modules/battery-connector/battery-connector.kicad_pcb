@@ -144,7 +144,7 @@
 			)
 		)
 		(property "Value" "691210910002"
-			(at -0.237638 6.27 0)
+			(at -0.462 5.6 0)
 			(layer "F.Fab")
 			(uuid "c9eedead-1dfd-4d1c-94d0-c521502fe0cc")
 			(effects
@@ -431,7 +431,7 @@
 		(uuid "e9b86c53-3316-4388-8cd5-ebe30b4a3be2")
 		(at 67.852 60.96 180)
 		(property "Reference" "M1"
-			(at 0 -8.35 0)
+			(at -2.948 -5.65 0)
 			(unlocked yes)
 			(layer "B.SilkS")
 			(uuid "a9970ee4-c5d5-45a7-9871-3bf7792ac427")
@@ -444,7 +444,7 @@
 			)
 		)
 		(property "Value" "~"
-			(at 0 -10.35 0)
+			(at -1.518 -5.54 0)
 			(unlocked yes)
 			(layer "B.Fab")
 			(uuid "0a5507c8-0a84-4b14-901e-794b48baa143")
@@ -695,70 +695,6 @@
 			(pintype "bidirectional+no_connect")
 			(thermal_bridge_angle 45)
 			(uuid "84d7d0db-54f9-4d1e-bc4a-afc79330963a")
-		)
-		(zone
-			(net 0)
-			(net_name "")
-			(layer "F.Cu")
-			(uuid "87d1505d-7790-4656-b851-8ba23f5a8b6b")
-			(hatch edge 0.5)
-			(connect_pads
-				(clearance 0)
-			)
-			(min_thickness 0.25)
-			(filled_areas_thickness no)
-			(keepout
-				(tracks allowed)
-				(vias allowed)
-				(pads allowed)
-				(copperpour allowed)
-				(footprints not_allowed)
-			)
-			(placement
-				(enabled no)
-				(sheetname "")
-			)
-			(fill
-				(thermal_gap 0.5)
-				(thermal_bridge_width 0.5)
-			)
-			(polygon
-				(pts
-					(xy 60.352 67.31) (xy 60.352 54.61)
-				)
-			)
-		)
-		(zone
-			(net 0)
-			(net_name "")
-			(layer "F.Cu")
-			(uuid "71b23b7b-0a36-4efd-be67-fea490f20dd9")
-			(hatch edge 0.5)
-			(connect_pads
-				(clearance 0)
-			)
-			(min_thickness 0.25)
-			(filled_areas_thickness no)
-			(keepout
-				(tracks allowed)
-				(vias allowed)
-				(pads allowed)
-				(copperpour allowed)
-				(footprints not_allowed)
-			)
-			(placement
-				(enabled no)
-				(sheetname "")
-			)
-			(fill
-				(thermal_gap 0.5)
-				(thermal_bridge_width 0.5)
-			)
-			(polygon
-				(pts
-					(xy 75.352 67.31) (xy 75.352 54.61)
-				)
-			)
 		)
 		(zone
 			(net 0)
