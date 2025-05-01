@@ -3778,7 +3778,7 @@
 			(pinfunction "VCC")
 			(pintype "bidirectional")
 			(thermal_bridge_angle 45)
-			(uuid "d0f04d8b-0357-4700-b3e2-3788615d99d6")
+			(uuid "9808142e-708a-4c25-9e66-58698f3acd60")
 		)
 		(pad "3" thru_hole rect
 			(at -7.87 7.62 90)
@@ -3802,7 +3802,7 @@
 			(net 10 "EN")
 			(pintype "bidirectional")
 			(thermal_bridge_angle 45)
-			(uuid "c0aff1c3-7f83-4ca0-bed2-ed0080c4403a")
+			(uuid "253f5a89-e7ee-4e1b-9ce0-ae66c79dd6d1")
 		)
 		(pad "10" thru_hole rect
 			(at -7.87 -10.16 90)
@@ -3826,7 +3826,7 @@
 			(net 3 "VCC_OUT")
 			(pintype "bidirectional")
 			(thermal_bridge_angle 45)
-			(uuid "3c0f435d-4eba-48d9-8243-99f43cfd2b07")
+			(uuid "73ec17ff-9a20-4d3e-92f1-d74981eecd41")
 		)
 		(pad "11" thru_hole rect
 			(at -7.87 -12.7 90)
@@ -3852,7 +3852,7 @@
 			(pinfunction "GND")
 			(pintype "bidirectional")
 			(thermal_bridge_angle 45)
-			(uuid "d37a3004-0cb8-4435-ae2f-ce916355b129")
+			(uuid "e4a04552-1403-418e-add8-4ae6a7ab4aea")
 		)
 		(pad "12" thru_hole roundrect
 			(at 6.17 12.7 270)
@@ -3876,7 +3876,7 @@
 			(net 5 "{slash}5V_SEL")
 			(pintype "bidirectional")
 			(thermal_bridge_angle 45)
-			(uuid "5a24d634-b0de-45a4-a6ba-a246d43fbf36")
+			(uuid "3ee5fd9d-4fbb-4b8a-8158-f94e47fa0bf4")
 		)
 		(pad "13" thru_hole roundrect
 			(at 6.17 10.16 270)
@@ -3900,7 +3900,7 @@
 			(net 3 "VCC_OUT")
 			(pintype "bidirectional")
 			(thermal_bridge_angle 45)
-			(uuid "4f24ec19-caa8-4eca-b2eb-d3a5c234ad3d")
+			(uuid "0bde3f41-9741-4d7f-be0e-f5fc35ec9c19")
 		)
 		(pad "21" thru_hole roundrect
 			(at 6.17 -10.16 270)
@@ -3924,7 +3924,7 @@
 			(net 3 "VCC_OUT")
 			(pintype "bidirectional")
 			(thermal_bridge_angle 45)
-			(uuid "1f5c0d91-193f-4a28-a140-2c59e979729e")
+			(uuid "691a20fe-3324-49be-a537-dc1aea1ec25e")
 		)
 		(pad "22" thru_hole roundrect
 			(at 6.17 -12.7 270)
@@ -3948,7 +3948,7 @@
 			(net 8 "MODE")
 			(pintype "bidirectional")
 			(thermal_bridge_angle 45)
-			(uuid "3ac8cc26-8257-4eb5-8fd4-1a2a1fa0ac88")
+			(uuid "fdcd2ba0-901b-4b86-9986-a929c4d86f32")
 		)
 		(zone
 			(net 0)
