@@ -1,0 +1,5 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "audio-codec")(type "KiCad")(uri "/home/goran/projects/megaphone-modular-fork/modules/audio-codec")(options "")(descr ""))
+  (lib (name "MegaCastle")(type "KiCad")(uri "${KIPRJMOD}/footprints")(options "")(descr ""))
+)
