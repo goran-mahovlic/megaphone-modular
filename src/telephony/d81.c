@@ -159,7 +159,7 @@ void format_image_fully_allocated(char drive_id,char *header)
       // Second half points to next physical sector, or to first
       // sector of next track (or track 41 if we are on track 39,
       // so that we skip the directory).
-      if (j<20) {
+      if (j<(20-1)) {
 	lpoke(SECTOR_BUFFER_ADDRESS+0x100,i);
 	lpoke(SECTOR_BUFFER_ADDRESS+0x101,j*2+1+1);
 #ifdef CONTENT_TEST
@@ -172,6 +172,17 @@ void format_image_fully_allocated(char drive_id,char *header)
 #ifdef CONTENT_TEST
 	lpoke(SECTOR_BUFFER_ADDRESS+0x100+2, (i==39)?41:(i+1));
 	lpoke(SECTOR_BUFFER_ADDRESS+0x101+2,0);
+#endif
+      }
+
+      if (i==80&&j==(20-1)) {
+	// Terminate chain at end of disk
+
+	lpoke(SECTOR_BUFFER_ADDRESS+0x100, 0x00);
+	lpoke(SECTOR_BUFFER_ADDRESS+0x101, 0xff);
+#ifdef CONTENT_TEST
+	lpoke(SECTOR_BUFFER_ADDRESS+0x100+2, 0x00);
+	lpoke(SECTOR_BUFFER_ADDRESS+0x101+2, 0xff);
 #endif
       }
 
