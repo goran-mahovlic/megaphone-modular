@@ -64,10 +64,13 @@ unsigned char ascii_to_petscii(unsigned char x)
 /*
   Format a D81 disk image to contain a single file that
   occupies the entire disk. Allocate 24 directory entries.
+
+  Set record numbers in the start of each data sector, and leave sector 0 blank as the "record BAM".
 */
 void format_image_fully_allocated(char drive_id,char *header)  
 {
   unsigned char i,j;
+  unsigned int record_number=0;
 
   /* Header + BAM Sector 1
      ---------------------------------------- */
@@ -150,11 +153,12 @@ void format_image_fully_allocated(char drive_id,char *header)
       lpoke(SECTOR_BUFFER_ADDRESS+0x000,i);
       lpoke(SECTOR_BUFFER_ADDRESS+0x001,j*2+1);
 
-#define CONTENT_TEST
-#ifdef CONTENT_TEST
-      lpoke(SECTOR_BUFFER_ADDRESS+0x000+2,i);
-      lpoke(SECTOR_BUFFER_ADDRESS+0x001+2,j*2+1);
-#endif      
+      // Write record identifier in every physical sector.
+      // Except sector 0. But writing 0 to sector zero is really the same thing...
+      lpoke(SECTOR_BUFFER_ADDRESS+0x002, record_number & 0xff);
+      lpoke(SECTOR_BUFFER_ADDRESS+0x003, record_number>>8);
+      // Note that record numbers skip track 40
+      record_number++;
       
       // Second half points to next physical sector, or to first
       // sector of next track (or track 41 if we are on track 39,
@@ -162,17 +166,9 @@ void format_image_fully_allocated(char drive_id,char *header)
       if (j<(20-1)) {
 	lpoke(SECTOR_BUFFER_ADDRESS+0x100,i);
 	lpoke(SECTOR_BUFFER_ADDRESS+0x101,j*2+1+1);
-#ifdef CONTENT_TEST
-	lpoke(SECTOR_BUFFER_ADDRESS+0x100+2,i);
-	lpoke(SECTOR_BUFFER_ADDRESS+0x101+2,j*2+1+1);
-#endif
       } else {
 	lpoke(SECTOR_BUFFER_ADDRESS+0x100, (i==39)?41:(i+1));
 	lpoke(SECTOR_BUFFER_ADDRESS+0x101,0);
-#ifdef CONTENT_TEST
-	lpoke(SECTOR_BUFFER_ADDRESS+0x100+2, (i==39)?41:(i+1));
-	lpoke(SECTOR_BUFFER_ADDRESS+0x101+2,0);
-#endif
       }
 
       if (i==80&&j==(20-1)) {
@@ -180,10 +176,6 @@ void format_image_fully_allocated(char drive_id,char *header)
 
 	lpoke(SECTOR_BUFFER_ADDRESS+0x100, 0x00);
 	lpoke(SECTOR_BUFFER_ADDRESS+0x101, 0xff);
-#ifdef CONTENT_TEST
-	lpoke(SECTOR_BUFFER_ADDRESS+0x100+2, 0x00);
-	lpoke(SECTOR_BUFFER_ADDRESS+0x101+2, 0xff);
-#endif
       }
 
       write_sector(drive_id,i,j);
