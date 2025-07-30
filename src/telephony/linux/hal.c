@@ -76,29 +76,55 @@ void lcopy(unsigned long long src, unsigned long long dest, unsigned int len)
   memmove((unsigned char *)dest,(unsigned char *)src,len);
 }
 
-void write_sector(unsigned char drive_id, unsigned char track, unsigned char sector)
+char read_sector(unsigned char drive_id, unsigned char track, unsigned char sector)
+{
+  unsigned int offset = (track-1)*(2*10*512) + (sector*512);
+
+  if (drive_id>1) {
+    fprintf(stderr,"FATAL: Illegal drive_id=%d in read_sector()\n",drive_id);
+    return 1;
+  }
+  if (!drive_files[drive_id]) {
+    fprintf(stderr,"FATAL: read_sector() called on drive %d, but it is not mounted.\n",drive_id);
+    return 2;
+  }
+
+  if (fseek(drive_files[drive_id],offset,SEEK_SET)) {
+    fprintf(stderr,"FATAL: read_sector(%d,%d,%d) failed to seek to offset 0x%06x.\n",drive_id,track,sector,offset);
+    perror("read_sector()");
+    return 3;
+  }
+  
+  if (fread(sector_buffer,512,1,drive_files[drive_id])!=1) {
+    fprintf(stderr,"FATAL: read_sector(%d,%d,%d) at offset 0x%06x failed.\n",drive_id,track,sector,offset);
+    perror("read_sector()");
+    return 4;
+  }
+}
+
+char write_sector(unsigned char drive_id, unsigned char track, unsigned char sector)
 {
   unsigned int offset = (track-1)*(2*10*512) + (sector*512);
 
   if (drive_id>1) {
     fprintf(stderr,"FATAL: Illegal drive_id=%d in write_sector()\n",drive_id);
-    exit(-1);
+    return 1;
   }
   if (!drive_files[drive_id]) {
     fprintf(stderr,"FATAL: write_sector() called on drive %d, but it is not mounted.\n",drive_id);
-    exit(-1);
+    return 2;
   }
 
   if (fseek(drive_files[drive_id],offset,SEEK_SET)) {
     fprintf(stderr,"FATAL: write_sector(%d,%d,%d) failed to seek to offset 0x%06x.\n",drive_id,track,sector,offset);
     perror("write_sector()");
-    exit(-1);
+    return 3;
   }
   
   if (fwrite(sector_buffer,512,1,drive_files[drive_id])!=1) {
     fprintf(stderr,"FATAL: write_sector(%d,%d,%d) at offset 0x%06x failed.\n",drive_id,track,sector,offset);
     perror("write_sector()");
-    exit(-1);
+    return 4;
   }
 }
 
