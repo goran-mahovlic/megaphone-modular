@@ -1,4 +1,7 @@
-#define USABLE_SECTORS_PER_DISK (1680-1)
+// Include file for either MEGA65 or Linux compilation
+#include "includes.h"
+
+#include "records.h"
 
 unsigned int record_allocate_next(unsigned char *bam_sector)
 {
@@ -32,7 +35,7 @@ unsigned int record_allocate_next(unsigned char *bam_sector)
 
 char record_free(unsigned char *bam_sector,unsigned int record_num)
 {
-  char b;
+  unsigned char b, bit;
   if (record_num>=USABLE_SECTORS_PER_DISK) return 1;
   b=bam_sector[record_num>>3];
   bit = 1<<(record_num&7);
@@ -104,7 +107,7 @@ char *find_field(char *record, unsigned int bytes_used, unsigned char type, unsi
 {
   unsigned int ofs=2;  // Skip record number indicator
 
-  while(ofs<=(*bytes_used)&&record[ofs]) {
+  while((ofs<=bytes_used)&&record[ofs]) {
     unsigned int shuffle = 1 + 1 + ((record[ofs]&1)?256:0) + record[ofs+1];
 
     if ((record[ofs]&0xfe) == type) {
