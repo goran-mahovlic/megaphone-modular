@@ -32,7 +32,6 @@ char mega65_mkdir(char *dir)
 
 char mega65_cdroot(void)
 {
-  char cwd[2048];
   fprintf(stderr,"INFO: CDROOT: Changing directory to '%s'\n",
 	  working_directory);
   return chdir(working_directory);
