@@ -66,7 +66,8 @@ def generate_message():
 
 def generate_messages(m, contacts):
     output = []
-    thread_times = {c["phone"]: AZTEC_EPOCH for c in contacts}
+    current_time = int(time.time())  # Start message traffic from "now"
+    thread_times = {c["phone"]: current_time for c in contacts}
     last_directions = {c["phone"]: random.choice(["rx", "tx"]) for c in contacts}
 
     for _ in range(m):
@@ -83,8 +84,8 @@ def generate_messages(m, contacts):
         thread_times[phone] += random.randint(5, 86400)
 
         msg = generate_message()
-        timestamp = thread_times[phone]
-        line = f"MESSAGE{'RX' if direction == 'rx' else 'TX'}:{phone}:{timestamp}:{msg}:"
+        adjusted_timestamp = thread_times[phone] - AZTEC_EPOCH  # key fix here!
+        line = f"MESSAGE{direction.upper()}:{phone}:{adjusted_timestamp}:{msg}:"
         output.append(line)
 
     return output
