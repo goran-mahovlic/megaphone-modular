@@ -100,6 +100,8 @@ char read_sector(unsigned char drive_id, unsigned char track, unsigned char sect
     perror("read_sector()");
     return 4;
   }
+
+  return 0;
 }
 
 char write_sector(unsigned char drive_id, unsigned char track, unsigned char sector)
@@ -126,6 +128,8 @@ char write_sector(unsigned char drive_id, unsigned char track, unsigned char sec
     perror("write_sector()");
     return 4;
   }
+
+  return 0;
 }
 
 char mount_d81(char *filename, unsigned char drive_id)

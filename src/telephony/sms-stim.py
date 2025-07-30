@@ -44,8 +44,12 @@ def generate_contacts(n, faker):
     return contacts
 
 def generate_message():
-    sentence = lorem.sentence()
+    sentence = lorem.paragraph()
     words = sentence.rstrip(".").split()
+
+    # Trim to SMS-like message length
+    max_words = random.randint(5, 20)
+    words = words[:max_words]
 
     # 1% chance to MEGA-ify each word
     for i in range(len(words)):
