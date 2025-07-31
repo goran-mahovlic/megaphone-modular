@@ -80,6 +80,16 @@ char read_sector(unsigned char drive_id, unsigned char track, unsigned char sect
 {
   unsigned int offset = (track-1)*(2*10*512) + (sector*512);
 
+  if (track<1||track>80||sector<0||sector>19) {
+    fprintf(stderr,"FATAL: Illegal track and/or sector: T%d, S%d\n",track,sector);
+    exit(-1);
+  }
+  
+  if (offset>=(800*1024)) {
+    fprintf(stderr,"FATAL: Track %d, Sector %d resolved to address 0x%08x\n",offset);
+    exit(-1);
+  }
+
   if (drive_id>1) {
     fprintf(stderr,"FATAL: Illegal drive_id=%d in read_sector()\n",drive_id);
     return 1;
@@ -108,6 +118,16 @@ char write_sector(unsigned char drive_id, unsigned char track, unsigned char sec
 {
   unsigned int offset = (track-1)*(2*10*512) + (sector*512);
 
+  if (track<1||track>80||sector<0||sector>19) {
+    fprintf(stderr,"FATAL: Illegal track and/or sector: T%d, S%d\n",track,sector);
+    exit(-1);
+  }
+  
+  if (offset>=(800*1024)) {
+    fprintf(stderr,"FATAL: Track %d, Sector %d resolved to address 0x%08x\n",offset);
+    exit(-1);
+  }
+  
   if (drive_id>1) {
     fprintf(stderr,"FATAL: Illegal drive_id=%d in write_sector()\n",drive_id);
     return 1;
@@ -179,4 +199,37 @@ char create_d81(char *filename)
   fclose(f);
   
   return 0;
+}
+
+
+
+unsigned char as_printable(unsigned char c)
+{
+  if (c<' ') return '.';
+  if (c>=0x7e) return '.';
+  return c;
+}
+
+void dump_bytes(char *msg, unsigned char *d, int len)
+{
+  fprintf(stderr,"DEBUG: %s\n",msg);
+  for(int i=0;i<len;i+=16) {
+    fprintf(stderr,"%04X: ",i);
+    for(int j=0;j<16;j++) {
+      if ((i+j)<len) {
+	fprintf(stderr,"%02X ",d[i+j]);
+      } else fprintf(stderr,"   ");
+    }
+    fprintf(stderr,"  ");
+    for(int j=0;j<16;j++) {
+      if ((i+j)<len) {
+	fprintf(stderr,"%c",as_printable(d[i+j]));
+      } 
+    }
+    fprintf(stderr,"\n");
+  }
+}
+
+void dump_sector_buffer(char *m) {
+  dump_bytes(m,sector_buffer, 512);
 }

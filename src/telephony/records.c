@@ -15,6 +15,9 @@ unsigned int record_allocate_next(unsigned char *bam_sector)
   */
   unsigned char i,j,b;
 
+  dump_bytes("Sector BAM before allocation",&bam_sector[2],
+	     USABLE_SECTORS_PER_DISK/8);
+  
   for(i=0;i<(USABLE_SECTORS_PER_DISK/8);i++) {
     // Found a BAM byte that's not full?
     if (bam_sector[2+i]!=0xff) {
@@ -24,7 +27,13 @@ unsigned int record_allocate_next(unsigned char *bam_sector)
 	if (!(b&1)) {
 	  bam_sector[2+i]|=(1<<j);
 	  // Make sure we're not trying to allocate sector 0 (where the BAM lives)
-	  if (i+j) return (i<<3)+j;
+	  // (but note the line above means that we will implicitly mark sector 0 as allocated
+	  // in the process).
+	  if (i+j) {
+	    dump_bytes("Sector BAM after allocation",&bam_sector[2],
+	     USABLE_SECTORS_PER_DISK/8);
+	    return (i<<3)+j;
+	  }
 	}
 	b=b>>1;
       }
@@ -49,7 +58,7 @@ char record_free(unsigned char *bam_sector,unsigned int record_num)
 
 void sectorise_record(unsigned char *record,
 		      unsigned char *sector_buffer)
-{
+{  
   lcopy((unsigned long)&record[0],(unsigned long)&sector_buffer[2],254);
   lcopy((unsigned long)&record[254],(unsigned long)&sector_buffer[256+2],254);
 }
