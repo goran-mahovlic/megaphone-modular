@@ -58,12 +58,14 @@ int main(int argc,char **argv)
       } else {
 	mega65_cdroot();
 	mega65_chdir("PHONE");
-	mount_d81("CONTACT0",0);
+	mount_d81("CONTACT0.D81",0);
 	read_sector(0,0,0);
 	unsigned int record_number = record_allocate_next( (unsigned char *)SECTOR_BUFFER_ADDRESS );
 	if (!record_number) {
 	  fprintf(stderr,"ERROR: Failed to allocate contact record for: %s\n",line);
 	} else {
+	  // Write back updated BAM
+	  write_sector(0,0,0);
 	  // Allocated record, so write contact
 	  char r=write_contact_by_id(0,record_number,buffer);
 	  if (r) {
