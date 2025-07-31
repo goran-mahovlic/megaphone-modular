@@ -15,8 +15,7 @@ unsigned int record_allocate_next(unsigned char *bam_sector)
   */
   unsigned char i,j,b;
 
-  dump_bytes("Sector BAM before allocation",&bam_sector[2],
-	     USABLE_SECTORS_PER_DISK/8);
+  // dump_bytes("Sector BAM before allocation",&bam_sector[2],USABLE_SECTORS_PER_DISK/8);
   
   for(i=0;i<(USABLE_SECTORS_PER_DISK/8);i++) {
     // Found a BAM byte that's not full?
@@ -30,8 +29,7 @@ unsigned int record_allocate_next(unsigned char *bam_sector)
 	  // (but note the line above means that we will implicitly mark sector 0 as allocated
 	  // in the process).
 	  if (i+j) {
-	    dump_bytes("Sector BAM after allocation",&bam_sector[2],
-	     USABLE_SECTORS_PER_DISK/8);
+	    // dump_bytes("Sector BAM after allocation",&bam_sector[2],USABLE_SECTORS_PER_DISK/8);
 	    return (i<<3)+j;
 	  }
 	}

@@ -44,6 +44,10 @@ int main(int argc,char **argv)
   unsigned char lastName[1024];
   unsigned char phoneNumber[1024];
 
+  // Fields for messages
+  unsigned long timestampAztecTime;
+  unsigned char messageBody[1024];
+  
   line[0]=0; fgets(line,1024,f);
   while(line[0]) {
     // CONTACT:+99920915060:Jerry:Williams:
@@ -59,9 +63,7 @@ int main(int argc,char **argv)
 	mega65_cdroot();
 	mega65_chdir("PHONE");
 	mount_d81("CONTACT0.D81",0);
-	dump_sector_buffer("Before read BAM");
 	read_sector(0,1,0);
-	dump_sector_buffer("After read BAM");
 	unsigned int record_number = record_allocate_next( (unsigned char *)SECTOR_BUFFER_ADDRESS );
 	if (!record_number) {
 	  fprintf(stderr,"ERROR: Failed to allocate contact record for: %s\n",line);
@@ -74,7 +76,21 @@ int main(int argc,char **argv)
 	    fprintf(stderr,"ERROR: Failed to write contact to record #%d (code %d)\n",record_number,r);
 	  }
 	}
-      }
+      }   
+    }
+    // MESSAGERX:+99973014512:397831207:🤣🎧🐨💻🥭 Id nisi MEGA65 corrupti natus:
+    else if (sscanf(line,"MESSAGERX:%[^:]:%d:%[^:]:",phoneNumber,&timestampAztecTime,messageBody)==3) {
+      // 1. Work out which contact the message is to/from
+      // 2. Retreive that contact (or if no such contact, then use the "UNKNOWN NUMBERS" pseudo-contact?)
+      // 3. Increase unread message count by 1, and write back.
+      // 4. Obtain contact physical ID from contact record, and then find and open the message D81 for that conversation.
+      // 5. Allocate message record in conversation
+      // 6. Build message and store.
+      // 7. Update used message count in conversation (2nd half of BAM sector?)
+    }
+    // MESSAGETX:+99966049372:397833622:🍳🍿 Quasi nisi quidem, quis veniam sed numquam ipsam quo hic amet molestiae? Veritatis cupiditate ullam nihil et tenetur doloribus, accusantium:
+    else if (sscanf(line,"MESSAGETX:%[^:]:%d:%[^:]:",phoneNumber,&timestampAztecTime,messageBody)==3) {
+      // As for MESSAGERX, but don't increment unread message count.
     } else {
       fprintf(stderr,"ERROR: Could not scan line: %s\n",line);
       exit(-1);

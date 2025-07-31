@@ -18,7 +18,7 @@ char build_contact(unsigned char buffer[508],unsigned int *bytes_used,
   // +1 so strings are null-terminated for convenience.
   if (append_field(buffer,bytes_used,508, FIELD_FIRSTNAME, firstName, strlen((char *)firstName)+1)) return 1;
   if (append_field(buffer,bytes_used,508, FIELD_LASTNAME, lastName, strlen((char *)lastName)+1)) return 2;
-  if (append_field(buffer,bytes_used,508, FIELD_PHONENUMBER, lastName, strlen((char *)phoneNumber)+1)) return 3;
+  if (append_field(buffer,bytes_used,508, FIELD_PHONENUMBER, phoneNumber, strlen((char *)phoneNumber)+1)) return 3;
 
   return 0;
 }
@@ -37,7 +37,7 @@ char write_contact_by_id(unsigned char drive_id,unsigned int id,unsigned char *b
   // And ID of 0 is invalid (it's the record BAM sector).
   if (!id) return 1;
 
-  fprintf(stderr,"DEBUG: Trying to write contact #%d\n",id);
+  // fprintf(stderr,"DEBUG: Trying to write contact #%d\n",id);
 
   // Read original sector in to get inter-sector links
   if (read_sector(drive_id,track,sector)) return 4;
@@ -45,10 +45,10 @@ char write_contact_by_id(unsigned char drive_id,unsigned int id,unsigned char *b
   // Then write the contact body over the data area
   sectorise_record(buffer,(unsigned char *)SECTOR_BUFFER_ADDRESS);
 
-  dump_bytes("Sectorised Contact",(unsigned char *)SECTOR_BUFFER_ADDRESS,512);
+  // dump_bytes("Sectorised Contact",(unsigned char *)SECTOR_BUFFER_ADDRESS,512);
 
   // And commit it back to disk
-  fprintf(stderr,"DEBUG: write_sector(%d,%d,%d)\n",drive_id,track,sector);
+  // fprintf(stderr,"DEBUG: write_sector(%d,%d,%d)\n",drive_id,track,sector);
   if (write_sector(drive_id,track,sector)) return 3;
 
   return 0;
