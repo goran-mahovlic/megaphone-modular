@@ -14,7 +14,7 @@ unsigned int record_allocate_next(unsigned char *bam_sector)
      of the physical sector, since 254x8 = 2,032, but there are only 1,680 sectors.
   */
   unsigned char i,j,b;
-  
+
   for(i=0;i<(USABLE_SECTORS_PER_DISK/8);i++) {
     // Found a BAM byte that's not full?
     if (bam_sector[2+i]!=0xff) {
@@ -23,8 +23,10 @@ unsigned int record_allocate_next(unsigned char *bam_sector)
       for(j=0;j<8;j++) {
 	if (!(b&1)) {
 	  bam_sector[2+i]|=(1<<j);
-	  return (i<<3)+j;
+	  // Make sure we're not trying to allocate sector 0 (where the BAM lives)
+	  if (i+j) return (i<<3)+j;
 	}
+	b=b>>1;
       }
     }
   }
