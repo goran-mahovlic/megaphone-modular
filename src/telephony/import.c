@@ -99,7 +99,11 @@ int main(int argc,char **argv)
     line[0]=0; fgets(line,1024,f);
   }
 
-  // XXX - Update sorted versions of contacts
+  // Update sorted versions of contacts
+  sort_d81("CONTACT0.D81","IDX02-0.D81",0x02);	   
+  sort_d81("CONTACT0.D81","IDX04-0.D81",0x04);	   
+  sort_d81("CONTACT0.D81","IDX06-0.D81",0x06);	   
+  
   // XXX - Update search index for contacts
   
 }
