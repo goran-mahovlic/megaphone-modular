@@ -79,7 +79,7 @@ int main(int argc,char **argv)
       }   
     }
     // MESSAGERX:+99973014512:397831207:🤣🎧🐨💻🥭 Id nisi MEGA65 corrupti natus:
-    else if (sscanf(line,"MESSAGERX:%[^:]:%d:%[^:]:",phoneNumber,&timestampAztecTime,messageBody)==3) {
+    else if (sscanf(line,"MESSAGERX:%[^:]:%ld:%[^:]:",phoneNumber,&timestampAztecTime,messageBody)==3) {
       // 1. Work out which contact the message is to/from
       // 2. Retreive that contact (or if no such contact, then use the "UNKNOWN NUMBERS" pseudo-contact?)
       // 3. Increase unread message count by 1, and write back.
@@ -89,7 +89,7 @@ int main(int argc,char **argv)
       // 7. Update used message count in conversation (2nd half of BAM sector?)
     }
     // MESSAGETX:+99966049372:397833622:🍳🍿 Quasi nisi quidem, quis veniam sed numquam ipsam quo hic amet molestiae? Veritatis cupiditate ullam nihil et tenetur doloribus, accusantium:
-    else if (sscanf(line,"MESSAGETX:%[^:]:%d:%[^:]:",phoneNumber,&timestampAztecTime,messageBody)==3) {
+    else if (sscanf(line,"MESSAGETX:%[^:]:%ld:%[^:]:",phoneNumber,&timestampAztecTime,messageBody)==3) {
       // As for MESSAGERX, but don't increment unread message count.
     } else {
       fprintf(stderr,"ERROR: Could not scan line: %s\n",line);
