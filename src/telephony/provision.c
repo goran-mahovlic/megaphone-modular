@@ -58,6 +58,7 @@ int main(int argc,char **argv)
   // Then we need the different sorted versions of the contacts,
   create_d81("SORT02-0.D81");
   create_d81("SORT04-0.D81");
+  create_d81("SORT06-0.D81");
   // And the character pair lookup indexes
   create_d81("IDX02-0.D81");
   create_d81("IDX04-0.D81");
