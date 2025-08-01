@@ -61,7 +61,9 @@ int main(int argc,char **argv)
   // And the character pair lookup indexes
   create_d81("IDX02-0.D81");
   create_d81("IDX04-0.D81");
-  
+
+  // And scratch disk image used during sorting
+  create_d81("SCRATCH.D81");
 
   // XXX - Make testing faster for now
 #define MAX_CONTACTS 10

@@ -20,19 +20,30 @@ unsigned char idx_b = 0xff;
 
 int compare_records(unsigned char a_idx, unsigned char b_idx, unsigned char field_no) {
     unsigned int len_a = 0, len_b = 0;
+    unsigned long addr;
+    
+    if (b_idx != idx_b) {
+      // B record cache invalid so desectorise from high RAM
+      addr = 0x40000L + (((unsigned long)b_idx)<<9);
+      lcopy(addr + 2,(unsigned long)&rec_b[0],254);
+      lcopy(addr + 256+2,(unsigned long)&rec_b[254],254);      
+    }
 
-    lcopy((unsigned long)&sector_buffer[2],(unsigned long)&record[0],254);
-    lcopy((unsigned long)&sector_buffer[256+2],(unsigned long)&record[254],254);
-    
-    
-    char *rec_a = get_record_pointer(a_idx); // e.g., &slab[a_idx * 512]
-    char *rec_b = get_record_pointer(b_idx);
+    // Always fetch record a
+    addr = 0x40000L + (((unsigned long)a_idx)<<9);
+    lcopy(addr + 2,(unsigned long)&rec_a[0],254);
+    lcopy(addr + 256+2,(unsigned long)&rec_a[254],254);      
 
     char *field_a = find_field(rec_a, 508, field_no, &len_a);
     char *field_b = find_field(rec_b, 508, field_no, &len_b);
 
     int min_len = (len_a < len_b) ? len_a : len_b;
-    int cmp = memcmp(field_a, field_b, min_len);
+    char cmp=0;
+    for(l=0;l<min_len;l++) {
+      if (field_a[l]<field_b[l]) { cmp=-1; break;}
+      if (field_a[l]>field_b[l]) { cmp=1; break;}
+    }
+    
     if (cmp == 0) {
         return (int)len_a - (int)len_b; // shorter field sorts first
     }
@@ -112,7 +123,10 @@ void sort_d81(char *name_in, char *name_out, unsigned char field_id)
   unsigned char next_slab, next_slab_sector;
   
   // Mount D81 to be sorted in drive 0
+  if (mount_d81(name_in,0)) return 7;
+  
   // Mount a scratch D81 in drive 1  
+  if (mount_d81("SCRATCH.D81",1)) return 8;
   
   // Do internal sort of each 80KB slab of the disk.
   for(slab=0;slab<10;slab++) {
@@ -158,6 +172,7 @@ void sort_d81(char *name_in, char *name_out, unsigned char field_id)
   // we can just regenerate it.
 
   // Mount output D81 as drive 0
+  if (mount_d81(name_out,0)) return 9;
 
   // Prime cache of sectors from each slab. We have 128KB at 0x40000L we can use.
   // So we will make each cache be a whole track.
