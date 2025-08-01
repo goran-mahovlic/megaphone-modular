@@ -136,6 +136,8 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
   
   // Mount a scratch D81 in drive 1  
   if (mount_d81("SCRATCH.D81",1)) return 8;
+
+  // fprintf(stderr,"DEBUG: sort_d81(): Sort each slab.\n");
   
   // Do internal sort of each 80KB slab of the disk.
   for(slab=0;slab<10;slab++) {
@@ -145,6 +147,8 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
     unsigned long rec_addr = WORK_BUFFER_ADDRESS;
     unsigned char n=0;
 
+    // fprintf(stderr,"DEBUG: sort_d81(): Sort slab %d.\n",slab);
+    
     // Load the slab into RAM
     for(;t<t_stop;t++) {
       for(s=0;s<20;s++) {
@@ -182,12 +186,16 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
   // Mount output D81 as drive 0
   if (mount_d81(name_out,0)) return 9;
 
+  fprintf(stderr,"DEBUG: sort_d81(): Read merge cache.\n");
+  
   // Prime cache of sectors from each slab. We have 128KB at WORK_BUFFER_ADDRESS we can use.
   // So we will make each cache be a whole track.
   for(slab=0;slab<10;slab++) {
     cached_track[slab]=(slab<<3)+1;
     cached_track_stop[slab]=(slab<<3)+1+8;
     cached_next_sector[slab]=0;
+
+    // fprintf(stderr,"DEBUG: Reading track %d for slab %d\n",cached_track[slab],slab);
     
     for(s=0;s<20;s++) {
       if (read_sector(1,cached_track[slab],s)) return 3;
@@ -198,43 +206,57 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
   // Now do round-robin comparisons of the next sector in each cached track to find
   // the next sector to write out to the disk image.
   // Stop when no more sectors to check.
-  next_slab=0xff;
-  next_slab_sector = 0;
   do {
+    next_slab=0xff;
+    next_slab_sector = 0;
+
     for(slab=0;slab<10;slab++) {
       if (cached_next_sector[slab]==20) continue;
-      if (next_slab==0xff) { next_slab = slab; next_slab_sector = cached_next_sector[slab]; }
-      else {
+      if (next_slab==0xff) {
+	next_slab = slab;
+	next_slab_sector = cached_next_sector[slab];
+      } else {
 	if (compare_records(slab*20 + cached_next_sector[slab], next_slab*20 + next_slab_sector, field_id) <= 0) {
-	  next_slab = slab; next_slab_sector = cached_next_sector[slab];
+	  next_slab = slab;
+	  next_slab_sector = cached_next_sector[slab];
 	}
       }
-      if (next_slab==0xff) break;
-
-      // Write this record to disk
-      if (write_sector(0,out_track,out_sector)) return 5;
-      out_sector++;
-      if (out_sector==20) {
-	out_sector=0;
-	out_track++;
-      }
-
-      // Bump next sector of the slab we've just used
-      next_slab_sector++;
-      if (next_slab_sector==20) {
-	cached_track[next_slab]++;
-	if (cached_track[next_slab]<cached_track_stop[next_slab]) {
-	  // Read the track
-	  for(s=0;s<20;s++) {
-	    if (read_sector(1,cached_track[next_slab],s)) return 6;
-	    lcopy((unsigned long)SECTOR_BUFFER_ADDRESS,WORK_BUFFER_ADDRESS + next_slab*(512L*20) + s*512L, 512);
-	  }
-	  next_slab_sector=0;
-	}
-      }
-      cached_next_sector[next_slab]=next_slab_sector;
     }
     
+    if (next_slab==0xff) break;
+
+#if 0
+    fprintf(stderr,"DEBUG: Writing sorted record to T%d,S%d from slab=%d,T%d,S%d (stop track=%d)\n",
+	    out_track,out_sector,
+	    next_slab,cached_track[next_slab], cached_next_sector[next_slab],
+	    cached_track_stop[next_slab]
+	    );
+#endif
+    
+    // Write this record to disk
+    if (write_sector(0,out_track,out_sector)) return 5;
+    out_sector++;
+    if (out_sector==20) {
+      out_sector=0;
+      out_track++;
+    }
+    
+    // Bump next sector of the slab we've just used
+    next_slab_sector++;
+    if (next_slab_sector==20) {
+      cached_track[next_slab]++;
+      if (cached_track[next_slab]<cached_track_stop[next_slab]) {
+	// Read the track
+	// fprintf(stderr,"DEBUG: Reading track %d for slab %d\n",cached_track[next_slab],next_slab);
+	for(s=0;s<20;s++) {
+	  if (read_sector(1,cached_track[next_slab],s)) return 6;
+	  lcopy((unsigned long)SECTOR_BUFFER_ADDRESS,WORK_BUFFER_ADDRESS + next_slab*(512L*20) + s*512L, 512);
+	}
+	next_slab_sector=0;
+      }
+    }
+    cached_next_sector[next_slab]=next_slab_sector;
+  
   } while(next_slab!=0xff);
 
   return 0;
