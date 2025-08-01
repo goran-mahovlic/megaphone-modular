@@ -1,0 +1,216 @@
+#include "includes.h"
+
+// We sort 160 records = 80KB = 1/10th of a disk image at a time.
+#define MAX_RECORDS 160
+#define STACK_SIZE  160  // safe headroom
+
+typedef struct {
+    unsigned char low;
+    unsigned char high;
+} partition_t;
+
+unsigned char indices[MAX_RECORDS];  // indices into your slab records
+partition_t stack[STACK_SIZE];
+int stack_ptr = 0;
+
+
+unsigned char rec_a[508];
+unsigned char rec_b[508];
+unsigned char idx_b = 0xff;
+
+int compare_records(unsigned char a_idx, unsigned char b_idx, unsigned char field_no) {
+    unsigned int len_a = 0, len_b = 0;
+
+    lcopy((unsigned long)&sector_buffer[2],(unsigned long)&record[0],254);
+    lcopy((unsigned long)&sector_buffer[256+2],(unsigned long)&record[254],254);
+    
+    
+    char *rec_a = get_record_pointer(a_idx); // e.g., &slab[a_idx * 512]
+    char *rec_b = get_record_pointer(b_idx);
+
+    char *field_a = find_field(rec_a, 508, field_no, &len_a);
+    char *field_b = find_field(rec_b, 508, field_no, &len_b);
+
+    int min_len = (len_a < len_b) ? len_a : len_b;
+    int cmp = memcmp(field_a, field_b, min_len);
+    if (cmp == 0) {
+        return (int)len_a - (int)len_b; // shorter field sorts first
+    }
+    return cmp;
+}
+
+
+
+void quicksort_indices(unsigned char field_no, unsigned char count) {
+    // Initialize stack with full range
+    stack[0].low = 0;
+    stack[0].high = count - 1;
+    stack_ptr = 1;
+
+    while (stack_ptr > 0) {
+        stack_ptr--;
+        unsigned char low  = stack[stack_ptr].low;
+        unsigned char high = stack[stack_ptr].high;
+
+        if (low >= high) continue;
+
+        // Choose pivot = high
+        unsigned char pivot_idx = indices[high];
+        unsigned char i = low;
+
+        for (unsigned char j = low; j < high; j++) {
+            if (compare_records(indices[j], pivot_idx, field_no) <= 0) {
+                // Swap indices[i] and indices[j]
+                unsigned char tmp = indices[i];
+                indices[i] = indices[j];
+                indices[j] = tmp;
+                i++;
+            }
+        }
+
+        // Move pivot into correct location
+        unsigned char tmp = indices[i];
+        indices[i] = indices[high];
+        indices[high] = tmp;
+
+        // Push sub-partitions onto stack
+        if (i > low + 1) {
+            stack[stack_ptr].low = low;
+            stack[stack_ptr].high = i - 1;
+            stack_ptr++;
+        }
+        if (i + 1 < high) {
+            stack[stack_ptr].low = i + 1;
+            stack[stack_ptr].high = high;
+            stack_ptr++;
+        }
+    }
+}
+
+void sort_slab(unsigned char field_id)
+{
+  /*
+    Do a non-recursive quicksort of the 80KB slab of sectors
+    from drive 0, using drive 1 as temporary store
+   */
+  unsigned char c;
+  // Set up ordinal record numbers
+  for(c=0;c<MAX_RECORDS;c++) indicies[c]=c;
+  // invalidate record cache for idx_b, which is repeatedly used in quicksort.
+  // This saves us from copying down records that we already have buffered.
+  idx_b=0xff; 
+  // Sort the list of indicies
+  quicksort_indices(field_no, MAX_RECORDS);
+  // Write the sorted indicies out to the temporary D81 in drive 1
+}
+
+void sort_d81(char *name_in, char *name_out, unsigned char field_id)
+{
+  unsigned char out_track=1;
+  unsigned char out_sector=0;
+  unsigned char slab=0;
+  unsigned char next_slab, next_slab_sector;
+  
+  // Mount D81 to be sorted in drive 0
+  // Mount a scratch D81 in drive 1  
+  
+  // Do internal sort of each 80KB slab of the disk.
+  for(slab=0;slab<10;slab++) {
+    // Read in 80KB = 8 tracks of data at 0x40000
+    unsigned char t=1+(slab<<3);
+    unsigned char t_stop=t+8;
+    unsigned char s;
+    unsigned long rec_addr = 0x40000L;
+    unsigned char n=0;
+
+    // Load the slab into RAM
+    for(;t<t_stop;t++) {
+      for(s=0;s<20;s++) {
+	if (read_sector(0,t,s)) return 1;
+	// Read sector, or if it's track 40, pretend it's empty, so that we don't
+	// include CBM DOS BAM or directory sectors in the sort.
+	if (t!=40) lcopy((unsigned long)SECTOR_BUFFER_ADDRESS,rec_addr,512);
+	else lfill((unsigned long)SECTOR_BUFFER_ADDRESS,0x00,512);
+
+	rec_addr+=512;
+      }
+    }
+
+    // Get a sorted list of indicies
+    sort_slab(field_id);
+
+    // Write out the sorted sectors into the scratch disk image
+    t=1+(slab<<3);
+    for(;t<t_stop;t++) {
+      for(s=0;s<20;s++) {
+	rec_addr = 0x40000L + (((unsigned long)indicies[n++])<<9);
+	lcopy(rec_addr,(unsigned long)SECTOR_BUFFER_ADDRESS,512);
+	if (write_sector(1,t,s)) return 2;
+      }
+    }
+    
+  }
+
+  // Now we have the slabs sorted, we need to do an external merge of those slabs back into the 
+  // sorted output D81.
+  // We don't care about the sector links in the sorted disk images, because these images are
+  // generated on demand. If someone validates a sorted D81, the result won't be tragic, since
+  // we can just regenerate it.
+
+  // Mount output D81 as drive 0
+
+  // Prime cache of sectors from each slab. We have 128KB at 0x40000L we can use.
+  // So we will make each cache be a whole track.
+  for(slab=0;slab<10;slab++) {
+    cached_track[slab]=(slab<<3)+1;
+    cached_track_stop[slab]=(slab<<3)+1+8;
+    cache_next_sector[slab]=0;
+
+    for(s=0;s<20;s++) {
+      if (read_sector(1,t,s)) return 3;
+      lcopy((unsigned long)SECTOR_BUFFER_ADDRESS,0x40000L + slab*(512L*20) + s*512L, 512);
+    }
+  }
+
+  // Now do round-robin comparisons of the next sector in each cached track to find
+  // the next sector to write out to the disk image.
+  // Stop when no more sectors to check.
+  next_slab=0xff;
+  next_slab_sector = 0;
+  do {
+    for(slab=0;slab<10;slab++) {
+      if (cached_next_sector[slab]==20) continue;
+      if (next_slab==0xff) { next_slab = slab; next_slab_sector = cached_next_sector[slab]; }
+      else {
+	if (compare_records(slab*20 + cached_next_sector[slab], next_slab*20 + next_slab_sector, field_no) <= 0) {
+	  next_slab = slab; next_slab_sector = cached_next_sector[slab];
+	}
+      }
+      if (next_slab==0xff) break;
+
+      // Write this record to disk
+      if (write_sector(0,out_track,out_sector)) return 5;
+      out_sector++;
+      if (out_sector==20) {
+	out_sector=0;
+	out_track++;
+      }
+
+      // Bump next sector of the slab we've just used
+      next_slab_sector++;
+      if (next_slab_sector==20) {
+	cached_track[next_slab]++;
+	if (cached_track[next_slab]<cached_track_stop[next_slab]) {
+	  // Read the track
+	  for(s=0;s<20;s++) {
+	    if (read_sector(1,cached_track[next_slab],s)) return 6;
+	    lcopy((unsigned long)SECTOR_BUFFER_ADDRESS,0x40000L + next_slab*(512L*20) + s*512L, 512);
+	  }
+	  next_slab_sector=0;
+	}
+      }
+      cached_next_sector[next_slab]=next_slab_sector;
+    }
+    
+  } while(next_slab!=0xff);
+}
