@@ -1,4 +1,5 @@
 #include "includes.h"
+#include "records.h"
 
 // We sort 160 records = 80KB = 1/10th of a disk image at a time.
 #define MAX_RECORDS 160
@@ -18,41 +19,43 @@ unsigned char rec_a[508];
 unsigned char rec_b[508];
 unsigned char idx_b = 0xff;
 
-int compare_records(unsigned char a_idx, unsigned char b_idx, unsigned char field_no) {
-    unsigned int len_a = 0, len_b = 0;
-    unsigned long addr;
-    
-    if (b_idx != idx_b) {
-      // B record cache invalid so desectorise from high RAM
-      addr = 0x40000L + (((unsigned long)b_idx)<<9);
-      lcopy(addr + 2,(unsigned long)&rec_b[0],254);
-      lcopy(addr + 256+2,(unsigned long)&rec_b[254],254);      
-    }
-
-    // Always fetch record a
-    addr = 0x40000L + (((unsigned long)a_idx)<<9);
-    lcopy(addr + 2,(unsigned long)&rec_a[0],254);
-    lcopy(addr + 256+2,(unsigned long)&rec_a[254],254);      
-
-    char *field_a = find_field(rec_a, 508, field_no, &len_a);
-    char *field_b = find_field(rec_b, 508, field_no, &len_b);
-
-    int min_len = (len_a < len_b) ? len_a : len_b;
-    char cmp=0;
-    for(l=0;l<min_len;l++) {
-      if (field_a[l]<field_b[l]) { cmp=-1; break;}
-      if (field_a[l]>field_b[l]) { cmp=1; break;}
-    }
-    
-    if (cmp == 0) {
-        return (int)len_a - (int)len_b; // shorter field sorts first
-    }
-    return cmp;
+int compare_records(unsigned char a_idx, unsigned char b_idx, unsigned char field_id) {
+  unsigned int len_a = 0, len_b = 0, l;
+  unsigned long addr;
+  unsigned char *field_a, *field_b;
+  
+  if (b_idx != idx_b) {
+    // B record cache invalid so desectorise from high RAM
+    addr = 0x40000L + (((unsigned long)b_idx)<<9);
+    lcopy(addr + 2,(unsigned long)&rec_b[0],254);
+    lcopy(addr + 256+2,(unsigned long)&rec_b[254],254);      
+  }
+  
+  // Always fetch record a
+  addr = 0x40000L + (((unsigned long)a_idx)<<9);
+  lcopy(addr + 2,(unsigned long)&rec_a[0],254);
+  lcopy(addr + 256+2,(unsigned long)&rec_a[254],254);      
+  
+  // char *find_field(char *record, unsigned int bytes_used, unsigned char type, unsigned int *len);
+  field_a = find_field(rec_a, 508, field_id, &len_a);
+  field_b = find_field(rec_b, 508, field_id, &len_b);
+  
+  int min_len = (len_a < len_b) ? len_a : len_b;
+  char cmp=0;
+  for(l=0;l<min_len;l++) {
+    if (field_a[l]<field_b[l]) { cmp=-1; break;}
+    if (field_a[l]>field_b[l]) { cmp=1; break;}
+  }
+  
+  if (cmp == 0) {
+    return (int)len_a - (int)len_b; // shorter field sorts first
+  }
+  return cmp;
 }
 
 
 
-void quicksort_indices(unsigned char field_no, unsigned char count) {
+void quicksort_indices(unsigned char field_id, unsigned char count) {
     // Initialize stack with full range
     stack[0].low = 0;
     stack[0].high = count - 1;
@@ -70,7 +73,7 @@ void quicksort_indices(unsigned char field_no, unsigned char count) {
         unsigned char i = low;
 
         for (unsigned char j = low; j < high; j++) {
-            if (compare_records(indices[j], pivot_idx, field_no) <= 0) {
+            if (compare_records(indices[j], pivot_idx, field_id) <= 0) {
                 // Swap indices[i] and indices[j]
                 unsigned char tmp = indices[i];
                 indices[i] = indices[j];
@@ -106,21 +109,27 @@ void sort_slab(unsigned char field_id)
    */
   unsigned char c;
   // Set up ordinal record numbers
-  for(c=0;c<MAX_RECORDS;c++) indicies[c]=c;
+  for(c=0;c<MAX_RECORDS;c++) indices[c]=c;
   // invalidate record cache for idx_b, which is repeatedly used in quicksort.
   // This saves us from copying down records that we already have buffered.
   idx_b=0xff; 
-  // Sort the list of indicies
-  quicksort_indices(field_no, MAX_RECORDS);
-  // Write the sorted indicies out to the temporary D81 in drive 1
+  // Sort the list of indices
+  quicksort_indices(field_id, MAX_RECORDS);
+  // Write the sorted indices out to the temporary D81 in drive 1
 }
 
-void sort_d81(char *name_in, char *name_out, unsigned char field_id)
+#define NUM_SLABS (80/8)
+unsigned char cached_track[NUM_SLABS];
+unsigned char cached_track_stop[NUM_SLABS];
+unsigned char cached_next_sector[NUM_SLABS];
+unsigned char next_slab, next_slab_sector;  
+
+char sort_d81(char *name_in, char *name_out, unsigned char field_id)
 {
   unsigned char out_track=1;
   unsigned char out_sector=0;
   unsigned char slab=0;
-  unsigned char next_slab, next_slab_sector;
+  unsigned char s;
   
   // Mount D81 to be sorted in drive 0
   if (mount_d81(name_in,0)) return 7;
@@ -133,7 +142,6 @@ void sort_d81(char *name_in, char *name_out, unsigned char field_id)
     // Read in 80KB = 8 tracks of data at 0x40000
     unsigned char t=1+(slab<<3);
     unsigned char t_stop=t+8;
-    unsigned char s;
     unsigned long rec_addr = 0x40000L;
     unsigned char n=0;
 
@@ -150,14 +158,14 @@ void sort_d81(char *name_in, char *name_out, unsigned char field_id)
       }
     }
 
-    // Get a sorted list of indicies
+    // Get a sorted list of indices
     sort_slab(field_id);
 
     // Write out the sorted sectors into the scratch disk image
     t=1+(slab<<3);
     for(;t<t_stop;t++) {
       for(s=0;s<20;s++) {
-	rec_addr = 0x40000L + (((unsigned long)indicies[n++])<<9);
+	rec_addr = 0x40000L + (((unsigned long)indices[n++])<<9);
 	lcopy(rec_addr,(unsigned long)SECTOR_BUFFER_ADDRESS,512);
 	if (write_sector(1,t,s)) return 2;
       }
@@ -179,10 +187,10 @@ void sort_d81(char *name_in, char *name_out, unsigned char field_id)
   for(slab=0;slab<10;slab++) {
     cached_track[slab]=(slab<<3)+1;
     cached_track_stop[slab]=(slab<<3)+1+8;
-    cache_next_sector[slab]=0;
-
+    cached_next_sector[slab]=0;
+    
     for(s=0;s<20;s++) {
-      if (read_sector(1,t,s)) return 3;
+      if (read_sector(1,cached_track[slab],s)) return 3;
       lcopy((unsigned long)SECTOR_BUFFER_ADDRESS,0x40000L + slab*(512L*20) + s*512L, 512);
     }
   }
@@ -197,7 +205,7 @@ void sort_d81(char *name_in, char *name_out, unsigned char field_id)
       if (cached_next_sector[slab]==20) continue;
       if (next_slab==0xff) { next_slab = slab; next_slab_sector = cached_next_sector[slab]; }
       else {
-	if (compare_records(slab*20 + cached_next_sector[slab], next_slab*20 + next_slab_sector, field_no) <= 0) {
+	if (compare_records(slab*20 + cached_next_sector[slab], next_slab*20 + next_slab_sector, field_id) <= 0) {
 	  next_slab = slab; next_slab_sector = cached_next_sector[slab];
 	}
       }
@@ -228,4 +236,6 @@ void sort_d81(char *name_in, char *name_out, unsigned char field_id)
     }
     
   } while(next_slab!=0xff);
+
+  return 0;
 }

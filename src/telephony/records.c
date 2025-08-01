@@ -86,7 +86,7 @@ char append_field(unsigned char *record, unsigned int *bytes_used, unsigned int 
   return 0;
 }
 
-char delete_field(char *record, unsigned int *bytes_used, unsigned char type)
+char delete_field(unsigned char *record, unsigned int *bytes_used, unsigned char type)
 {
   unsigned int ofs=2;      // Skip record number indicator
   unsigned char deleted=0;
@@ -112,7 +112,7 @@ char delete_field(char *record, unsigned int *bytes_used, unsigned char type)
   return deleted;
 }
 
-char *find_field(char *record, unsigned int bytes_used, unsigned char type, unsigned int *len)
+unsigned char *find_field(unsigned char *record, unsigned int bytes_used, unsigned char type, unsigned int *len)
 {
   unsigned int ofs=2;  // Skip record number indicator
 

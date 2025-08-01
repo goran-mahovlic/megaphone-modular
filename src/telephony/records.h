@@ -22,8 +22,8 @@ void desectorise_record(unsigned char *sector_buffer,
 
 char append_field(unsigned char *record, unsigned int *bytes_used, unsigned int length,
 		  unsigned char type, unsigned char *value, unsigned int value_length);
-char delete_field(char *record, unsigned int *bytes_used, unsigned char type);
-char *find_field(char *record, unsigned int bytes_used, unsigned char type, unsigned int *len);
+char delete_field(unsigned char *record, unsigned int *bytes_used, unsigned char type);
+unsigned char *find_field(unsigned char *record, unsigned int bytes_used, unsigned char type, unsigned int *len);
 
 
 

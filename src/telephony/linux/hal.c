@@ -86,7 +86,7 @@ char read_sector(unsigned char drive_id, unsigned char track, unsigned char sect
   }
   
   if (offset>=(800*1024)) {
-    fprintf(stderr,"FATAL: Track %d, Sector %d resolved to address 0x%08x\n",offset);
+    fprintf(stderr,"FATAL: Track %d, Sector %d resolved to address 0x%08x\n",track, sector, offset);
     exit(-1);
   }
 
@@ -124,7 +124,7 @@ char write_sector(unsigned char drive_id, unsigned char track, unsigned char sec
   }
   
   if (offset>=(800*1024)) {
-    fprintf(stderr,"FATAL: Track %d, Sector %d resolved to address 0x%08x\n",offset);
+    fprintf(stderr,"FATAL: Track %d, Sector %d resolved to address 0x%08x\n",track, sector, offset);
     exit(-1);
   }
   
