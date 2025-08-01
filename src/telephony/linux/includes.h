@@ -4,6 +4,10 @@
 extern unsigned char sector_buffer[512];
 #define SECTOR_BUFFER_ADDRESS ((unsigned long long) &sector_buffer[0])
 
+#define WORK_BUFFER_SIZE (128*1024)
+extern unsigned char work_buffer[WORK_BUFFER_SIZE];
+#define WORK_BUFFER_ADDRESS ((unsigned long long) &work_buffer[0])
+
 void hal_init(void);
 void lpoke(unsigned long long addr, unsigned char val);
 void lfill(unsigned long long addr, unsigned char val, unsigned int len);

@@ -26,13 +26,13 @@ int compare_records(unsigned char a_idx, unsigned char b_idx, unsigned char fiel
   
   if (b_idx != idx_b) {
     // B record cache invalid so desectorise from high RAM
-    addr = 0x40000L + (((unsigned long)b_idx)<<9);
+    addr = WORK_BUFFER_ADDRESS + (((unsigned long)b_idx)<<9);
     lcopy(addr + 2,(unsigned long)&rec_b[0],254);
     lcopy(addr + 256+2,(unsigned long)&rec_b[254],254);      
   }
   
   // Always fetch record a
-  addr = 0x40000L + (((unsigned long)a_idx)<<9);
+  addr = WORK_BUFFER_ADDRESS + (((unsigned long)a_idx)<<9);
   lcopy(addr + 2,(unsigned long)&rec_a[0],254);
   lcopy(addr + 256+2,(unsigned long)&rec_a[254],254);      
   
@@ -142,7 +142,7 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
     // Read in 80KB = 8 tracks of data at 0x40000
     unsigned char t=1+(slab<<3);
     unsigned char t_stop=t+8;
-    unsigned long rec_addr = 0x40000L;
+    unsigned long rec_addr = WORK_BUFFER_ADDRESS;
     unsigned char n=0;
 
     // Load the slab into RAM
@@ -165,7 +165,7 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
     t=1+(slab<<3);
     for(;t<t_stop;t++) {
       for(s=0;s<20;s++) {
-	rec_addr = 0x40000L + (((unsigned long)indices[n++])<<9);
+	rec_addr = WORK_BUFFER_ADDRESS + (((unsigned long)indices[n++])<<9);
 	lcopy(rec_addr,(unsigned long)SECTOR_BUFFER_ADDRESS,512);
 	if (write_sector(1,t,s)) return 2;
       }
@@ -182,7 +182,7 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
   // Mount output D81 as drive 0
   if (mount_d81(name_out,0)) return 9;
 
-  // Prime cache of sectors from each slab. We have 128KB at 0x40000L we can use.
+  // Prime cache of sectors from each slab. We have 128KB at WORK_BUFFER_ADDRESS we can use.
   // So we will make each cache be a whole track.
   for(slab=0;slab<10;slab++) {
     cached_track[slab]=(slab<<3)+1;
@@ -191,7 +191,7 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
     
     for(s=0;s<20;s++) {
       if (read_sector(1,cached_track[slab],s)) return 3;
-      lcopy((unsigned long)SECTOR_BUFFER_ADDRESS,0x40000L + slab*(512L*20) + s*512L, 512);
+      lcopy((unsigned long)SECTOR_BUFFER_ADDRESS,WORK_BUFFER_ADDRESS + slab*(512L*20) + s*512L, 512);
     }
   }
 
@@ -227,7 +227,7 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
 	  // Read the track
 	  for(s=0;s<20;s++) {
 	    if (read_sector(1,cached_track[next_slab],s)) return 6;
-	    lcopy((unsigned long)SECTOR_BUFFER_ADDRESS,0x40000L + next_slab*(512L*20) + s*512L, 512);
+	    lcopy((unsigned long)SECTOR_BUFFER_ADDRESS,WORK_BUFFER_ADDRESS + next_slab*(512L*20) + s*512L, 512);
 	  }
 	  next_slab_sector=0;
 	}

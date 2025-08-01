@@ -1,3 +1,5 @@
+#include "includes.h"
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -6,6 +8,7 @@
 #include <fcntl.h>
 
 unsigned char sector_buffer[512];
+unsigned char work_buffer[WORK_BUFFER_SIZE];
 
 #define MAX_DRIVES 2
 FILE *drive_files[MAX_DRIVES]={NULL};
