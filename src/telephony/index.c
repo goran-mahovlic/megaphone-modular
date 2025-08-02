@@ -182,8 +182,8 @@ char contacts_reindex(unsigned char contacts_disk_id)
 
   for(field=FIELD_FIRSTNAME;field<=FIELD_PHONENUMBER;field+=2) {
     // Get index D81 as disk 1
-    snprintf(d81name,16,"IDX%d-%02X.D81",
-	     contacts_disk_id, field);
+    snprintf(d81name,16,"IDX%02X-%d.D81",
+	     field,contacts_disk_id);
     if (mount_d81(d81name,1)) return 4;
 
     if (disk_reindex(field)) return 5;
