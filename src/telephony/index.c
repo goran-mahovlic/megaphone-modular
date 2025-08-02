@@ -106,19 +106,19 @@ char index_update_from_buffer(unsigned char disk_id, unsigned int record_number)
   fprintf(stderr,"DEBUG: record_number %d -> byte=%d, bit=%d\n",
 	  record_number, record_byte, record_bit);
 #endif
-  
+
   // For each slab update the index pages
   for(slab=0;slab<SLAB_COUNT;slab++) {
     unsigned long index_page_address = WORK_BUFFER_ADDRESS;
   
     // Read a slab
     if (slab_read(disk_id, slab)) return 2;
-  
+    
     for(ofs=0;ofs<INDEX_PAGES_PER_SLAB;ofs++) {
 
       // Find the diphthong byte and bit in buffers.index.rec that corresponds
       // to the index page.
-      unsigned char byte = index_page>>3;
+      unsigned int byte = index_page>>3;
       unsigned char bit = index_bitmap[byte] & (1<<(index_page&7));
 
       // Retrieve the byte that for this record from this index page
@@ -128,8 +128,10 @@ char index_update_from_buffer(unsigned char disk_id, unsigned int record_number)
       if (bit) {
 	// Set the bit in the page
 	value |= record_bit;
-	fprintf(stderr,"DEBUG: Setting bit for diphthong 0x%03x from record %d at slab offset 0x%05x, slab %d\n",
-		index_page,record_number,
+	fprintf(stderr,"DEBUG: Setting bit for diphthong 0x%04x (0x%04x) from record %d at slab offset 0x%05x, slab %d\n",
+		index_page,
+		byte,
+		record_number,
 		index_page_address - WORK_BUFFER_ADDRESS,
 		slab);
       } else {
@@ -147,8 +149,6 @@ char index_update_from_buffer(unsigned char disk_id, unsigned int record_number)
     // Write the slab back with the changes
     if (slab_write(disk_id, slab)) return 3;
     
-    // Advance the record number
-    index_page += INDEX_PAGES_PER_SLAB;
   }
 
   return 0;
