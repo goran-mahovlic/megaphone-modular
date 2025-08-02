@@ -21,6 +21,9 @@
 unsigned int record_allocate_next(unsigned char *bam_sector);
 char record_free(unsigned char *bam_sector,unsigned int record_num);
 
+char write_record_by_id(unsigned char drive_id,unsigned int id,unsigned char *buffer);
+char read_record_by_id(unsigned char drive_id,unsigned int id,unsigned char *buffer);
+
 void sectorise_record(unsigned char *record,
 		      unsigned char *sector_buffer);
 void desectorise_record(unsigned char *sector_buffer,
@@ -30,5 +33,6 @@ char append_field(unsigned char *record, unsigned int *bytes_used, unsigned int 
 		  unsigned char type, unsigned char *value, unsigned int value_length);
 char delete_field(unsigned char *record, unsigned int *bytes_used, unsigned char type);
 unsigned char *find_field(unsigned char *record, unsigned int bytes_used, unsigned char type, unsigned int *len);
+
 
 #endif
