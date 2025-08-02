@@ -15,8 +15,8 @@ partition_t stack[STACK_SIZE];
 int stack_ptr = 0;
 
 
-unsigned char rec_a[508];
-unsigned char rec_b[508];
+unsigned char rec_a[RECORD_DATA_SIZE];
+unsigned char rec_b[RECORD_DATA_SIZE];
 unsigned char idx_b = 0xff;
 
 int compare_records(unsigned char a_idx, unsigned char b_idx, unsigned char field_id) {
@@ -37,8 +37,8 @@ int compare_records(unsigned char a_idx, unsigned char b_idx, unsigned char fiel
   lcopy(addr + 256+2,(unsigned long)&rec_a[254],254);      
   
   // char *find_field(char *record, unsigned int bytes_used, unsigned char type, unsigned int *len);
-  field_a = find_field(rec_a, 508, field_id, &len_a);
-  field_b = find_field(rec_b, 508, field_id, &len_b);
+  field_a = find_field(rec_a, RECORD_DATA_SIZE, field_id, &len_a);
+  field_b = find_field(rec_b, RECORD_DATA_SIZE, field_id, &len_b);
   
   int min_len = (len_a < len_b) ? len_a : len_b;
   char cmp=0;
@@ -225,13 +225,17 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
     
     if (next_slab==0xff) break;
 
-#if 0
+#ifdef DEBUG_MERGE
     fprintf(stderr,"DEBUG: Writing sorted record to T%d,S%d from slab=%d,T%d,S%d (stop track=%d)\n",
 	    out_track,out_sector,
 	    next_slab,cached_track[next_slab], cached_next_sector[next_slab],
 	    cached_track_stop[next_slab]
-	    );
+	    );    
 #endif
+
+    // Copy the record we need into the sector buffer
+    lcopy(WORK_BUFFER_ADDRESS + (next_slab*20L + cached_next_sector[next_slab])*512L,
+	  SECTOR_BUFFER_ADDRESS,512);
     
     // Write this record to disk
     if (write_sector(0,out_track,out_sector)) return 5;
@@ -247,7 +251,9 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
       cached_track[next_slab]++;
       if (cached_track[next_slab]<cached_track_stop[next_slab]) {
 	// Read the track
-	// fprintf(stderr,"DEBUG: Reading track %d for slab %d\n",cached_track[next_slab],next_slab);
+#ifdef DEBUG_MERGE
+	fprintf(stderr,"DEBUG: Reading track %d for slab %d\n",cached_track[next_slab],next_slab);
+#endif
 	for(s=0;s<20;s++) {
 	  if (read_sector(1,cached_track[next_slab],s)) return 6;
 	  lcopy((unsigned long)SECTOR_BUFFER_ADDRESS,WORK_BUFFER_ADDRESS + next_slab*(512L*20) + s*512L, 512);

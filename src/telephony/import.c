@@ -54,7 +54,7 @@ int main(int argc,char **argv)
     if (sscanf(line,"CONTACT:%[^:]:%[^:]:%[^:]",
 	       phoneNumber,firstName,lastName)==3) {
       // Found a contact.
-      unsigned char buffer[508];
+      unsigned char buffer[RECORD_DATA_SIZE];
       unsigned int bytes_used=0;
       if (build_contact(buffer,&bytes_used,
 			firstName,lastName,phoneNumber)) {
