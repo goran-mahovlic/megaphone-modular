@@ -1,6 +1,7 @@
 #include "includes.h"
 #include "records.h"
 #include "slab.h"
+#include "buffers.h"
 
 // 1 bit per diphthong. We use a mod 56 number space which
 // results in 56x56 = 3,136 values. One index per logical sector.
@@ -137,28 +138,30 @@ char disk_reindex(unsigned char field)
     // (remember we are 1-relative, as record 0 = record BAM)
     for(c=1;c<=USABLE_SECTORS_PER_DISK;c++) {
 
-      // Read the record
-
+      // XXX Read the record
+      
+            
       // Extract the field
       unsigned int fieldlen = 0;
       unsigned char *fieldvalue
-	= find_field(record, RECORD_DATA_SIZE, field, &fieldlen);
+	= find_field(buffers.index.rec, RECORD_DATA_SIZE, field, &fieldlen);
 
       // Build bitmap of all diphthongs in field
       index_buffer_clear();
       index_buffer_update(fieldvalue, fieldlen);
-
+      
       // Update all index pages accordingly
       index_update_from_buffer(1,c);
     }
-  }
+    
   return 0;
 }
 
 char contacts_reindex(unsigned char contacts_disk_id)
 {
+  unsigned char field;
   char d81name[16];
-  snprintf(d81name,16,"CONTACT%d.D81",contact_disk_id);
+  snprintf(d81name,16,"CONTACT%d.D81",contacts_disk_id);
   
   if (mega65_cdroot()) return 1;
   if (mega65_chdir("PHONE")) return 2;
@@ -168,7 +171,7 @@ char contacts_reindex(unsigned char contacts_disk_id)
   for(field=FIELD_FIRSTNAME;field<=FIELD_PHONENUMBER;field+=2) {
     // Get index D81 as disk 1
     snprintf(d81name,16,"IDX%d-%02X.D81",
-	     contact_d81_file_num, field);
+	     contacts_disk_id, field);
     if (mount_d81(d81name,1)) return 4;
 
     if (disk_reindex(field)) return 5;

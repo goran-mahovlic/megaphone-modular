@@ -1,4 +1,5 @@
 #include "includes.h"
+#include "buffers.h"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -23,6 +24,9 @@ void hal_init(void)
     perror("getcwd()");
     exit(-1);
   }
+
+  // Start with shared data structure unlocked
+  buffers.lock = LOCK_FREE;
 }
 
 char mega65_mkdir(char *dir)
