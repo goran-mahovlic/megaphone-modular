@@ -1,4 +1,5 @@
 #include "includes.h"
+#include "slab.h"
 
 // 1 bit per diphthong. We use a mod 56 number space which
 // results in 56x56 = 3,136 values. One index per logical sector.
@@ -73,15 +74,39 @@ void index_buffer_update(unsigned char *d,unsigned int len)
    set or clear the bit for this message, and then write the whole slab
    back after.  This balances efficiency with memory usage.
 */
+
+#define INDEX_PAGES_PER_SLAB (SLAB_TRACKS*20*2)
+
 char index_update_from_buffer(char *d81, unsigned int record_number)
 {
+  unsigned int index_page = 0, ofs;
+
+  // Calculate which byte and bit we are fiddling in each index page
+  unsigned char record_byte = record_number>>3;
+  unsigned char record_bit = 1<<(record_number&7);
+
+  // Mount the index disk image
   if (mount_d81(d81,1)) return 1;
 
+  // For each slab update the index pages
   for(slab=0;slab<SLAB_COUNT;slab++) {
     unsigned char n=0;
 
-    if (slab_read(slab)) return 1;
+    // Read a slab
+    if (slab_read(slab)) return 2;
+
+    for(ofs=0;ofs<INDEX_PAGES_PER_SLAB;ofs++) {
+      unsigned char byte = (index_page+ofs)>>3;
+      unsigned char bit = index_bitmap[byte] & (1<<((index_page+ofs)&7));
+      if (bit) {
+	
+      }
+    }
+
+    if (slab_write(slab)) return 3;
     
+    // Advance the record number
+    index_page += INDEX_PAGES_PER_SLAB;
   }
 
   return 0;
