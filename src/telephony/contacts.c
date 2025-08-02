@@ -61,8 +61,8 @@ char read_contact_by_id(unsigned char drive_id,unsigned int id,unsigned char *bu
   unsigned char track, sector;
 
   // Work out where the sector gets written to
-  track=id/20;
-  sector=id - (track*20);
+  track=1 + id/20;  // Track numbers start at 1
+  sector=id - ((track-1)*20);
   if (track>39) track++;
   
   // And ID of 0 is invalid (it's the record BAM sector).
