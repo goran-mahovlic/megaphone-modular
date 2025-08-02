@@ -57,6 +57,12 @@ void lpoke(unsigned long long addr, unsigned char val)
   a[0]=val;
 }
 
+unsigned char lpeek(unsigned long long addr)
+{
+  unsigned char *a = (unsigned char *)addr;
+  return a[0];
+}
+
 
 void lfill(unsigned long long addr, unsigned char val, unsigned int len)
 {
