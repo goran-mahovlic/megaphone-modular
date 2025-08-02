@@ -1,27 +1,58 @@
 #include "includes.h"
+#include "slab.h"
+
+unsigned char t,t_stop,s;
+unsigned long rec_addr;
+
+void slab_set_geometry(unsigned char slab_number)
+{
+  // Read in 80KB = 8 tracks of data at 0x40000
+  t=1+(slab_number<<SLAB_TRACK_BITS);
+  t_stop=t+SLAB_TRACKS;
+  rec_addr = WORK_BUFFER_ADDRESS;
+
+  // Skip directory track
+  if (t_stop>=40) t_stop++;
+  if (t>=40) t++;
+  if (t_stop>81) t_stop=80;
+
+  return;
+}
 
 char slab_read(unsigned char slab_number)
 {
-  // Read in 80KB = 8 tracks of data at 0x40000
-  unsigned char t=1+(slab_number<<3);
-  unsigned char t_stop=t+8;
-  unsigned char s;
-  unsigned long rec_addr = WORK_BUFFER_ADDRESS;
-  
-  // fprintf(stderr,"DEBUG: sort_d81(): Sort slab %d.\n",slab);
+
+  slab_set_geometry(slab_number);
   
   // Load the slab into RAM
   for(;t<t_stop;t++) {
     for(s=0;s<20;s++) {
+      if (t==40) t++;
       if (read_sector(0,t,s)) return 1;
-      // Read sector, or if it's track 40, pretend it's empty, so that we don't
-      // include CBM DOS BAM or directory sectors in the sort.
-      if (t!=40) lcopy((unsigned long)SECTOR_BUFFER_ADDRESS,rec_addr,512);
-      else lfill((unsigned long)SECTOR_BUFFER_ADDRESS,0x00,512);
+      lcopy((unsigned long)SECTOR_BUFFER_ADDRESS,rec_addr,512);
       
       rec_addr+=512;
     }
   }
 
+  return 0;
+}
+
+char slab_write(unsigned char slab_number)
+{
+  // Write out 80KB = 8 tracks of data at 0x40000
+  slab_set_geometry(slab_number);
+
+  // Save the slab from RAM
+  for(;t<t_stop;t++) {
+    for(s=0;s<20;s++) {
+      if (t==40) t++;
+      lcopy(rec_addr,(unsigned long)SECTOR_BUFFER_ADDRESS,512);
+      if (write_sector(0,t,s)) return 1;
+      
+      rec_addr+=512;
+    }
+  }
+  
   return 0;
 }
