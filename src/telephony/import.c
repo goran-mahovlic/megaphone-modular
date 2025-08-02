@@ -109,10 +109,19 @@ int main(int argc,char **argv)
   }
 
   // Update sorted versions of contacts
-  sort_d81("CONTACT0.D81","SORT02-0.D81",0x02);	   
-  sort_d81("CONTACT0.D81","SORT04-0.D81",0x04);	   
-  sort_d81("CONTACT0.D81","SORT06-0.D81",0x06);	   
+  if (sort_d81("CONTACT0.D81","SORT02-0.D81",0x02)) {
+    fprintf(stderr,"FATAL: Failed to sort CONTACT0 by first name\n");
+    exit(-1);
+  }
+  if (sort_d81("CONTACT0.D81","SORT04-0.D81",0x04)) {
+    fprintf(stderr,"FATAL: Failed to sort CONTACT0 by last name\n");
+    exit(-1);
+  }
+  if (sort_d81("CONTACT0.D81","SORT06-0.D81",0x06)) {
+    fprintf(stderr,"FATAL: Failed to sort CONTACT0 by phone number\n");
+    exit(-1);
+  }
   
   // Update search index for contacts
-  // contacts_reindex(0);
+  contacts_reindex(0);
 }
