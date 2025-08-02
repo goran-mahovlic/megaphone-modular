@@ -94,26 +94,45 @@ char index_update_from_buffer(unsigned char disk_id, unsigned int record_number)
   unsigned char record_byte = 2 + (record_number>>3);
   unsigned char record_bit = 1<<(record_number&7);
 
+#if 0
+  fprintf(stderr,"DEBUG: record_number %d -> byte=%d, bit=%d\n",
+	  record_number, record_byte, record_bit);
+#endif
+  
   // For each slab update the index pages
   for(slab=0;slab<SLAB_COUNT;slab++) {
-    unsigned long index_page_address = WORK_BUFFER_ADDRESS + record_byte;
+    unsigned long index_page_address = WORK_BUFFER_ADDRESS;
   
     // Read a slab
     if (slab_read(disk_id, slab)) return 2;
   
     for(ofs=0;ofs<INDEX_PAGES_PER_SLAB;ofs++) {
-      unsigned char byte = (index_page+ofs)>>3;
-      unsigned char bit = index_bitmap[byte] & (1<<((index_page+ofs)&7));
-      unsigned char value = lpeek(index_page_address);
+
+      // Find the diphthong byte and bit in buffers.index.rec that corresponds
+      // to the index page.
+      unsigned char byte = index_page>>3;
+      unsigned char bit = index_bitmap[byte] & (1<<(index_page&7));
+
+      // Retrieve the byte that for this record from this index page
+      unsigned char value = lpeek(index_page_address + record_byte);
+
+      // Do we need to set or clear the bit?
       if (bit) {
 	// Set the bit in the page
 	value |= record_bit;
+	fprintf(stderr,"DEBUG: Setting bit for diphthong 0x%03x from record %d at slab offset 0x%05x, slab %d\n",
+		index_page,record_number,
+		index_page_address - WORK_BUFFER_ADDRESS,
+		slab);
       } else {
 	// Clear the bit in the page
 	value &= (0xff - record_bit);
       }
-      lpoke(index_page_address,value);
-      
+
+      // Write the updated index page byte for this record
+      lpoke(index_page_address + record_byte,value);
+
+      index_page++;
       index_page_address += 0x100;
     }
 
