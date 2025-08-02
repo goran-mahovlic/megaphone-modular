@@ -40,11 +40,13 @@ SRC_TELEPHONY_COMMON=	src/telephony/d81.c \
 			src/telephony/contacts.c \
 			src/telephony/sort.c \
 			src/telephony/index.c \
+			src/telephony/buffers.c \
 			src/telephony/slab.c
 
 HDR_TELEPHONY_COMMON=	src/telephony/records.h \
 			src/telephony/contacts.h \
 			src/telephony/index.h \
+			src/telephony/buffers.h \
 			src/telephony/slab.h
 
 SRC_TELEPHONY_COMMON_LINUX=	src/telephony/linux/hal.c
