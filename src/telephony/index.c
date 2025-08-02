@@ -1,0 +1,88 @@
+#include "includes.h"
+
+// 1 bit per diphthong. We use a mod 56 number space which
+// results in 56x56 = 3,136 values. One index per logical sector.
+// So we can have 2xUSABLE_SECTORS_PER_DISK entries, which works
+// with our 3,136 value.
+#define MODULO_SPACE 56
+unsigned char index_bitmap[(USABLE_SECTORS_PER_DISK<<1)>>3];
+unsigned char index_bitmap_last_val = 0;
+
+// To make indices and thus search case insensitive, we use a character
+// mapping that folds case. It also means we can fold everything else
+// however we like.  In particular we want to keep punctuation and
+// characters/numbers from aliasing.
+unsigned char index_mapping_table[256] = {
+  //  0x00–0x0F
+   0,  1,  2,  3,  4,  5,  6,  7,  8, 32, 32, 11, 12, 32, 14, 15, // NUL,SOH,...,\t,\n,VT,\r,...
+  //  0x10–0x1F
+  16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, // DC1–US
+  //  0x20–0x2F
+  32, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, // ' ',!,",#,$,%,&,',(,),*,+,,,,-,.,/
+  //  0x30–0x3F
+  42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 27, 28, // 0–9,: ,;,<,=,>,?,@
+  //  0x40–0x4F
+   1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16, // A–P
+  //  0x50–0x5F
+  17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 32, 30, 31, 33, 34, 35, // Q–Z,[,\,,],^,_
+  //  0x60–0x6F
+  36,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, // `,a–p
+  //  0x70–0x7F
+  16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 38, 39, 40, 41, 42, // q–z,{,|,},~,DEL
+  //  0x80–0x8F
+  43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55,  0,  1,  2, // Extended
+  //  0x90–0x9F
+   3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, //
+  //  0xA0–0xAF
+  19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, //
+  //  0xB0–0xBF
+  35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, //
+  //  0xC0–0xCF
+  51, 52, 53, 54, 55,  0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, //
+  //  0xD0–0xDF
+  11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, //
+  //  0xE0–0xEF
+  27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, //
+  //  0xF0–0xFF
+  43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55,  0,  1,  2  //
+};
+
+void index_buffer_clear(void)
+{
+  lfill((unsigned long)&index_bitmap[0],0x00,sizeof(index_bitmap));
+  index_buffer_last_val = 0;
+
+  return;
+}
+
+void index_buffer_update(unsigned char *d,unsigned int len)
+{
+  while(len) {
+    unsigned int diphthong = *d;
+    diphthong += 56 * index_buffer_last_val;
+    index_bitmap_last_val = *d;
+    d++; len--;
+
+    index_bitmap[diphthong>>3] |= 1<<(diphthong&0x07);
+  }
+  return;
+}
+
+/* This is where the real fun is:
+   Open the D81, and read in blocks of WORK_BUFFER_SIZE, and
+   set or clear the bit for this message, and then write the whole slab
+   back after.  This balances efficiency with memory usage.
+*/
+char index_update_from_buffer(char *d81, unsigned int record_number)
+{
+  if (mount_d81(d81,1)) return 1;
+
+  for(slab=0;slab<SLAB_COUNT;slab++) {
+    unsigned char n=0;
+
+    if (slab_read(slab)) return 1;
+    
+  }
+
+  return 0;
+}

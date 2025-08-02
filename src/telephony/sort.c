@@ -1,5 +1,6 @@
 #include "includes.h"
 #include "records.h"
+#include "slab.h"
 
 // We sort 160 records = 80KB = 1/10th of a disk image at a time.
 #define MAX_RECORDS 160
@@ -140,36 +141,22 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
   // fprintf(stderr,"DEBUG: sort_d81(): Sort each slab.\n");
   
   // Do internal sort of each 80KB slab of the disk.
-  for(slab=0;slab<10;slab++) {
-    // Read in 80KB = 8 tracks of data at 0x40000
-    unsigned char t=1+(slab<<3);
-    unsigned char t_stop=t+8;
-    unsigned long rec_addr = WORK_BUFFER_ADDRESS;
-    unsigned char n=0;
+  for(slab=0;slab<SLAB_COUNT;slab++) {
 
-    // fprintf(stderr,"DEBUG: sort_d81(): Sort slab %d.\n",slab);
+    unsigned char n=0, t=0, t_stop=0, s=0;
     
-    // Load the slab into RAM
-    for(;t<t_stop;t++) {
-      for(s=0;s<20;s++) {
-	if (read_sector(0,t,s)) return 1;
-	// Read sector, or if it's track 40, pretend it's empty, so that we don't
-	// include CBM DOS BAM or directory sectors in the sort.
-	if (t!=40) lcopy((unsigned long)SECTOR_BUFFER_ADDRESS,rec_addr,512);
-	else lfill((unsigned long)SECTOR_BUFFER_ADDRESS,0x00,512);
-
-	rec_addr+=512;
-      }
-    }
+    // Read in the slab
+    if (slab_read(slab)) return 1;
 
     // Get a sorted list of indices
     sort_slab(field_id);
 
     // Write out the sorted sectors into the scratch disk image
     t=1+(slab<<3);
+    t_stop = t+SLAB_TRACKS;
     for(;t<t_stop;t++) {
       for(s=0;s<20;s++) {
-	rec_addr = WORK_BUFFER_ADDRESS + (((unsigned long)indices[n++])<<9);
+	unsigned long rec_addr = WORK_BUFFER_ADDRESS + (((unsigned long)indices[n++])<<9);
 	lcopy(rec_addr,(unsigned long)SECTOR_BUFFER_ADDRESS,512);
 	if (write_sector(1,t,s)) return 2;
       }

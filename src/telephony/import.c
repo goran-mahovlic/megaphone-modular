@@ -43,23 +43,26 @@ int main(int argc,char **argv)
   unsigned char firstName[1024];
   unsigned char lastName[1024];
   unsigned char phoneNumber[1024];
-
+  unsigned int unreadCount=0;
+  
   // Fields for messages
   unsigned long timestampAztecTime;
   unsigned char messageBody[1024];
   
   line[0]=0; fgets(line,1024,f);
   while(line[0]) {
-    // CONTACT:+99920915060:Jerry:Williams:
-    if (sscanf(line,"CONTACT:%[^:]:%[^:]:%[^:]",
-	       phoneNumber,firstName,lastName)==3) {
+    // CONTACT:+99920915060:Jerry:Williams:[unread count]:
+    unreadCount=0;
+    if (sscanf(line,"CONTACT:%[^:]:%[^:]:%[^:]:%d",
+	       phoneNumber,firstName,lastName,&unreadCount)>=3) {
       // Found a contact.
       unsigned char buffer[RECORD_DATA_SIZE];
       unsigned int bytes_used=0;
       if (build_contact(buffer,&bytes_used,
-			firstName,lastName,phoneNumber)) {
+			firstName,lastName,phoneNumber,unreadCount)) {
 	fprintf(stderr,"ERROR: Failed to parse contact line: %s\n",line);
-      } else {
+      } else {	
+	
 	mega65_cdroot();
 	mega65_chdir("PHONE");
 	mount_d81("CONTACT0.D81",0);

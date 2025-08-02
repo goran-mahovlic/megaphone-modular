@@ -38,10 +38,12 @@ src/telephony/attr_tables.c:	tools/gen_attr_tables
 SRC_TELEPHONY_COMMON=	src/telephony/d81.c \
 			src/telephony/records.c \
 			src/telephony/contacts.c \
-			src/telephony/sort.c
+			src/telephony/sort.c \
+			src/telephony/slab.c
 
 HDR_TELEPHONY_COMMON=	src/telephony/records.h \
-			src/telephony/contacts.h
+			src/telephony/contacts.h \
+			src/telephony/slab.h
 
 SRC_TELEPHONY_COMMON_LINUX=	src/telephony/linux/hal.c
 
