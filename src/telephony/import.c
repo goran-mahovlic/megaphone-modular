@@ -74,7 +74,12 @@ int main(int argc,char **argv)
 	} else {
 	  // Write back updated BAM
 	  write_sector(0,1,0);
-	  // Allocated record, so write contact
+
+	  // Set record number bytes in record
+	  buffer[0]=record_number & 0xff;
+	  buffer[1]=record_number >> 8;
+	  
+	  // Allocated record, so write contact	  
 	  char r=write_record_by_id(0,record_number,buffer);
 	  if (r) {
 	    fprintf(stderr,"ERROR: Failed to write contact to record #%d (code %d)\n",record_number,r);
@@ -109,5 +114,5 @@ int main(int argc,char **argv)
   sort_d81("CONTACT0.D81","SORT06-0.D81",0x06);	   
   
   // Update search index for contacts
-  contacts_reindex(0);
+  // contacts_reindex(0);
 }
