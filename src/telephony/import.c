@@ -75,7 +75,7 @@ int main(int argc,char **argv)
 	  // Write back updated BAM
 	  write_sector(0,1,0);
 	  // Allocated record, so write contact
-	  char r=write_contact_by_id(0,record_number,buffer);
+	  char r=write_record_by_id(0,record_number,buffer);
 	  if (r) {
 	    fprintf(stderr,"ERROR: Failed to write contact to record #%d (code %d)\n",record_number,r);
 	  }

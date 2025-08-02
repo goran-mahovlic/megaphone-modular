@@ -59,7 +59,7 @@ int main(int argc,char **argv)
       unsigned int qso_number = i * USABLE_SECTORS_PER_DISK + c;
       
       unsigned char contact[RECORD_DATA_SIZE];
-      char r = read_contact_by_id(0,c,contact);
+      char r = read_record_by_id(0,c,contact);
       if (!r) {
 	unsigned int firstNameLen = 0;
 	unsigned char *firstName = find_field(contact,RECORD_DATA_SIZE,FIELD_FIRSTNAME,&firstNameLen);
