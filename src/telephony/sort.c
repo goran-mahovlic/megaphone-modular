@@ -1,24 +1,7 @@
 #include "includes.h"
 #include "records.h"
 #include "slab.h"
-
-// We sort 160 records = 80KB = 1/10th of a disk image at a time.
-#define MAX_RECORDS 160
-#define STACK_SIZE  160  // safe headroom
-
-typedef struct {
-    unsigned char low;
-    unsigned char high;
-} partition_t;
-
-unsigned char indices[MAX_RECORDS];  // indices into your slab records
-partition_t stack[STACK_SIZE];
-int stack_ptr = 0;
-
-
-unsigned char rec_a[RECORD_DATA_SIZE];
-unsigned char rec_b[RECORD_DATA_SIZE];
-unsigned char idx_b = 0xff;
+#include "buffers.h"
 
 int compare_records(unsigned char a_idx, unsigned char b_idx, unsigned char field_id) {
   unsigned int len_a = 0, len_b = 0, l;
@@ -28,18 +11,18 @@ int compare_records(unsigned char a_idx, unsigned char b_idx, unsigned char fiel
   if (b_idx != idx_b) {
     // B record cache invalid so desectorise from high RAM
     addr = WORK_BUFFER_ADDRESS + (((unsigned long)b_idx)<<9);
-    lcopy(addr + 2,(unsigned long)&rec_b[0],254);
-    lcopy(addr + 256+2,(unsigned long)&rec_b[254],254);      
+    lcopy(addr + 2,(unsigned long)&buffers.sort.rec_b[0],254);
+    lcopy(addr + 256+2,(unsigned long)&buffers.sort.rec_b[254],254);      
   }
   
   // Always fetch record a
   addr = WORK_BUFFER_ADDRESS + (((unsigned long)a_idx)<<9);
-  lcopy(addr + 2,(unsigned long)&rec_a[0],254);
-  lcopy(addr + 256+2,(unsigned long)&rec_a[254],254);      
+  lcopy(addr + 2,(unsigned long)&buffers.sort.rec_a[0],254);
+  lcopy(addr + 256+2,(unsigned long)&buffers.sort.rec_a[254],254);      
   
   // char *find_field(char *record, unsigned int bytes_used, unsigned char type, unsigned int *len);
-  field_a = find_field(rec_a, RECORD_DATA_SIZE, field_id, &len_a);
-  field_b = find_field(rec_b, RECORD_DATA_SIZE, field_id, &len_b);
+  field_a = find_field(buffers.sort.rec_a, RECORD_DATA_SIZE, field_id, &len_a);
+  field_b = find_field(buffers.sort.rec_b, RECORD_DATA_SIZE, field_id, &len_b);
   
   int min_len = (len_a < len_b) ? len_a : len_b;
   char cmp=0;
@@ -58,46 +41,46 @@ int compare_records(unsigned char a_idx, unsigned char b_idx, unsigned char fiel
 
 void quicksort_indices(unsigned char field_id, unsigned char count) {
     // Initialize stack with full range
-    stack[0].low = 0;
-    stack[0].high = count - 1;
-    stack_ptr = 1;
+    buffers.sort.stack[0].low = 0;
+    buffers.sort.stack[0].high = count - 1;
+    buffers.sort.stack_ptr = 1;
 
-    while (stack_ptr > 0) {
-        stack_ptr--;
-        unsigned char low  = stack[stack_ptr].low;
-        unsigned char high = stack[stack_ptr].high;
+    while (buffers.sort.stack_ptr > 0) {
+        buffers.sort.stack_ptr--;
+        unsigned char low  = buffers.sort.stack[buffers.sort.stack_ptr].low;
+        unsigned char high = buffers.sort.stack[buffers.sort.stack_ptr].high;
 
         if (low >= high) continue;
 
         // Choose pivot = high
-        unsigned char pivot_idx = indices[high];
+        unsigned char pivot_idx = buffers.sort.indices[high];
         unsigned char i = low;
 
         for (unsigned char j = low; j < high; j++) {
-            if (compare_records(indices[j], pivot_idx, field_id) <= 0) {
+            if (compare_records(buffers.sort.indices[j], pivot_idx, field_id) <= 0) {
                 // Swap indices[i] and indices[j]
-                unsigned char tmp = indices[i];
-                indices[i] = indices[j];
-                indices[j] = tmp;
+                unsigned char tmp = buffers.sort.indices[i];
+                buffers.sort.indices[i] = buffers.sort.indices[j];
+                buffers.sort.indices[j] = tmp;
                 i++;
             }
         }
 
         // Move pivot into correct location
-        unsigned char tmp = indices[i];
-        indices[i] = indices[high];
-        indices[high] = tmp;
+        unsigned char tmp = buffers.sort.indices[i];
+        buffers.sort.indices[i] = buffers.sort.indices[high];
+        buffers.sort.indices[high] = tmp;
 
         // Push sub-partitions onto stack
         if (i > low + 1) {
-            stack[stack_ptr].low = low;
-            stack[stack_ptr].high = i - 1;
-            stack_ptr++;
+            buffers.sort.stack[buffers.sort.stack_ptr].low = low;
+            buffers.sort.stack[buffers.sort.stack_ptr].high = i - 1;
+            buffers.sort.stack_ptr++;
         }
         if (i + 1 < high) {
-            stack[stack_ptr].low = i + 1;
-            stack[stack_ptr].high = high;
-            stack_ptr++;
+	  buffers.sort.stack[buffers.sort.stack_ptr].low = i + 1;
+	  buffers.sort.stack[buffers.sort.stack_ptr].high = high;
+	  buffers.sort.stack_ptr++;
         }
     }
 }
@@ -110,7 +93,7 @@ void sort_slab(unsigned char field_id)
    */
   unsigned char c;
   // Set up ordinal record numbers
-  for(c=0;c<MAX_RECORDS;c++) indices[c]=c;
+  for(c=0;c<MAX_RECORDS;c++) buffers.sort.indices[c]=c;
   // invalidate record cache for idx_b, which is repeatedly used in quicksort.
   // This saves us from copying down records that we already have buffered.
   idx_b=0xff; 
@@ -146,7 +129,7 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
     unsigned char n=0, t=0, t_stop=0, s=0;
     
     // Read in the slab
-    if (slab_read(slab)) return 1;
+    if (slab_read(1,slab)) return 1;
 
     // Get a sorted list of indices
     sort_slab(field_id);
