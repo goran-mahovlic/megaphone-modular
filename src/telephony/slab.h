@@ -20,4 +20,5 @@
 #error WORK_BUFFER_SIZE must be >= 10KB
 #endif
 
-char slab_read(unsigned char slab_number);
+char slab_read(unsigned char disk_id, unsigned char slab_number);
+char slab_write(unsigned char disk_id, unsigned char slab_number);

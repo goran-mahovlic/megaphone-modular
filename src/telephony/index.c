@@ -77,7 +77,7 @@ void index_buffer_update(unsigned char *d,unsigned int len)
 
 #define INDEX_PAGES_PER_SLAB (SLAB_TRACKS*20*2)
 
-char index_update_from_buffer(char *d81, unsigned int record_number)
+char index_update_from_buffer(unsigned char disk_id, unsigned int record_number)
 {
   unsigned int index_page = 0, ofs;
 
@@ -86,15 +86,12 @@ char index_update_from_buffer(char *d81, unsigned int record_number)
   unsigned char record_byte = 2 + record_number>>3;
   unsigned char record_bit = 1<<(record_number&7);
 
-  // Mount the index disk image
-  if (mount_d81(d81,1)) return 1;
-
   // For each slab update the index pages
   for(slab=0;slab<SLAB_COUNT;slab++) {
     unsigned long index_page_address = WORK_BUFFER_ADDRESS + record_byte;
   
     // Read a slab
-    if (slab_read(slab)) return 2;
+    if (slab_read(disk_id, slab)) return 2;
   
     for(ofs=0;ofs<INDEX_PAGES_PER_SLAB;ofs++) {
       unsigned char byte = (index_page+ofs)>>3;
@@ -112,7 +109,8 @@ char index_update_from_buffer(char *d81, unsigned int record_number)
       index_page_address += 0x100;
     }
 
-    if (slab_write(slab)) return 3;
+    // Write the slab back with the changes
+    if (slab_write(disk_id, slab)) return 3;
     
     // Advance the record number
     index_page += INDEX_PAGES_PER_SLAB;
@@ -120,3 +118,48 @@ char index_update_from_buffer(char *d81, unsigned int record_number)
 
   return 0;
 }
+
+/*
+  Re-index all records in disk 0 in the index in disk 1
+*/
+char disk_reindex(unsigned char field)
+{
+  unsigned int c;
+
+    // For each record in the disk
+    // (remember we are 1-relative, as record 0 = record BAM
+    for(c=1;c<=USABLE_SECTORS_PER_DISK;c++) {
+      // Build bitmap of all diphthongs
+      index_buffer_clear();
+      index_buffer_update(fieldvalue);
+
+      index_update_from_buffer(1,c);
+    }
+  }
+  return 0;
+}
+
+char contacts_reindex(unsigned char contacts_disk_id)
+{
+  char d81name[16];
+  snprintf(d81name,16,"CONTACT%d.D81",contact_disk_id);
+  
+  if (mega65_cdroot()) return 1;
+  if (mega65_chdir("PHONE")) return 2;
+
+  if (mount_d81(d81name,0)) return 3;
+
+  for(field=FIELD_FIRSTNAME;field<=FIELD_PHONENUMBER;field+=2) {
+    // Get index D81 as disk 1
+    snprintf(d81name,16,"IDX%d-%02X.D81",
+	     contact_d81_file_num, field);
+    if (mount_d81(d81name,1)) return 4;
+
+    if (disk_reindex(field)) return 5;
+  }
+
+  return 0;
+}
+
+  
+  

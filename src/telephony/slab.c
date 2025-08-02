@@ -19,7 +19,7 @@ void slab_set_geometry(unsigned char slab_number)
   return;
 }
 
-char slab_read(unsigned char slab_number)
+char slab_read(unsigned char disk_id, unsigned char slab_number)
 {
 
   slab_set_geometry(slab_number);
@@ -28,7 +28,7 @@ char slab_read(unsigned char slab_number)
   for(;t<t_stop;t++) {
     for(s=0;s<20;s++) {
       if (t==40) t++;
-      if (read_sector(0,t,s)) return 1;
+      if (read_sector(disk_id,t,s)) return 1;
       lcopy((unsigned long)SECTOR_BUFFER_ADDRESS,rec_addr,512);
       
       rec_addr+=512;
@@ -38,7 +38,7 @@ char slab_read(unsigned char slab_number)
   return 0;
 }
 
-char slab_write(unsigned char slab_number)
+char slab_write(unsigned char disk_id, unsigned char slab_number)
 {
   // Write out 80KB = 8 tracks of data at 0x40000
   slab_set_geometry(slab_number);
@@ -48,7 +48,7 @@ char slab_write(unsigned char slab_number)
     for(s=0;s<20;s++) {
       if (t==40) t++;
       lcopy(rec_addr,(unsigned long)SECTOR_BUFFER_ADDRESS,512);
-      if (write_sector(0,t,s)) return 1;
+      if (write_sector(disk_id,t,s)) return 1;
       
       rec_addr+=512;
     }

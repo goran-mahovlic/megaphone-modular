@@ -107,6 +107,6 @@ int main(int argc,char **argv)
   sort_d81("CONTACT0.D81","SORT04-0.D81",0x04);	   
   sort_d81("CONTACT0.D81","SORT06-0.D81",0x06);	   
   
-  // XXX - Update search index for contacts
-  
+  // Update search index for contacts
+  contacts_reindex(0);
 }
