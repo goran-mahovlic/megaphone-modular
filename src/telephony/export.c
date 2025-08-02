@@ -36,17 +36,6 @@ int main(int argc,char **argv)
   
   hal_init();
 
-  char line[1024];
-
-  // Fields for contacts
-  unsigned char firstName[1024];
-  unsigned char lastName[1024];
-  unsigned char phoneNumber[1024];
-
-  // Fields for messages
-  unsigned long timestampAztecTime;
-  unsigned char messageBody[1024];
-  
   // CONTACT:+99920915060:Jerry:Williams:
   // MESSAGERX:+99973014512:397831207:🤣🎧🐨💻🥭 Id nisi MEGA65 corrupti natus:
   // MESSAGETX:+99966049372:397833622:🍳🍿 Quasi nisi quidem, quis veniam sed numquam ipsam quo hic amet molestiae? Veritatis cupiditate ullam nihil et tenetur doloribus, accusantium:
@@ -73,13 +62,26 @@ int main(int argc,char **argv)
       char r = read_contact_by_id(0,c,contact);
       if (!r) {
 	unsigned int firstNameLen = 0;
-	char *firstName = find_field(contact,RECORD_DATA_SIZE,FIELD_FIRSTNAME,&firstNameLen);
+	unsigned char *firstName = find_field(contact,RECORD_DATA_SIZE,FIELD_FIRSTNAME,&firstNameLen);
 	unsigned int lastNameLen = 0;
-	char *lastName = find_field(contact,RECORD_DATA_SIZE,FIELD_LASTNAME,&lastNameLen);
+	unsigned char *lastName = find_field(contact,RECORD_DATA_SIZE,FIELD_LASTNAME,&lastNameLen);
 	unsigned int phoneNumberLen = 0;
-	char *phoneNumber = find_field(contact,RECORD_DATA_SIZE,FIELD_PHONENUMBER,&phoneNumberLen);
+	unsigned char *phoneNumber = find_field(contact,RECORD_DATA_SIZE,FIELD_PHONENUMBER,&phoneNumberLen);
 	unsigned int unreadCountLen = 0;
-	char *unreadCount = find_field(contact,RECORD_DATA_SIZE,FIELD_UNREAD_MESSAGES,&unreadCountLen);
+	unsigned char *unreadCount = find_field(contact,RECORD_DATA_SIZE,FIELD_UNREAD_MESSAGES,&unreadCountLen);
+
+	unsigned int unreadCountVal = 0;
+	if (unreadCount) {
+	  unreadCountVal = unreadCount[0] + (unreadCount[1]<<8);
+	}
+	
+	if (firstName||lastName||phoneNumber||unreadCount) {
+	  fprintf(f,"CONTACT:%s:%s:%s:%d:\n",
+		  phoneNumber?(char *)phoneNumber:"",
+		  firstName?(char *)firstName:"",
+		  lastName?(char *)lastName:"",
+		  unreadCountVal);
+	}
       }
     }
   }
