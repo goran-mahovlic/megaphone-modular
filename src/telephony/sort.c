@@ -3,6 +3,8 @@
 #include "slab.h"
 #include "buffers.h"
 
+// #define DEBUG_MERGE
+
 int compare_records(unsigned char a_idx, unsigned char b_idx, unsigned char field_id) {
   unsigned int len_a = 0, len_b = 0, l;
   unsigned long addr;
@@ -139,7 +141,7 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
     unsigned char n=0, t=0, t_stop=0, s=0;
     
     // Read in the slab
-    if (slab_read(1,slab)) return 1;
+    if (slab_read(0,slab)) return 1;
 
     // Get a sorted list of indices
     if (sort_slab(field_id)) return 8;
@@ -150,10 +152,13 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
     for(;t<t_stop;t++) {
       for(s=0;s<20;s++) {
 	unsigned long rec_addr
-	  = WORK_BUFFER_ADDRESS + (((unsigned long)buffers.sort.indices[n++])<<9);
+	  = WORK_BUFFER_ADDRESS + (((unsigned long)buffers.sort.indices[n])<<9);
 	
 	lcopy(rec_addr,(unsigned long)SECTOR_BUFFER_ADDRESS,512);
+
 	if (write_sector(1,t,s)) return 2;
+
+	n++;
       }
     }
     
@@ -168,7 +173,7 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
   // Mount output D81 as drive 0
   if (mount_d81(name_out,0)) return 9;
 
-  fprintf(stderr,"DEBUG: sort_d81(): Read merge cache.\n");
+  // fprintf(stderr,"DEBUG: sort_d81(): Read merge cache.\n");
   
   // Prime cache of sectors from each slab. We have 128KB at WORK_BUFFER_ADDRESS we can use.
   // So we will make each cache be a whole track.
@@ -212,7 +217,10 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
 	    out_track,out_sector,
 	    next_slab,cached_track[next_slab], cached_next_sector[next_slab],
 	    cached_track_stop[next_slab]
-	    );    
+	    );
+    dump_bytes("the record",
+	       WORK_BUFFER_ADDRESS + (next_slab*20L + cached_next_sector[next_slab])*512L,512);
+	     
 #endif
 
     // Copy the record we need into the sector buffer
