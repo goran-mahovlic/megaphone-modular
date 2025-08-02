@@ -82,7 +82,8 @@ char index_update_from_buffer(char *d81, unsigned int record_number)
   unsigned int index_page = 0, ofs;
 
   // Calculate which byte and bit we are fiddling in each index page
-  unsigned char record_byte = record_number>>3;
+  // +2 to skip the track/sector 
+  unsigned char record_byte = 2 + record_number>>3;
   unsigned char record_bit = 1<<(record_number&7);
 
   // Mount the index disk image
@@ -90,17 +91,25 @@ char index_update_from_buffer(char *d81, unsigned int record_number)
 
   // For each slab update the index pages
   for(slab=0;slab<SLAB_COUNT;slab++) {
-    unsigned char n=0;
-
+    unsigned long index_page_address = WORK_BUFFER_ADDRESS + record_byte;
+  
     // Read a slab
     if (slab_read(slab)) return 2;
-
+  
     for(ofs=0;ofs<INDEX_PAGES_PER_SLAB;ofs++) {
       unsigned char byte = (index_page+ofs)>>3;
       unsigned char bit = index_bitmap[byte] & (1<<((index_page+ofs)&7));
+      unsigned char value = lpeek(index_page_address);
       if (bit) {
-	
+	// Set the bit in the page
+	value |= bit;
+      } else {
+	// Clear the bit in the page
+	value &= (0xff - bit);
       }
+      lpoke(index_page_address,value);
+      
+      index_page_address += 0x100;
     }
 
     if (slab_write(slab)) return 3;
