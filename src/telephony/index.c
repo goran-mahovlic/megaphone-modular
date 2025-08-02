@@ -134,26 +134,38 @@ char disk_reindex(unsigned char field)
 {
   unsigned int c;
 
-    // For each record in the disk
-    // (remember we are 1-relative, as record 0 = record BAM)
-    for(c=1;c<=USABLE_SECTORS_PER_DISK;c++) {
+  /* Note that we can't use slab_read() for the records we are
+     indexing, because that gets used in index_update_from_buffer().
 
-      // XXX Read the record
-      
-            
-      // Extract the field
-      unsigned int fieldlen = 0;
-      unsigned char *fieldvalue
-	= find_field(buffers.index.rec, RECORD_DATA_SIZE, field, &fieldlen);
+     This is unfortunate, because it means that we do a complete read and
+     write of the index D81 _for every record in the D81 we are indexing_.
 
-      // Build bitmap of all diphthongs in field
-      index_buffer_clear();
-      index_buffer_update(fieldvalue, fieldlen);
-      
-      // Update all index pages accordingly
-      index_update_from_buffer(1,c);
-    }
+     This would take _hours_ on a MEGA65 with it's ~1MB/sec SD card interface
+     and insufficient RAM for caching whole D81s (due to lack of Attic RAM on
+     the Trenz modules that we are using).
+   */
+  
+  
+  // For each record in the disk.
+  // (remember we are 1-relative, as record 0 = record BAM)  
+  for(c=1;c<=USABLE_SECTORS_PER_DISK;c++) {
     
+    // Read the record
+    if (read_record_by_id(0,c,buffers.index.rec)) return 1;
+    
+    // Extract the field
+    unsigned int fieldlen = 0;
+    unsigned char *fieldvalue
+      = find_field(buffers.index.rec, RECORD_DATA_SIZE, field, &fieldlen);
+    
+    // Build bitmap of all diphthongs in field
+    index_buffer_clear();
+    if (fieldvalue&&fieldlen) index_buffer_update(fieldvalue, fieldlen);
+    
+    // Update all index pages accordingly
+    index_update_from_buffer(1,c);
+  }
+  
   return 0;
 }
 
