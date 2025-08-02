@@ -61,13 +61,21 @@ void index_buffer_clear(void)
 void index_buffer_update(unsigned char *d,unsigned int len)
 {
   while(len) {
-    unsigned int diphthong = *d;
+    unsigned int diphthong = index_mapping_table[*d];
     diphthong += 56 * index_bitmap_last_val;
-    index_bitmap_last_val = *d;
+    index_bitmap_last_val = index_mapping_table[*d];
 
+    if (diphthong >= (56*56)) {
+      fprintf(stderr,"FATAL: Illegal diphthong 0x%04x. Should not be possible.\n",
+	      diphthong);
+      exit(-1);
+    }
+    
     // Don't index diphthongs where both characters == 0x00
     // (so that we don't make hits on unsused bytes in records)
     if (*d) {
+      fprintf(stderr,"DEBUG: Diphthong 0x%03x is in the indexed text.\n",
+	      diphthong);
       index_bitmap[diphthong>>3] |= 1<<(diphthong&0x07);
     }
     
