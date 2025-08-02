@@ -30,7 +30,14 @@ char slab_read(unsigned char disk_id, unsigned char slab_number)
       if (t==40) t++;
       if (read_sector(disk_id,t,s)) return 1;
       lcopy((unsigned long)SECTOR_BUFFER_ADDRESS,rec_addr,512);
-      
+
+#ifdef DEBUG_READ_TRACK_1
+      if (t==1) {
+	fprintf(stderr,"DEBUG: Slab read T%d, S%d from disk_id=%d\n",t,s,disk_id);
+	dump_bytes("slab read",rec_addr,512);
+      }
+#endif      
+
       rec_addr+=512;
     }
   }
