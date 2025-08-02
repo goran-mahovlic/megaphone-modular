@@ -1,4 +1,5 @@
 #include "includes.h"
+#include "records.h"
 #include "slab.h"
 
 // 1 bit per diphthong. We use a mod 56 number space which
@@ -51,7 +52,7 @@ unsigned char index_mapping_table[256] = {
 void index_buffer_clear(void)
 {
   lfill((unsigned long)&index_bitmap[0],0x00,sizeof(index_bitmap));
-  index_buffer_last_val = 0;
+  index_bitmap_last_val = 0;
 
   return;
 }
@@ -60,11 +61,16 @@ void index_buffer_update(unsigned char *d,unsigned int len)
 {
   while(len) {
     unsigned int diphthong = *d;
-    diphthong += 56 * index_buffer_last_val;
+    diphthong += 56 * index_bitmap_last_val;
     index_bitmap_last_val = *d;
-    d++; len--;
 
-    index_bitmap[diphthong>>3] |= 1<<(diphthong&0x07);
+    // Don't index diphthongs where both characters == 0x00
+    // (so that we don't make hits on unsused bytes in records)
+    if (*d) {
+      index_bitmap[diphthong>>3] |= 1<<(diphthong&0x07);
+    }
+    
+    d++; len--;
   }
   return;
 }
@@ -80,10 +86,11 @@ void index_buffer_update(unsigned char *d,unsigned int len)
 char index_update_from_buffer(unsigned char disk_id, unsigned int record_number)
 {
   unsigned int index_page = 0, ofs;
+  unsigned char slab;
 
   // Calculate which byte and bit we are fiddling in each index page
   // +2 to skip the track/sector 
-  unsigned char record_byte = 2 + record_number>>3;
+  unsigned char record_byte = 2 + (record_number>>3);
   unsigned char record_bit = 1<<(record_number&7);
 
   // For each slab update the index pages
@@ -99,10 +106,10 @@ char index_update_from_buffer(unsigned char disk_id, unsigned int record_number)
       unsigned char value = lpeek(index_page_address);
       if (bit) {
 	// Set the bit in the page
-	value |= bit;
+	value |= record_bit;
       } else {
 	// Clear the bit in the page
-	value &= (0xff - bit);
+	value &= (0xff - record_bit);
       }
       lpoke(index_page_address,value);
       
@@ -127,12 +134,21 @@ char disk_reindex(unsigned char field)
   unsigned int c;
 
     // For each record in the disk
-    // (remember we are 1-relative, as record 0 = record BAM
+    // (remember we are 1-relative, as record 0 = record BAM)
     for(c=1;c<=USABLE_SECTORS_PER_DISK;c++) {
-      // Build bitmap of all diphthongs
-      index_buffer_clear();
-      index_buffer_update(fieldvalue);
 
+      // Read the record
+
+      // Extract the field
+      unsigned int fieldlen = 0;
+      unsigned char *fieldvalue
+	= find_field(record, RECORD_DATA_SIZE, field, &fieldlen);
+
+      // Build bitmap of all diphthongs in field
+      index_buffer_clear();
+      index_buffer_update(fieldvalue, fieldlen);
+
+      // Update all index pages accordingly
       index_update_from_buffer(1,c);
     }
   }
