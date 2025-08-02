@@ -1,4 +1,4 @@
-#define USABLE_SECTORS_PER_DISK (1680-1)
+#define USABLE_SECTORS_PER_DISK (79*20-1)
 
 // Data records fir 512 - 2x CBM DOS track,sector links
 #define RECORD_DATA_SIZE (512 - 2 - 2)
