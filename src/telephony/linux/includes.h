@@ -1,3 +1,6 @@
+#ifndef INCLUDES_H
+#define INCLUDES_H
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -27,3 +30,5 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id);
 
 void dump_sector_buffer(char *m);
 void dump_bytes(char *msg, unsigned char *d, int len);
+
+#endif

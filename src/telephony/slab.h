@@ -1,3 +1,6 @@
+#ifndef SLAB_H
+#define SLAB_H
+
 #include "includes.h"
 
 #if WORK_BUFFER_SIZE >= (80*1024)
@@ -22,3 +25,5 @@
 
 char slab_read(unsigned char disk_id, unsigned char slab_number);
 char slab_write(unsigned char disk_id, unsigned char slab_number);
+
+#endif

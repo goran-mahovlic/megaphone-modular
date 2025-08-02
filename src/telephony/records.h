@@ -1,3 +1,6 @@
+#ifndef RECORDS_H
+#define RECORDS_H
+
 #define USABLE_SECTORS_PER_DISK (79*20-1)
 
 // Data records fir 512 - 2x CBM DOS track,sector links
@@ -28,8 +31,4 @@ char append_field(unsigned char *record, unsigned int *bytes_used, unsigned int 
 char delete_field(unsigned char *record, unsigned int *bytes_used, unsigned char type);
 unsigned char *find_field(unsigned char *record, unsigned int bytes_used, unsigned char type, unsigned int *len);
 
-
-
-
-
-
+#endif
