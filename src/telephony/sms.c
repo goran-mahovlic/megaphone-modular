@@ -121,7 +121,7 @@ char sms_rx(unsigned char *phoneNumber, unsigned int timestampAztecTime,
   
   // 8. Update thread index for this message
   index_buffer_clear();
-  index_buffer_update(message);
+  index_buffer_update(message,strlen((char *)message));
   index_update_from_buffer(1,record_number);
   
   buffers_unlock(LOCK_TELEPHONY);    
