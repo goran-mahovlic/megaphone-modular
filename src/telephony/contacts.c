@@ -1,6 +1,6 @@
 #include "includes.h"
-
 #include "records.h"
+#include "search.h"
 
 #include <string.h>
 
@@ -30,3 +30,20 @@ char build_contact(unsigned char buffer[RECORD_DATA_SIZE],unsigned int *bytes_us
   return 0;
 }
 
+unsigned int contact_find_by_phonenumber(unsigned char *phoneNumber)
+{
+  // Search for the phone number in contacts
+  mega65_cdroot();
+  mega65_chdir("PHONE");
+  mount_d81("CONTACT0.D81",0);
+  mount_d81("IDX06-0.D81",0);
+
+  search_query_init();
+  search_query_append_string(phoneNumber);
+  search_collate(SEARCH_FILTERED);
+  search_sort_results_by_score();
+
+  search_query_release();
+  
+  return 0;
+}
