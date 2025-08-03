@@ -1,5 +1,6 @@
 #include "includes.h"
 #include "buffers.h"
+#include "index.h"
 
 /*
   Reset search of a records D81.
@@ -21,7 +22,7 @@ char search_query_init(void)
 
   // Reset query (used so that we can delete diphthongs from the query.
   buffers.search.query_length = 0;
-
+  
   // Set score of all valid records to 1, so that we start with an unfiltered
   // view, but that ignores unallocated records.
 
@@ -30,6 +31,7 @@ char search_query_init(void)
   lcopy(SECTOR_BUFFER_ADDRESS,(unsigned long)buffers.search.sector_buffer,512);
   
   // Transcribe bits into scores  
+  buffers.search.score_overflow=0;
   buffers.search.byte=0;
   buffers.search.bit=1;
   for(buffers.search.r=1;buffers.search.r<USABLE_SECTORS_PER_DISK;
@@ -57,6 +59,94 @@ char search_query_release(void)
   return 0;
 }
 
+#define BAD_DIPHTHONG 0x7fffL
+unsigned int search_get_diphthong(unsigned int offset)
+{
+  if (offset>=(buffers.search.query_length-1)) return BAD_DIPHTHONG;
+
+  return index_mapping_table[buffers.search.query[offset+1]] * 56
+    + index_mapping_table[buffers.search.query[offset]];
+}
+
+char search_query_add_diphthong_score(unsigned int offset)
+{
+  unsigned int diphthong = search_get_diphthong(offset);
+
+  if (diphthong==BAD_DIPHTHONG) return 2;
+
+  // Read the index page: Remember that there are two index pages per physical
+  // sector, so we shift diphthong right one bit.
+  if (read_record_by_id(1,diphthong>>1,buffers.search.sector_buffer)) return 1;
+
+  // Is the index page in the lower or upper half of the physical sector?
+  buffers.search.index_page_offset = 2 + ((diphthong&1)?0x100:0);
+  
+  // Transcribe bits into scores  
+  buffers.search.byte=0;
+  buffers.search.bit=1;
+  for(buffers.search.r=1;buffers.search.r<USABLE_SECTORS_PER_DISK;
+      buffers.search.r++) {
+    if (buffers.search.sector_buffer[buffers.search.index_page_offset
+				     + buffers.search.byte]
+	&(1<<buffers.search.bit)) {
+      // Don't overflow scores.
+      // This DOES create a problem when deleting, so remember that it's
+      // happened, so that if we delete chars from the query, we know to
+      // recalculate the scores from scratch.
+      if (buffers.search.scores[buffers.search.r]!=0xff)
+	buffers.search.scores[buffers.search.r]++;
+      else
+	buffers.search.score_overflow=1;
+    }
+    buffers.search.bit++;
+    if (buffers.search.bit==8) {
+      buffers.search.byte++;
+      buffers.search.bit=0;
+    }
+  }
+  return 0;
+}
+
+char search_query_sub_diphthong_score(unsigned int offset)
+{
+  unsigned int diphthong = search_get_diphthong(offset);
+
+  if (diphthong==BAD_DIPHTHONG) return 2;
+
+  // Read the index page: Remember that there are two index pages per physical
+  // sector, so we shift diphthong right one bit.
+  if (read_record_by_id(1,diphthong>>1,buffers.search.sector_buffer)) return 1;
+
+  // Is the index page in the lower or upper half of the physical sector?
+  buffers.search.index_page_offset = 2 + ((diphthong&1)?0x100:0);
+  
+  // Transcribe bits into scores  
+  buffers.search.byte=0;
+  buffers.search.bit=1;
+  for(buffers.search.r=1;buffers.search.r<USABLE_SECTORS_PER_DISK;
+      buffers.search.r++) {
+    if (buffers.search.sector_buffer[buffers.search.index_page_offset
+				     + buffers.search.byte]
+	&(1<<buffers.search.bit)) {
+
+      // If a score had previously saturated, and we are now subtracting from it,
+      // then we can no longer trust the resulting scores.  Take note, so that we
+      // know later if we need to recalculate the scores.
+      if (buffers.search.scores[buffers.search.r]==0xff)
+	buffers.search.score_recalculation_required=1;
+
+      buffers.search.scores[buffers.search.r]--;
+    }
+    buffers.search.bit++;
+    if (buffers.search.bit==8) {
+      buffers.search.byte++;
+      buffers.search.bit=0;
+    }
+  }
+  return 0;
+}
+
+
 char search_query_append(unsigned char c)
 {
   // Shared data structures locked by another sub-system,
@@ -72,8 +162,5 @@ char search_query_append(unsigned char c)
   // Nothing to do yet if only one char, as our index is based on diphthongs
   if (buffers.search.query_length==1) return 0;
 
-
-
-  // XXX finish implementing
-  return 1;
+  return search_query_add_diphthong_score(buffers.search.query_length-2);
 }

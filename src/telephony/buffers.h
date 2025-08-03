@@ -37,12 +37,20 @@ struct search_buffers {
   unsigned int query_length;
   unsigned char query[SEARCH_MAX_QUERY_LENGTH];
 
+  // Has score accumulation saturated for any record?
+  unsigned char score_overflow;
+  // If so, and we've deleted, and at least one score that
+  // was 255 is now less, then we know we probably should
+  // recalculate the scores
+  unsigned char score_recalculation_required;
+  
   unsigned char sector_buffer[512];
   
   // Scratch variables
   unsigned char bit;
   unsigned char byte;
   unsigned int r;
+  unsigned int index_page_offset;
 };
 
 struct shared_buffers {
