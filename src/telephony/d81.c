@@ -67,7 +67,7 @@ unsigned char ascii_to_petscii(unsigned char x)
 
   Set record numbers in the start of each data sector, and leave sector 0 blank as the "record BAM".
 */
-void format_image_fully_allocated(char drive_id,char *header)  
+void format_image_fully_allocated(char drive_id,char *header, char withSectorMarkers)  
 {
   unsigned char i,j;
   unsigned int record_number=0;
@@ -155,9 +155,11 @@ void format_image_fully_allocated(char drive_id,char *header)
 
       // Write record identifier in every physical sector.
       // Except sector 0. But writing 0 to sector zero is really the same thing...
-      lpoke(SECTOR_BUFFER_ADDRESS+0x002, record_number & 0xff);
-      lpoke(SECTOR_BUFFER_ADDRESS+0x003, record_number>>8);
-      // Note that record numbers skip track 40
+      if (withSectorMarkers) {
+	lpoke(SECTOR_BUFFER_ADDRESS+0x002, record_number & 0xff);
+	lpoke(SECTOR_BUFFER_ADDRESS+0x003, record_number>>8);
+      }
+	// Note that record numbers skip track 40
       record_number++;
       
       // Second half points to next physical sector, or to first

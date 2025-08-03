@@ -24,7 +24,9 @@ char mega65_mkdir(char *dir);
 char mega65_cdroot(void);
 char mega65_chdir(char *dir);
 
-void format_image_fully_allocated(char drive_id,char *header);
+#define WITH_SECTOR_MARKERS 1
+#define NO_SECTOR_MARKERS 0
+void format_image_fully_allocated(char drive_id,char *header, char withSectorMarkers);
 
 char sort_d81(char *name_in, char *name_out, unsigned char field_id);
 
