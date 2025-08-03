@@ -3,6 +3,7 @@ all:	tools/bomtool bin65/unicode-font-test.prg $(FONTS)
 LINUX_BINARIES=	src/telephony/linux/provision \
 		src/telephony/linux/import \
 		src/telephony/linux/export \
+		src/telephony/linux/thread \
 		src/telephony/linux/search
 
 CC65=cc65 -t c64
@@ -75,6 +76,9 @@ src/telephony/linux/export:	src/telephony/export.c $(SRC_TELEPHONY_COMMON) $(HDR
 
 src/telephony/linux/search:	src/telephony/linux/search.c $(SRC_TELEPHONY_COMMON) $(HDR_TELEPHONY_COMMON) $(SRC_TELEPHONY_COMMON_LINUX) $(HDR_TELEPHONY_COMMON_LINUX)
 	gcc -Wall -g $(HDR_PATH_LINUX) -o $@ src/telephony/linux/search.c $(SRC_TELEPHONY_COMMON) $(SRC_TELEPHONY_COMMON_LINUX)
+
+src/telephony/linux/thread:	src/telephony/linux/thread.c $(SRC_TELEPHONY_COMMON) $(HDR_TELEPHONY_COMMON) $(SRC_TELEPHONY_COMMON_LINUX) $(HDR_TELEPHONY_COMMON_LINUX)
+	gcc -Wall -g $(HDR_PATH_LINUX) -o $@ src/telephony/linux/thread.c $(SRC_TELEPHONY_COMMON) $(SRC_TELEPHONY_COMMON_LINUX)
 
 src/telephony/linux/sortd81:	src/telephony/sortd81.c $(SRC_TELEPHONY_COMMON) $(HDR_TELEPHONY_COMMON) $(SRC_TELEPHONY_COMMON_LINUX) $(HDR_TELEPHONY_COMMON_LINUX)
 	gcc -Wall -g $(HDR_PATH_LINUX) -o $@ src/telephony/sortd81.c $(SRC_TELEPHONY_COMMON) $(SRC_TELEPHONY_COMMON_LINUX)
