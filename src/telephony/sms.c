@@ -1,8 +1,39 @@
 #include "includes.h"
+#include <string.h>
+
 #include "buffers.h"
 #include "contacts.h"
 #include "records.h"
 #include "search.h"
+
+char sms_build_message(unsigned char buffer[RECORD_DATA_SIZE],unsigned int *bytes_used,
+		       unsigned char txP,
+		       unsigned char *phoneNumber,
+		       unsigned long timestampAztecTime,
+		       unsigned char *messageBody
+		       )
+{
+  // Reserve first two bytes for record number
+  *bytes_used=2;
+
+  unsigned char timestamp_bin[4];
+  timestamp_bin[0]=timestampAztecTime>>0;
+  timestamp_bin[1]=timestampAztecTime>>8;
+  timestamp_bin[2]=timestampAztecTime>>16;
+  timestamp_bin[3]=timestampAztecTime>>24;
+  
+  // Clear buffer (will intrinsically add an end of record marker = 0x00 byte)
+  lfill((unsigned long)&buffer[0],0x00,RECORD_DATA_SIZE);
+  
+  // +1 so strings are null-terminated for convenience.
+  if (append_field(buffer,bytes_used,RECORD_DATA_SIZE, FIELD_PHONENUMBER, phoneNumber, strlen((char *)phoneNumber)+1)) return 1;
+  if (append_field(buffer,bytes_used,RECORD_DATA_SIZE, FIELD_TIMESTAMP, timestamp_bin, 4)) return 2;  
+  if (append_field(buffer,bytes_used,RECORD_DATA_SIZE, FIELD_BODYTEXT, messageBody, strlen((char *)messageBody)+1)) return 3;  
+  if (append_field(buffer,bytes_used,RECORD_DATA_SIZE, FIELD_MESSAGE_DIRECTION, &txP, 1)) return 4;
+
+  return 0;
+}
+
 
 char sms_rx(unsigned char *phoneNumber, unsigned int timestampAztecTime,
 	    unsigned char *message)
@@ -69,7 +100,10 @@ char sms_rx(unsigned char *phoneNumber, unsigned int timestampAztecTime,
     buffers_unlock(LOCK_TELEPHONY);  
     return 7;
   }
-  if (sms_build_message(phoneNumber, timestampAztecTime, message)) {
+  if (sms_build_message(buffers.telephony.message,
+			&buffers.telephony.message_bytes,			
+			SMS_DIRECTION_RX,
+			phoneNumber, timestampAztecTime, message)) {
     buffers_unlock(LOCK_TELEPHONY);  
     return 8;
   }

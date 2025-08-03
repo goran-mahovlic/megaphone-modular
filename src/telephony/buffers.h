@@ -73,7 +73,10 @@ struct search_buffers {
 
 struct telephony_buffers {
   unsigned char contact[RECORD_DATA_SIZE];
+
   unsigned char message[RECORD_DATA_SIZE];
+  unsigned int message_bytes;
+  
   unsigned char sector_buffer[512];  
 };
 

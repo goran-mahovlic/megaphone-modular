@@ -18,6 +18,9 @@
 #define FIELD_TIMESTAMP 0x0e
 #define FIELD_BODYTEXT 0x10
 
+#define SMS_DIRECTION_RX 0x00
+#define SMS_DIRECTION_TX 0x01
+
 unsigned int record_allocate_next(unsigned char *bam_sector);
 char record_free(unsigned char *bam_sector,unsigned int record_num);
 
