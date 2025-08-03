@@ -31,4 +31,7 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id);
 void dump_sector_buffer(char *m);
 void dump_bytes(char *msg, unsigned char *d, int len);
 
+char log_error_(const char *file,const char *func,const unsigned int line,const unsigned char error_code);
+#define fail(X) return(log_error_(__FILE__,__FUNCTION__,__LINE__,X))
+
 #endif

@@ -5,6 +5,7 @@
 #include "contacts.h"
 #include "records.h"
 #include "search.h"
+#include "index.h"
 
 char sms_build_message(unsigned char buffer[RECORD_DATA_SIZE],unsigned int *bytes_used,
 		       unsigned char txP,
@@ -26,10 +27,10 @@ char sms_build_message(unsigned char buffer[RECORD_DATA_SIZE],unsigned int *byte
   lfill((unsigned long)&buffer[0],0x00,RECORD_DATA_SIZE);
   
   // +1 so strings are null-terminated for convenience.
-  if (append_field(buffer,bytes_used,RECORD_DATA_SIZE, FIELD_PHONENUMBER, phoneNumber, strlen((char *)phoneNumber)+1)) return 1;
-  if (append_field(buffer,bytes_used,RECORD_DATA_SIZE, FIELD_TIMESTAMP, timestamp_bin, 4)) return 2;  
-  if (append_field(buffer,bytes_used,RECORD_DATA_SIZE, FIELD_BODYTEXT, messageBody, strlen((char *)messageBody)+1)) return 3;  
-  if (append_field(buffer,bytes_used,RECORD_DATA_SIZE, FIELD_MESSAGE_DIRECTION, &txP, 1)) return 4;
+  if (append_field(buffer,bytes_used,RECORD_DATA_SIZE, FIELD_PHONENUMBER, phoneNumber, strlen((char *)phoneNumber)+1)) fail(1);
+  if (append_field(buffer,bytes_used,RECORD_DATA_SIZE, FIELD_TIMESTAMP, timestamp_bin, 4)) fail(2);  
+  if (append_field(buffer,bytes_used,RECORD_DATA_SIZE, FIELD_BODYTEXT, messageBody, strlen((char *)messageBody)+1)) fail(3);  
+  if (append_field(buffer,bytes_used,RECORD_DATA_SIZE, FIELD_MESSAGE_DIRECTION, &txP, 1)) fail(4);
 
   return 0;
 }
@@ -46,11 +47,11 @@ char sms_rx(unsigned char *phoneNumber, unsigned int timestampAztecTime,
   // contact_find_by_phonenumber() will return contact 1 always
   fprintf(stderr,"DEBUG: Phone number '%s' is contact %d\n",phoneNumber,contact_ID);
 
-  if (buffers_lock(LOCK_TELEPHONY)) return 99;
+  if (buffers_lock(LOCK_TELEPHONY)) fail(99);
   
   if (read_record_by_id(0, contact_ID,buffers.telephony.contact)) {
     buffers_unlock(LOCK_TELEPHONY);
-    return 1;
+    fail(1);
   }
 			
   // 3. Increase unread message count by 1, and write back.
@@ -80,38 +81,38 @@ char sms_rx(unsigned char *phoneNumber, unsigned int timestampAztecTime,
   // should already be the physical location of the contact in that D81.
   // So we just need to do the path magic and them mount it, and the message body index for it.
   // mount_contact_qso() mounts MESSAGES.D81 as disk 0, and MSGINDEX.D81 as disk 1
-  if (mount_contact_qso(contact_ID)) return 2;
+  if (mount_contact_qso(contact_ID)) fail(2);
   
   // 5. Allocate message record in conversation
-  if (read_sector(0,1,0)) return 3;
+  if (read_sector(0,1,0)) fail(3);
   record_number = record_allocate_next( (unsigned char *)SECTOR_BUFFER_ADDRESS );
   if (!record_number) {
-    return 4;
+    fail(4);
   } else {    
     // Write back updated BAM
-    if (write_sector(0,1,0)) return 5;
+    if (write_sector(0,1,0)) fail(5);
   }
   fprintf(stderr,"DEBUG: Allocated message record #%d in contact #%d\n",
 	  record_number,contact_ID);
   
   // 6. Build message and store.
-  if (buffers_lock(LOCK_TELEPHONY)) return 6;
+  if (buffers_lock(LOCK_TELEPHONY)) fail(6);
   if (read_record_by_id(0,record_number,buffers.telephony.message)) {
     buffers_unlock(LOCK_TELEPHONY);  
-    return 7;
+    fail(7);
   }
   if (sms_build_message(buffers.telephony.message,
 			&buffers.telephony.message_bytes,			
 			SMS_DIRECTION_RX,
 			phoneNumber, timestampAztecTime, message)) {
     buffers_unlock(LOCK_TELEPHONY);  
-    return 8;
+    fail(8);
   }
   sectorise_record(buffers.telephony.message, buffers.telephony.sector_buffer);
   lcopy((unsigned long)buffers.telephony.sector_buffer,SECTOR_BUFFER_ADDRESS,512);
   if (write_record_by_id(0,record_number,buffers.telephony.message)) {
     buffers_unlock(LOCK_TELEPHONY);  
-    return 9;
+    fail(9);
   }
 
   // 7. Update used message count in conversation (2nd half of BAM sector?)
@@ -124,5 +125,5 @@ char sms_rx(unsigned char *phoneNumber, unsigned int timestampAztecTime,
   index_update_from_buffer(1,record_number);
   
   // XXX - Not yet implemented
-  return 1;
+  fail(1);
 }
