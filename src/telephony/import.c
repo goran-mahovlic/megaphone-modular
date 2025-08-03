@@ -90,7 +90,11 @@ int main(int argc,char **argv)
     // MESSAGERX:+99973014512:397831207:🤣🎧🐨💻🥭 Id nisi MEGA65 corrupti natus:
     else if (sscanf(line,"MESSAGERX:%[^:]:%ld:%[^:]:",phoneNumber,&timestampAztecTime,messageBody)==3) {
       // 1. Work out which contact the message is to/from
+      unsigned int contact_ID = contact_find_by_phonenumber(phoneNumber);
+      
       // 2. Retreive that contact (or if no such contact, then use the "UNKNOWN NUMBERS" pseudo-contact?)
+      // contact_find_by_phonenumber() will return contact 1 always
+      
       // 3. Increase unread message count by 1, and write back.
       // 4. Obtain contact physical ID from contact record, and then find and open the message D81 for that conversation.
       // 5. Allocate message record in conversation
