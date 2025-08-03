@@ -84,7 +84,7 @@ char search_query_add_diphthong_score(unsigned int offset)
   unsigned int diphthong = search_get_diphthong(offset);
 
   if (diphthong==BAD_DIPHTHONG) fail(2);
-
+  
   // fprintf(stderr,"DEBUG: Searching for diphthong %d\n",diphthong);
   
   // Read the index page: Remember that there are two index pages per physical
@@ -95,7 +95,7 @@ char search_query_add_diphthong_score(unsigned int offset)
   buffers.search.index_page_offset = 2 + ((diphthong&1)?0x100:0);
 
   // XXX - We could save some cycles (maybe) by only copying the 210 bytes we need
-  lcopy(SECTOR_BUFFER_ADDRESS,(unsigned long) &buffers.search.sector_buffer, 512);
+  lcopy(SECTOR_BUFFER_ADDRESS,(unsigned long) &buffers.search.sector_buffer, 512);  
   
   // Transcribe bits into scores  
   buffers.search.byte=0;
@@ -361,16 +361,8 @@ unsigned int search_contact_by_phonenumber(unsigned char *phoneNumber)
   // as no string can have a lower score and be identical to the phone number
   search_query_init();
   search_query_append_string(phoneNumber);
-  search_collate(SEARCH_UNFILTERED); // strlen((char *)phoneNumber));
-  
-  for(int i=0;i<USABLE_SECTORS_PER_DISK;i++) {
-    if (buffers.search.scores[i]) {
-      printf("%d:%d\n",
-	     buffers.search.record_numbers[i],
-	     buffers.search.scores[i]);
-    }
-  }
-  
+  search_collate(strlen((char *)phoneNumber));
+    
   // Search for exact match among the phone numbers
   // (we don't need to sort the records, at this point, since a wrong number with
   // repeated matching digits could yield a higher score than the actual correct
@@ -378,9 +370,9 @@ unsigned int search_contact_by_phonenumber(unsigned char *phoneNumber)
   for(buffers.search.r=0;buffers.search.r<buffers.search.result_count;
       buffers.search.r++) {
     // Retrieve the record
-    fprintf(stderr,"DEBUG: '%s' might belong to contact #%d\n",
-	    phoneNumber,
-	    buffers.search.record_numbers[buffers.search.r]);
+    // fprintf(stderr,"DEBUG: '%s' might belong to contact #%d\n",
+    // 	    phoneNumber,
+    //	    buffers.search.record_numbers[buffers.search.r]);
     if (read_record_by_id(0, buffers.search.record_numbers[buffers.search.r],
 			  buffers.search.sector_buffer)) continue;
 
@@ -392,8 +384,8 @@ unsigned int search_contact_by_phonenumber(unsigned char *phoneNumber)
 						  FIELD_PHONENUMBER,
 						  &recordPhoneNumberLen);
     if (phoneNumber) {
-      fprintf(stderr,"DEBUG: Comparing search phone number '%s' with '%s'\n",
-	      phoneNumber,recordPhoneNumber);
+      // fprintf(stderr,"DEBUG: Comparing search phone number '%s' with '%s'\n",
+      //         phoneNumber,recordPhoneNumber);
       if (!strcmp((char *)phoneNumber,(char *)recordPhoneNumber)) {
 	search_query_release();
 	return buffers.search.record_numbers[buffers.search.r];
