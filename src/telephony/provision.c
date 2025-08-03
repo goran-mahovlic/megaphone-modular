@@ -1,5 +1,6 @@
 // Load HAL
 #include "includes.h"
+#include "records.h"
 
 /*
   Provision the entire MEGAphone directory structure and phone state.
@@ -55,13 +56,44 @@ int main(int argc,char **argv)
   create_d81("CONTACT0.D81");
   mount_d81("CONTACT0.D81",0);
   format_image_fully_allocated(0,"CONTACTS 0");
+  // Create dummy "UNKNOWN" contact in record 1
+  unsigned char buffer[RECORD_DATA_SIZE];
+  unsigned int bytes_used=0;
+  if (build_contact(buffer,&bytes_used,
+		        "UNKNOWN NUMBERS","","UNKNOWN",0)) {
+    fprintf(stderr,"FATAL: Failed to build unknown contact record.\n");
+    exit(-1);
+  }
+  mega65_cdroot();
+  mega65_chdir("PHONE");
+  mount_d81("CONTACT0.D81",0);
+  read_sector(0,1,0);
+  unsigned int record_number = record_allocate_next( (unsigned char *)SECTOR_BUFFER_ADDRESS );
+  if (record_number!=1) {
+    fprintf(stderr,"FATAL: FAiled to allocate contact 1 for UNKNOWN\n");
+    exit(-1);
+  }
+  // Write back updated BAM
+  write_sector(0,1,0);
+  
+  // Set record number bytes in record
+  buffer[0]=record_number & 0xff;
+  buffer[1]=record_number >> 8;
+  
+  // Allocated record, so write contact	  
+  char r=write_record_by_id(0,record_number,buffer);
+  if (r) {
+    fprintf(stderr,"ERROR: Failed to write contact to record #%d (code %d)\n",record_number,r);
+  }    
+  
   // Then we need the different sorted versions of the contacts,
   create_d81("SORT02-0.D81");
   create_d81("SORT04-0.D81");
   create_d81("SORT06-0.D81");
   // And the character pair lookup indexes
-  create_d81("IDX02-0.D81");
-  create_d81("IDX04-0.D81");
+  create_d81("IDX02-0.D81");  // by first name
+  create_d81("IDX04-0.D81");  // by last name
+  create_d81("IDX06-0.D81");  // by phone number
 
   // And scratch disk image used during sorting
   create_d81("SCRATCH.D81");
