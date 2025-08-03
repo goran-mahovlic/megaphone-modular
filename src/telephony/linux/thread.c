@@ -87,7 +87,7 @@ int main(int argc,char **argv)
 	  if (query&&(strlen(query)>3))
 	    score_threshold=strlen(query)*0.75;
 	}
-	if (query) search_query_append_string(query);
+	if (query) search_query_append_string((unsigned char *)query);
 
 	search_collate(score_threshold);
 	if (ranked) search_sort_results_by_score();
