@@ -30,9 +30,28 @@ int main(int argc,char **argv)
   
   for(int i=0;i<USABLE_SECTORS_PER_DISK;i++) {
     if (buffers.search.scores[i]) {
-      printf("%d:%d:\n",
+      printf("%d:%d:",
 	     buffers.search.record_numbers[i],
 	     buffers.search.scores[i]);
+      unsigned char record[RECORD_DATA_SIZE];
+      if (read_record_by_id(0,buffers.search.record_numbers[i], record))
+	printf("<could not read record>\n");
+      else {
+	unsigned int firstNameLen, lastNameLen, phoneNumberLen, unreadCountLen;
+	unsigned char *firstName = find_field(record,RECORD_DATA_SIZE,FIELD_FIRSTNAME,&firstNameLen);
+	unsigned char *lastName = find_field(record,RECORD_DATA_SIZE,FIELD_LASTNAME,&lastNameLen);
+	unsigned char *phoneNumber = find_field(record,RECORD_DATA_SIZE,FIELD_PHONENUMBER,&phoneNumberLen);
+	unsigned char *unreadCount = find_field(record,RECORD_DATA_SIZE,FIELD_UNREAD_MESSAGES,&unreadCountLen);
+	int unreadMessageCount=0;
+	if (unreadCount) unreadMessageCount=unreadCount[0]+(unreadCount[1]<<8);
+	if (firstName||lastName||phoneNumber) {
+	  printf("%s:%s:%s:%d\n",
+		 firstName?(char *)firstName:"<no first name>",
+		 lastName?(char *)lastName:"<no last name>",
+		 phoneNumber?(char *)phoneNumber:"<no phone number>",
+		 unreadMessageCount);
+	}
+      }
     }
   }
   
