@@ -124,6 +124,6 @@ char sms_rx(unsigned char *phoneNumber, unsigned int timestampAztecTime,
   index_buffer_update(message);
   index_update_from_buffer(1,record_number);
   
-  // XXX - Not yet implemented
-  fail(1);
+  buffers_unlock(LOCK_TELEPHONY);    
+  return 0;
 }

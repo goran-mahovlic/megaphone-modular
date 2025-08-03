@@ -22,10 +22,10 @@ char build_contact(unsigned char buffer[RECORD_DATA_SIZE],unsigned int *bytes_us
   lfill((unsigned long)&buffer[0],0x00,RECORD_DATA_SIZE);
   
   // +1 so strings are null-terminated for convenience.
-  if (append_field(buffer,bytes_used,RECORD_DATA_SIZE, FIELD_FIRSTNAME, firstName, strlen((char *)firstName)+1)) return 1;
-  if (append_field(buffer,bytes_used,RECORD_DATA_SIZE, FIELD_LASTNAME, lastName, strlen((char *)lastName)+1)) return 2;
-  if (append_field(buffer,bytes_used,RECORD_DATA_SIZE, FIELD_PHONENUMBER, phoneNumber, strlen((char *)phoneNumber)+1)) return 3;
-  if (append_field(buffer,bytes_used,RECORD_DATA_SIZE, FIELD_UNREAD_MESSAGES, urC, 2)) return 4;
+  if (append_field(buffer,bytes_used,RECORD_DATA_SIZE, FIELD_FIRSTNAME, firstName, strlen((char *)firstName)+1)) fail(1);
+  if (append_field(buffer,bytes_used,RECORD_DATA_SIZE, FIELD_LASTNAME, lastName, strlen((char *)lastName)+1)) fail(2);
+  if (append_field(buffer,bytes_used,RECORD_DATA_SIZE, FIELD_PHONENUMBER, phoneNumber, strlen((char *)phoneNumber)+1)) fail(3);
+  if (append_field(buffer,bytes_used,RECORD_DATA_SIZE, FIELD_UNREAD_MESSAGES, urC, 2)) fail(4);
 
   return 0;
 }
@@ -42,23 +42,23 @@ char mount_contact_qso(unsigned int contact)
 {
   char hex[3];
   mega65_cdroot();
-  if (mega65_chdir("PHONE")) return 1;
-  if (mega65_chdir("THREADS")) return 2;
+  if (mega65_chdir("PHONE")) fail(1);
+  if (mega65_chdir("THREADS")) fail(2);
   hex[0]=to_hex(contact>>12);
   hex[1]=0;
-  if (mega65_chdir(hex)) return 3;
+  if (mega65_chdir(hex)) fail(3);
   hex[0]=to_hex(contact>>8);
   hex[1]=0;
-  if (mega65_chdir(hex)) return 4;
+  if (mega65_chdir(hex)) fail(4);
   hex[0]=to_hex(contact>>4);
   hex[1]=0;
-  if (mega65_chdir(hex)) return 5;
+  if (mega65_chdir(hex)) fail(5);
   hex[0]=to_hex(contact>>0);
   hex[1]=0;
-  if (mega65_chdir(hex)) return 6;
+  if (mega65_chdir(hex)) fail(6);
 
-  if (mount_d81("MESSAGES.D81",0)) return 7;
-  if (mount_d81("MSGINDEX.D81",1)) return 8;
+  if (mount_d81("MESSAGES.D81",0)) fail(7);
+  if (mount_d81("MSGINDEX.D81",1)) fail(8);
 
   return 0;
 }
