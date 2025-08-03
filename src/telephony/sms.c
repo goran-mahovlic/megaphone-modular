@@ -1,9 +1,10 @@
 #include "includes.h"
+#include "buffers.h"
 #include "contacts.h"
 #include "records.h"
 #include "search.h"
 
-char sms_rx(unsigned char *phone, unsigned int timestampAztecTime,
+char sms_rx(unsigned char *phoneNumber, unsigned int timestampAztecTime,
 	    unsigned char *message)
 {      
   // 1. Work out which contact the message is to/from
@@ -31,8 +32,8 @@ char sms_rx(unsigned char *phone, unsigned int timestampAztecTime,
       unreadMessageCount[1]++;
       if (!unreadMessageCount[1]) {
 	// Saturate rather than wrap at 64K unread messages
-	unreadMessageCount[0]=x0ff;
-	unreadMessageCount[1]=x0ff;
+	unreadMessageCount[0]=0xff;
+	unreadMessageCount[1]=0xff;
       }
     } 
     write_record_by_id(0,contact_ID,buffers.telephony.contact);
@@ -55,5 +56,7 @@ char sms_rx(unsigned char *phone, unsigned int timestampAztecTime,
   // 7. Update used message count in conversation (2nd half of BAM sector?)
 
   // 8. Update thread index for this message
- 
+
+  // XXX - Not yet implemented
+  return 1;
 }

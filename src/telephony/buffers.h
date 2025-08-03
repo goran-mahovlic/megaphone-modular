@@ -71,18 +71,25 @@ struct search_buffers {
   unsigned int cut_len;
 };
 
+struct telephony_buffers {
+  unsigned char contact[RECORD_DATA_SIZE];
+  
+};
+
 struct shared_buffers {
 
 #define LOCK_FREE 0x00
 #define LOCK_INDEX 0x01
 #define LOCK_SORT 0x02
 #define LOCK_SEARCH 0x03
+#define LOCK_TELEPHONY 0x04
   unsigned char lock;
   
   union {
     struct sort_buffers sort;
     struct index_buffers index;
     struct search_buffers search;
+    struct telephony_buffers telephony;
   };
 };
 
