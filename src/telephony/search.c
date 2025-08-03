@@ -18,7 +18,7 @@ char search_query_init(void)
   buffers.lock = LOCK_SEARCH;
   
   // Reset all scores to zero
-  lfill((unsigned long)&buffers.search.scores,0x00, USABLE_SECTORS_PER_DISK);
+  lfill((unsigned long)&buffers.search.all_scores,0x00, USABLE_SECTORS_PER_DISK);
 
   // Reset query (used so that we can delete diphthongs from the query.
   buffers.search.query_length = 0;
@@ -38,7 +38,7 @@ char search_query_init(void)
       buffers.search.r++) {
     if (buffers.search.sector_buffer[buffers.search.byte]
 	&(1<<buffers.search.bit)) {
-      buffers.search.scores[buffers.search.r]=1;
+      buffers.search.all_scores[buffers.search.r]=1;
     }
     buffers.search.bit++;
     if (buffers.search.bit==8) {
@@ -49,6 +49,8 @@ char search_query_init(void)
 
   buffers.search.results_stale = 1;
 
+  buffers.search.result_count = 0;
+  
   return 0;
 }
 
@@ -77,6 +79,8 @@ char search_query_add_diphthong_score(unsigned int offset)
 
   if (diphthong==BAD_DIPHTHONG) return 2;
 
+  fprintf(stderr,"DEBUG: Searching for diphthong %d\n",diphthong);
+  
   // Read the index page: Remember that there are two index pages per physical
   // sector, so we shift diphthong right one bit.
   if (read_record_by_id(1,diphthong>>1,buffers.search.sector_buffer)) return 1;
@@ -99,8 +103,8 @@ char search_query_add_diphthong_score(unsigned int offset)
       // This DOES create a problem when deleting, so remember that it's
       // happened, so that if we delete chars from the query, we know to
       // recalculate the scores from scratch.
-      if (buffers.search.scores[buffers.search.r]!=0xff)
-	buffers.search.scores[buffers.search.r]++;
+      if (buffers.search.all_scores[buffers.search.r]!=0xff)
+	buffers.search.all_scores[buffers.search.r]++;
       else
 	buffers.search.score_overflow=1;
     }
@@ -141,10 +145,10 @@ char search_query_sub_diphthong_score(unsigned int offset)
       // If a score had previously saturated, and we are now subtracting from it,
       // then we can no longer trust the resulting scores.  Take note, so that we
       // know later if we need to recalculate the scores.
-      if (buffers.search.scores[buffers.search.r]==0xff)
+      if (buffers.search.all_scores[buffers.search.r]==0xff)
 	buffers.search.score_recalculation_required=1;
 
-      buffers.search.scores[buffers.search.r]--;
+      buffers.search.all_scores[buffers.search.r]--;
     }
     buffers.search.bit++;
     if (buffers.search.bit==8) {
@@ -227,5 +231,78 @@ char search_query_delete_range(unsigned int first, unsigned int last)
   if (first < buffers.search.query_length)
     return search_query_add_diphthong_score(first);        
   
+  return 0;
+}
+
+char search_collate(void)
+{
+  buffers.search.result_count=0;
+  
+  for(buffers.search.r=0;buffers.search.r<USABLE_SECTORS_PER_DISK;buffers.search.r++)
+    {
+      if (buffers.search.all_scores[buffers.search.r]) {
+	buffers.search.scores[buffers.search.result_count]=buffers.search.all_scores[buffers.search.r];
+	buffers.search.record_numbers[buffers.search.result_count++]=buffers.search.r;	
+      }
+    }
+  return 0;
+}
+
+void search_swap_results(unsigned int i, unsigned int j)
+{
+  unsigned char s;
+  unsigned int r;
+  r=buffers.search.record_numbers[i];
+  s=buffers.search.scores[i];
+  buffers.search.record_numbers[i] = buffers.search.record_numbers[j];
+  buffers.search.scores[i] = buffers.search.scores[j];
+  buffers.search.record_numbers[j] = r;
+  buffers.search.scores[j] = s;
+  return;
+}
+
+char search_sort_results_by_score(void)
+{
+
+  // Initialize stack with full range
+  buffers.search.stack[0].low = 0;
+  buffers.search.stack[0].high = buffers.search.result_count - 1;
+  buffers.search.stack_ptr = 1;
+  
+  while (buffers.search.stack_ptr > 0) {
+    buffers.search.stack_ptr--;
+    unsigned char low  = buffers.search.stack[buffers.search.stack_ptr].low;
+    unsigned char high = buffers.search.stack[buffers.search.stack_ptr].high;
+    
+    if (low >= high) continue;
+    
+    // Choose pivot = high
+    unsigned char pivot_val = buffers.search.scores[high];
+    unsigned char i = low;
+    
+    for (unsigned char j = low; j < high; j++) {
+      if (buffers.search.scores[j]>pivot_val) {
+	// Swap record numbers & scores
+	search_swap_results(i,j);
+	i++;
+      }
+    }
+    
+    // Move pivot into correct location
+    search_swap_results(i,high);
+    
+    // Push sub-partitions onto stack
+    if (i > low + 1) {
+      buffers.search.stack[buffers.search.stack_ptr].low = low;
+      buffers.search.stack[buffers.search.stack_ptr].high = i - 1;
+      buffers.search.stack_ptr++;
+    }
+    if (i + 1 < high) {
+      buffers.search.stack[buffers.search.stack_ptr].low = i + 1;
+      buffers.search.stack[buffers.search.stack_ptr].high = high;
+      buffers.search.stack_ptr++;
+    }
+  }
+
   return 0;
 }

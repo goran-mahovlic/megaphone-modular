@@ -22,9 +22,14 @@ int main(int argc,char **argv)
 
   for(int i=0;argv[3][i];i++) search_query_append(argv[3][i]);
 
+  search_collate();
+  search_sort_results_by_score();
+  
   for(int i=0;i<USABLE_SECTORS_PER_DISK;i++) {
     if (buffers.search.scores[i]) {
-      printf("%d:%d:\n",i, buffers.search.scores[i]);
+      printf("%d:%d:\n",
+	     buffers.search.record_numbers[i],
+	     buffers.search.scores[i]);
     }
   }
   

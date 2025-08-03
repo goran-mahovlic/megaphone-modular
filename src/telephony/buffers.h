@@ -33,7 +33,15 @@ struct index_buffers {
 
 #define SEARCH_MAX_QUERY_LENGTH 500
 struct search_buffers {
+
+  // Scores of all records, even unused ones
+  unsigned char all_scores[USABLE_SECTORS_PER_DISK];
+
+  // Scores and record number of all populated records
   unsigned char scores[USABLE_SECTORS_PER_DISK];
+  unsigned int record_numbers[USABLE_SECTORS_PER_DISK];
+  unsigned int result_count;
+
   unsigned int query_length;
   unsigned char query[SEARCH_MAX_QUERY_LENGTH];
 
@@ -48,6 +56,11 @@ struct search_buffers {
   unsigned char results_stale;
   
   unsigned char sector_buffer[512];
+
+  // Quick sort manual stack
+  partition_t stack[QSORT_STACK_SIZE];
+  int stack_ptr;
+
   
   // Scratch variables
   unsigned char bit;
