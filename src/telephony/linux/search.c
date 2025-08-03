@@ -22,7 +22,10 @@ int main(int argc,char **argv)
 
   for(int i=0;argv[3][i];i++) search_query_append(argv[3][i]);
 
-  search_collate();
+  // Include only matches in the results, rather than just preparing to sort them
+  // by matchiness.
+  search_collate(SEARCH_FILTERED);
+  // Then sort them by descending score
   search_sort_results_by_score();
   
   for(int i=0;i<USABLE_SECTORS_PER_DISK;i++) {

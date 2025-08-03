@@ -47,8 +47,7 @@ char search_query_init(void)
     }
   }
 
-  buffers.search.results_stale = 1;
-
+  buffers.search.results_stale = 0;
   buffers.search.result_count = 0;
   
   return 0;
@@ -79,7 +78,7 @@ char search_query_add_diphthong_score(unsigned int offset)
 
   if (diphthong==BAD_DIPHTHONG) return 2;
 
-  fprintf(stderr,"DEBUG: Searching for diphthong %d\n",diphthong);
+  // fprintf(stderr,"DEBUG: Searching for diphthong %d\n",diphthong);
   
   // Read the index page: Remember that there are two index pages per physical
   // sector, so we shift diphthong right one bit.
@@ -181,6 +180,22 @@ char search_query_append(unsigned char c)
   return search_query_add_diphthong_score(buffers.search.query_length-2);
 }
 
+char search_query_rerun(void)
+{
+  // Cheeky way to efficiently re-run the query
+  // (relies on query_init() only resetting the length, not
+  // clearing the actual query string from the buffer.
+  unsigned int query_len = buffers.search.query_length;
+  unsigned int o;
+  
+  search_query_init();
+  
+  for(o=0;o<query_len;o++) {
+    if (search_query_append(buffers.search.query[o])) return 1;
+  }
+  return 0;
+}
+
 // Remove last character from the query
 char search_query_delete_char(void)
 {
@@ -234,13 +249,18 @@ char search_query_delete_range(unsigned int first, unsigned int last)
   return 0;
 }
 
-char search_collate(void)
+char search_collate(char min_score)
 {
   buffers.search.result_count=0;
+
+  if (buffers.search.results_stale||buffers.search.score_recalculation_required) {
+    // Reapply the whole query
+    search_query_rerun();
+  }
   
   for(buffers.search.r=0;buffers.search.r<USABLE_SECTORS_PER_DISK;buffers.search.r++)
     {
-      if (buffers.search.all_scores[buffers.search.r]) {
+      if (buffers.search.all_scores[buffers.search.r]>=min_score) {
 	buffers.search.scores[buffers.search.result_count]=buffers.search.all_scores[buffers.search.r];
 	buffers.search.record_numbers[buffers.search.result_count++]=buffers.search.r;	
       }
@@ -263,6 +283,11 @@ void search_swap_results(unsigned int i, unsigned int j)
 
 char search_sort_results_by_score(void)
 {
+
+  if (buffers.search.results_stale||buffers.search.score_recalculation_required) {
+    // Reapply the whole query
+    search_query_rerun();
+  }
 
   // Initialize stack with full range
   buffers.search.stack[0].low = 0;
