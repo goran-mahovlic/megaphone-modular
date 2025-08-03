@@ -43,6 +43,8 @@ int main(int argc,char **argv)
   // Fields for messages
   unsigned long timestampAztecTime;
   unsigned char messageBody[1024];
+
+  unsigned char contact_added = 0;
   
   line[0]=0; fgets(line,1024,f);
   while(line[0]) {
@@ -54,6 +56,9 @@ int main(int argc,char **argv)
       // Found a contact.
       unsigned char buffer[RECORD_DATA_SIZE];
       unsigned int bytes_used=0;
+
+      contact_added = 1;
+      
       if (build_contact(buffer,&bytes_used,
 			firstName,lastName,phoneNumber,unreadCount)) {
 	fprintf(stderr,"ERROR: Failed to parse contact line: %s\n",line);
@@ -87,11 +92,25 @@ int main(int argc,char **argv)
     // MESSAGERX:+99973014512:397831207:🤣🎧🐨💻🥭 Id nisi MEGA65 corrupti natus:
     else if (sscanf(line,"MESSAGERX:%[^:]:%ld:%[^:]:",phoneNumber,&timestampAztecTime,messageBody)==3) {
 
+      if (contact_added) {
+	// Update search index for contacts
+	fprintf(stderr,"INFO: Rebuilding contact index before importing next SMS\n");
+	contacts_reindex(0);
+      }
+      contact_added=0;
+      
       sms_log(phoneNumber,timestampAztecTime,messageBody,SMS_DIRECTION_RX);
     }
     // MESSAGETX:+99966049372:397833622:🍳🍿 Quasi nisi quidem, quis veniam sed numquam ipsam quo hic amet molestiae? Veritatis cupiditate ullam nihil et tenetur doloribus, accusantium:
     else if (sscanf(line,"MESSAGETX:%[^:]:%ld:%[^:]:",phoneNumber,&timestampAztecTime,messageBody)==3) {
       // As for MESSAGERX, but don't increment unread message count.
+      if (contact_added) {
+	// Update search index for contacts
+	fprintf(stderr,"INFO: Rebuilding contact index before importing next SMS\n");
+	contacts_reindex(0);
+      }
+      contact_added=0;      
+
       sms_log(phoneNumber,timestampAztecTime,messageBody,SMS_DIRECTION_TX);
     } else {
       fprintf(stderr,"ERROR: Could not scan line: %s\n",line);
