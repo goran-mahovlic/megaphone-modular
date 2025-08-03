@@ -31,16 +31,32 @@ struct index_buffers {
   unsigned char rec[RECORD_DATA_SIZE];
 };
 
+#define SEARCH_MAX_QUERY_LENGTH 500
+struct search_buffers {
+  unsigned char scores[USABLE_SECTORS_PER_DISK];
+  unsigned int query_length;
+  unsigned char query[SEARCH_MAX_QUERY_LENGTH];
+
+  unsigned char sector_buffer[512];
+  
+  // Scratch variables
+  unsigned char bit;
+  unsigned char byte;
+  unsigned int r;
+};
+
 struct shared_buffers {
 
 #define LOCK_FREE 0x00
 #define LOCK_INDEX 0x01
 #define LOCK_SORT 0x02
+#define LOCK_SEARCH 0x03
   unsigned char lock;
   
   union {
     struct sort_buffers sort;
     struct index_buffers index;
+    struct search_buffers search;
   };
 };
 

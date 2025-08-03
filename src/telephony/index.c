@@ -128,7 +128,7 @@ char index_update_from_buffer(unsigned char disk_id, unsigned int record_number)
       if (bit) {
 	// Set the bit in the page
 	value |= record_bit;
-	fprintf(stderr,"DEBUG: Setting bit for diphthong 0x%04x (0x%04x) from record %d at slab offset 0x%05x, slab %d\n",
+	fprintf(stderr,"DEBUG: Setting bit for diphthong 0x%04x (0x%04x) from record %d at slab offset 0x%05llx, slab %d\n",
 		index_page,
 		byte,
 		record_number,
