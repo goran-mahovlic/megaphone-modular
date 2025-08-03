@@ -47,10 +47,8 @@ int main(int argc,char **argv)
 
   // Get list of candidate contacts
   if (search_query_init()) return 3;
-  //  if (argc>1&&argv[1]) search_query_append_string((unsigned char *)argv[1]);
-  search_collate(1); // score_threshold); // apply match threshold filter
-  for(int i=1;i<10;i++) printf("%d:%d\n",i,buffers.search.all_scores[i]);   
-
+  if (argc>1&&argv[1]) search_query_append_string((unsigned char *)argv[1]);
+  search_collate(score_threshold); // apply match threshold filter
   search_sort_results_by_score();
 
   if (!buffers.search.result_count) {
