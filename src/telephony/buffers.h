@@ -43,6 +43,9 @@ struct search_buffers {
   // was 255 is now less, then we know we probably should
   // recalculate the scores
   unsigned char score_recalculation_required;
+
+  // Is the current search results stale?
+  unsigned char results_stale;
   
   unsigned char sector_buffer[512];
   
@@ -50,7 +53,9 @@ struct search_buffers {
   unsigned char bit;
   unsigned char byte;
   unsigned int r;
+  unsigned int l;
   unsigned int index_page_offset;
+  unsigned int cut_len;
 };
 
 struct shared_buffers {

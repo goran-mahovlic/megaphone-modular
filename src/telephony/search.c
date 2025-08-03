@@ -32,20 +32,23 @@ char search_query_init(void)
   
   // Transcribe bits into scores  
   buffers.search.score_overflow=0;
-  buffers.search.byte=0;
-  buffers.search.bit=1;
+  buffers.search.byte=2; // skip over track/sector pointer
+  buffers.search.bit=1; // skip record 0, which is record BAM
   for(buffers.search.r=1;buffers.search.r<USABLE_SECTORS_PER_DISK;
       buffers.search.r++) {
     if (buffers.search.sector_buffer[buffers.search.byte]
-	&(1<<buffers.search.bit))
+	&(1<<buffers.search.bit)) {
       buffers.search.scores[buffers.search.r]=1;
+    }
     buffers.search.bit++;
     if (buffers.search.bit==8) {
       buffers.search.byte++;
       buffers.search.bit=0;
     }
   }
-  
+
+  buffers.search.results_stale = 1;
+
   return 0;
 }
 
@@ -64,8 +67,8 @@ unsigned int search_get_diphthong(unsigned int offset)
 {
   if (offset>=(buffers.search.query_length-1)) return BAD_DIPHTHONG;
 
-  return index_mapping_table[buffers.search.query[offset+1]] * 56
-    + index_mapping_table[buffers.search.query[offset]];
+  return index_mapping_table[buffers.search.query[offset]] * 56
+    + index_mapping_table[buffers.search.query[offset+1]];
 }
 
 char search_query_add_diphthong_score(unsigned int offset)
@@ -77,9 +80,12 @@ char search_query_add_diphthong_score(unsigned int offset)
   // Read the index page: Remember that there are two index pages per physical
   // sector, so we shift diphthong right one bit.
   if (read_record_by_id(1,diphthong>>1,buffers.search.sector_buffer)) return 1;
-
+  
   // Is the index page in the lower or upper half of the physical sector?
   buffers.search.index_page_offset = 2 + ((diphthong&1)?0x100:0);
+
+  // XXX - We could save some cycles (maybe) by only copying the 210 bytes we need
+  lcopy(SECTOR_BUFFER_ADDRESS,(unsigned long) &buffers.search.sector_buffer, 512);
   
   // Transcribe bits into scores  
   buffers.search.byte=0;
@@ -104,6 +110,9 @@ char search_query_add_diphthong_score(unsigned int offset)
       buffers.search.bit=0;
     }
   }
+
+  buffers.search.results_stale = 1;
+
   return 0;
 }
 
@@ -143,6 +152,9 @@ char search_query_sub_diphthong_score(unsigned int offset)
       buffers.search.bit=0;
     }
   }
+
+  buffers.search.results_stale = 1;
+  
   return 0;
 }
 
@@ -163,4 +175,57 @@ char search_query_append(unsigned char c)
   if (buffers.search.query_length==1) return 0;
 
   return search_query_add_diphthong_score(buffers.search.query_length-2);
+}
+
+// Remove last character from the query
+char search_query_delete_char(void)
+{
+  if (buffers.lock != LOCK_SEARCH) return 99;
+
+  // Nothing to do
+  if (buffers.search.query_length<2) return 0;
+
+  if (search_query_sub_diphthong_score(buffers.search.query_length-2)) return 1;
+
+  buffers.search.query_length--;
+
+  return 0;
+}
+
+char search_query_delete_range(unsigned int first, unsigned int last)
+{
+  if (buffers.lock != LOCK_SEARCH) return 99;
+
+  if (first>=buffers.search.query_length) return 1;
+  if (last>=buffers.search.query_length) return 2;
+
+  // Subtract scores for all diphthongs that we are removing
+  for(buffers.search.r=first-1;
+      buffers.search.r<=last;
+      buffers.search.r++) {
+    if (buffers.search.r<=(buffers.search.query_length-2))
+      search_query_sub_diphthong_score(buffers.search.r);    
+  }
+  // If last is not the end, then add score for the diphthong created at the junction.
+  // But this is easiest done _after_ we have excised the deleted range.
+
+  // Get cut geometry
+  buffers.search.cut_len = (last-first+1);
+  buffers.search.l = buffers.search.query_length - buffers.search.cut_len;
+  // Perform cut
+  for(buffers.search.r=first;
+      buffers.search.r<=buffers.search.l;
+      buffers.search.r++) {
+    buffers.search.query[buffers.search.r]
+      =buffers.search.query[buffers.search.r + buffers.search.cut_len];
+  }
+  // Update length
+  buffers.search.query_length -= buffers.search.cut_len;
+
+  // The diphthong formed by the join is now at `first', unless that is now the end
+  // of the query, in which case there's nothing to do.
+  if (first < buffers.search.query_length)
+    return search_query_add_diphthong_score(first);        
+  
+  return 0;
 }
