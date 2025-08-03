@@ -31,7 +31,7 @@ int main(int argc,char **argv)
     if (!strcasecmp("ranked",argv[2])) ranked=1;
     else query=argv[2];      
   }
-  
+
   mega65_chdir("PHONE");
     
   // Mount disk and index
@@ -87,6 +87,8 @@ int main(int argc,char **argv)
 	  if (query&&(strlen(query)>3))
 	    score_threshold=strlen(query)*0.75;
 	}
+	if (query) search_query_append_string(query);
+
 	search_collate(score_threshold);
 	if (ranked) search_sort_results_by_score();
 
