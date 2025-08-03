@@ -119,7 +119,10 @@ char sms_rx(unsigned char *phoneNumber, unsigned int timestampAztecTime,
   // XXX - But it could still make it a little more efficient.
   
   // 8. Update thread index for this message
-
+  index_buffer_clear();
+  index_buffer_update(message);
+  index_update_from_buffer(1,record_number);
+  
   // XXX - Not yet implemented
   return 1;
 }
