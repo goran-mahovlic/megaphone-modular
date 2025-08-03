@@ -28,6 +28,8 @@ struct sort_buffers {
 };
 
 struct index_buffers {
+
+  
   unsigned char rec[RECORD_DATA_SIZE];
 };
 
@@ -52,6 +54,8 @@ struct search_buffers {
   // recalculate the scores
   unsigned char score_recalculation_required;
 
+  unsigned char last_score_threshold;
+  
   // Is the current search results stale?
   unsigned char results_stale;
   

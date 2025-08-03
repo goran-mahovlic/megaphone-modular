@@ -209,6 +209,7 @@ char search_query_rerun(void)
   for(o=0;o<query_len;o++) {
     if (search_query_append(buffers.search.query[o])) fail(1);
   }
+  
   return 0;
 }
 
@@ -269,6 +270,8 @@ char search_collate(char min_score)
 {
   buffers.search.result_count=0;
 
+  buffers.search.last_score_threshold = min_score;
+  
   if (buffers.search.results_stale||buffers.search.score_recalculation_required) {
     // Reapply the whole query
     search_query_rerun();
@@ -278,9 +281,11 @@ char search_collate(char min_score)
     {
       if (buffers.search.all_scores[buffers.search.r]>=min_score) {
 	buffers.search.scores[buffers.search.result_count]=buffers.search.all_scores[buffers.search.r];
-	buffers.search.record_numbers[buffers.search.result_count++]=buffers.search.r;	
+	buffers.search.record_numbers[buffers.search.result_count++]=buffers.search.r;
       }
     }
+  buffers.search.results_stale = 0;
+
   return 0;
 }
 
@@ -303,6 +308,7 @@ char search_sort_results_by_score(void)
   if (buffers.search.results_stale||buffers.search.score_recalculation_required) {
     // Reapply the whole query
     search_query_rerun();
+    search_collate(buffers.search.last_score_threshold);
   }
 
   // Initialize stack with full range

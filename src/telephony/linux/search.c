@@ -27,7 +27,7 @@ int main(int argc,char **argv)
   search_collate(SEARCH_FILTERED);
   // Then sort them by descending score
   search_sort_results_by_score();
-  
+
   for(int i=0;i<buffers.search.result_count;i++) {
     printf("%d:%d:",
 	   buffers.search.record_numbers[i],
