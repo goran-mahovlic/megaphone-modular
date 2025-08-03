@@ -10,14 +10,6 @@
   lack of working MKDIR hypervisor trap.
 */
 
-char to_hex(unsigned char v)
-{
-  v&=0xf;
-  if (v<0xa) return v+'0';
-  if (v>0xf) return 0;
-  return 'A'+(v-0xa);
-}
-
 int main(int argc,char **argv)
 {
   #define MAX_CONTACTS 1600

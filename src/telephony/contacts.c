@@ -30,3 +30,35 @@ char build_contact(unsigned char buffer[RECORD_DATA_SIZE],unsigned int *bytes_us
   return 0;
 }
 
+char to_hex(unsigned char v)
+{
+  v&=0xf;
+  if (v<0xa) return v+'0';
+  if (v>0xf) return 0;
+  return 'A'+(v-0xa);
+}
+
+char mount_contact_qso(unsigned int contact)
+{
+  char hex[3];
+  mega65_cdroot();
+  if (mega65_chdir("PHONE")) return 1;
+  if (mega65_chdir("THREADS")) return 2;
+  hex[0]=to_hex(contact>>12);
+  hex[1]=0;
+  if (mega65_chdir(hex)) return 3;
+  hex[0]=to_hex(contact>>8);
+  hex[1]=0;
+  if (mega65_chdir(hex)) return 4;
+  hex[0]=to_hex(contact>>4);
+  hex[1]=0;
+  if (mega65_chdir(hex)) return 5;
+  hex[0]=to_hex(contact>>0);
+  hex[1]=0;
+  if (mega65_chdir(hex)) return 6;
+
+  if (mount_d81("MESSAGES.D81",0)) return 7;
+  if (mount_d81("MSGINDEX.D81",1)) return 8;
+
+  return 0;
+}
