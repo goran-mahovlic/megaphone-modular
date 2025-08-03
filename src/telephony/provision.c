@@ -53,7 +53,9 @@ int main(int argc,char **argv)
   unsigned char buffer[RECORD_DATA_SIZE];
   unsigned int bytes_used=0;
   if (build_contact(buffer,&bytes_used,
-		        "UNKNOWN NUMBERS","","UNKNOWN",0)) {
+		    (unsigned char *)"UNKNOWN NUMBERS",
+		    (unsigned char *)"UNKNOWN NUMBERS",
+		    (unsigned char *)"UNKNOWN NUMBER",0)) {
     fprintf(stderr,"FATAL: Failed to build unknown contact record.\n");
     exit(-1);
   }
