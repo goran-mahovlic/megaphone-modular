@@ -9,4 +9,6 @@ char search_query_rerun(void);
 #define SEARCH_FILTERED 2
 char search_collate(char min_score);
 char search_sort_results_by_score(void);
+unsigned int search_contact_by_phonenumber(unsigned char *phoneNumber);
+
 

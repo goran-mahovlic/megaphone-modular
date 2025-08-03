@@ -1,4 +1,7 @@
 #include "includes.h"
+
+#include <string.h>
+
 #include "buffers.h"
 #include "index.h"
 #include "search.h"
@@ -340,4 +343,52 @@ char search_sort_results_by_score(void)
   }
 
   return 0;
+}
+
+unsigned int search_contact_by_phonenumber(unsigned char *phoneNumber)
+{
+  // Search for the phone number in contacts
+  mega65_cdroot();
+  mega65_chdir("PHONE");
+  mount_d81("CONTACT0.D81",0);
+  mount_d81("IDX06-0.D81",0);
+
+  // Perform the search
+  // We require matches to have a score equal to the phone number or higher,
+  // as no string can have a lower score and be identical to the phone number
+  search_query_init();
+  search_query_append_string(phoneNumber);
+  search_collate(strlen((char *)phoneNumber));
+
+  // Search for exact match among the phone numbers
+  // (we don't need to sort the records, at this point, since a wrong number with
+  // repeated matching digits could yield a higher score than the actual correct
+  // phone number).
+  for(buffers.search.r=0;buffers.search.r<buffers.search.result_count;
+      buffers.search.r++) {
+    // Retrieve the record
+    if (read_record_by_id(0, buffers.search.record_numbers[buffers.search.r],
+			  buffers.search.sector_buffer)) continue;
+
+    // Get the phone number field.
+    // XXX - Support multiple phone numbers by checking each FIELD_PHONENUMBER
+    unsigned int recordPhoneNumberLen = 0;
+    unsigned char *recordPhoneNumber = find_field(buffers.search.sector_buffer,
+						  RECORD_DATA_SIZE,
+						  FIELD_PHONENUMBER,
+						  &recordPhoneNumberLen);
+    if (phoneNumber) {
+      if (!strcmp((char *)phoneNumber,(char *)recordPhoneNumber)) {
+	search_query_release();
+	return buffers.search.record_numbers[buffers.search.r];
+      }
+    }
+  }  
+  
+  // Release shared data structures from search mode
+  search_query_release();
+
+  // No matching record, so return the well-known UNKNOWN pseudo contact which
+  // is always in record 1
+  return 1;
 }

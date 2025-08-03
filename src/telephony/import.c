@@ -90,7 +90,7 @@ int main(int argc,char **argv)
     // MESSAGERX:+99973014512:397831207:🤣🎧🐨💻🥭 Id nisi MEGA65 corrupti natus:
     else if (sscanf(line,"MESSAGERX:%[^:]:%ld:%[^:]:",phoneNumber,&timestampAztecTime,messageBody)==3) {
       // 1. Work out which contact the message is to/from
-      unsigned int contact_ID = contact_find_by_phonenumber(phoneNumber);
+      unsigned int contact_ID = search_contact_by_phonenumber(phoneNumber);
       
       // 2. Retreive that contact (or if no such contact, then use the "UNKNOWN NUMBERS" pseudo-contact?)
       // contact_find_by_phonenumber() will return contact 1 always
