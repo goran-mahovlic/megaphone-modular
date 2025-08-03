@@ -102,6 +102,9 @@ int main(int argc,char **argv)
   }
 
   // Update sorted versions of contacts
+  mega65_cdroot();
+  mega65_chdir("PHONE");
+  
   if (sort_d81("CONTACT0.D81","SORT02-0.D81",0x02)) {
     fprintf(stderr,"FATAL: Failed to sort CONTACT0 by first name\n");
     exit(-1);
