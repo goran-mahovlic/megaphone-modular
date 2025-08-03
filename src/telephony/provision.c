@@ -43,12 +43,12 @@ int main(int argc,char **argv)
   // D81 for the phone state
   create_d81("STATE.D81");
   mount_d81("STATE.D81",0);
-  format_image_fully_allocated(0,"PHONE STATE");
+  format_image_fully_allocated(0,"PHONE STATE",NO_SECTOR_MARKERS);
 
   // And for the first 1,560 contacts.
   create_d81("CONTACT0.D81");
   mount_d81("CONTACT0.D81",0);
-  format_image_fully_allocated(0,"CONTACTS 0");
+  format_image_fully_allocated(0,"CONTACTS 0", WITH_SECTOR_MARKERS);
   // Create dummy "UNKNOWN" contact in record 1
   unsigned char buffer[RECORD_DATA_SIZE];
   unsigned int bytes_used=0;
@@ -132,9 +132,9 @@ int main(int argc,char **argv)
     create_d81("MESSAGES.D81");
     create_d81("MSGINDEX.D81");
     mount_d81("MESSAGES.D81",0);
-    format_image_fully_allocated(0,"MESSAGES");
+    format_image_fully_allocated(0,"MESSAGES", WITH_SECTOR_MARKERS);
     mount_d81("MSGINDEX.D81",0);
-    format_image_fully_allocated(0,"MESSAGE INDEX");
+    format_image_fully_allocated(0,"MESSAGE INDEX", NO_SECTOR_MARKERS);
     
   }
      
