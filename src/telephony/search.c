@@ -17,7 +17,7 @@
 char search_query_init(void)
 {
   // Shared data structures locked by another sub-system
-  if (buffers.lock&&buffers.lock != LOCK_SEARCH) return 99;
+  if (buffers.lock&&buffers.lock != LOCK_SEARCH) fail(99);
 
   buffers.lock = LOCK_SEARCH;
   
@@ -31,7 +31,7 @@ char search_query_init(void)
   // view, but that ignores unallocated records.
 
   // Read record BAM of the disk being searched
-  if (read_sector(0,1,0)) return 2;  
+  if (read_sector(0,1,0)) fail(2);  
   lcopy(SECTOR_BUFFER_ADDRESS,(unsigned long)buffers.search.sector_buffer,512);
   
   // Transcribe bits into scores  
@@ -60,7 +60,7 @@ char search_query_init(void)
 char search_query_release(void)
 {
   // Shared data structures locked by another sub-system
-  if (buffers.lock&&buffers.lock != LOCK_SEARCH) return 99;
+  if (buffers.lock&&buffers.lock != LOCK_SEARCH) fail(99);
 
   buffers.lock = LOCK_FREE;
 
@@ -70,7 +70,10 @@ char search_query_release(void)
 #define BAD_DIPHTHONG 0x7fffL
 unsigned int search_get_diphthong(unsigned int offset)
 {
-  if (offset>=(buffers.search.query_length-1)) return BAD_DIPHTHONG;
+  if (offset>=(buffers.search.query_length-1)) {
+    log_error_(__FILE__,__FUNCTION__,__LINE__,100);
+    return BAD_DIPHTHONG;
+  }
 
   return index_mapping_table[buffers.search.query[offset]] * 56
     + index_mapping_table[buffers.search.query[offset+1]];
@@ -80,13 +83,13 @@ char search_query_add_diphthong_score(unsigned int offset)
 {
   unsigned int diphthong = search_get_diphthong(offset);
 
-  if (diphthong==BAD_DIPHTHONG) return 2;
+  if (diphthong==BAD_DIPHTHONG) fail(2);
 
   // fprintf(stderr,"DEBUG: Searching for diphthong %d\n",diphthong);
   
   // Read the index page: Remember that there are two index pages per physical
   // sector, so we shift diphthong right one bit.
-  if (read_record_by_id(1,diphthong>>1,buffers.search.sector_buffer)) return 1;
+  if (read_record_by_id(1,diphthong>>1,buffers.search.sector_buffer)) fail(1);
   
   // Is the index page in the lower or upper half of the physical sector?
   buffers.search.index_page_offset = 2 + ((diphthong&1)?0x100:0);
@@ -127,11 +130,11 @@ char search_query_sub_diphthong_score(unsigned int offset)
 {
   unsigned int diphthong = search_get_diphthong(offset);
 
-  if (diphthong==BAD_DIPHTHONG) return 2;
+  if (diphthong==BAD_DIPHTHONG) fail(2);
 
   // Read the index page: Remember that there are two index pages per physical
   // sector, so we shift diphthong right one bit.
-  if (read_record_by_id(1,diphthong>>1,buffers.search.sector_buffer)) return 1;
+  if (read_record_by_id(1,diphthong>>1,buffers.search.sector_buffer)) fail(1);
 
   // Is the index page in the lower or upper half of the physical sector?
   buffers.search.index_page_offset = 2 + ((diphthong&1)?0x100:0);
@@ -168,7 +171,7 @@ char search_query_sub_diphthong_score(unsigned int offset)
 char search_query_append_string(unsigned char *c)
 {
   while(*c) {
-    if (search_query_append(*c)) return 1;
+    if (search_query_append(*c)) fail(1);
     c++;
   }
   return 0;
@@ -179,10 +182,10 @@ char search_query_append(unsigned char c)
 {
   // Shared data structures locked by another sub-system,
   // or 
-  if (buffers.lock != LOCK_SEARCH) return 99;
+  if (buffers.lock != LOCK_SEARCH) fail(99);
 
   // Query too long?
-  if (buffers.search.query_length >= SEARCH_MAX_QUERY_LENGTH) return 1;
+  if (buffers.search.query_length >= SEARCH_MAX_QUERY_LENGTH) fail(1);
 
   // Append character
   buffers.search.query[buffers.search.query_length++]=c;
@@ -204,7 +207,7 @@ char search_query_rerun(void)
   search_query_init();
   
   for(o=0;o<query_len;o++) {
-    if (search_query_append(buffers.search.query[o])) return 1;
+    if (search_query_append(buffers.search.query[o])) fail(1);
   }
   return 0;
 }
@@ -212,12 +215,12 @@ char search_query_rerun(void)
 // Remove last character from the query
 char search_query_delete_char(void)
 {
-  if (buffers.lock != LOCK_SEARCH) return 99;
+  if (buffers.lock != LOCK_SEARCH) fail(99);
 
   // Nothing to do
   if (buffers.search.query_length<2) return 0;
 
-  if (search_query_sub_diphthong_score(buffers.search.query_length-2)) return 1;
+  if (search_query_sub_diphthong_score(buffers.search.query_length-2)) fail(1);
 
   buffers.search.query_length--;
 
@@ -226,10 +229,10 @@ char search_query_delete_char(void)
 
 char search_query_delete_range(unsigned int first, unsigned int last)
 {
-  if (buffers.lock != LOCK_SEARCH) return 99;
+  if (buffers.lock != LOCK_SEARCH) fail(99);
 
-  if (first>=buffers.search.query_length) return 1;
-  if (last>=buffers.search.query_length) return 2;
+  if (first>=buffers.search.query_length) fail(1);
+  if (last>=buffers.search.query_length) fail(2);
 
   // Subtract scores for all diphthongs that we are removing
   for(buffers.search.r=first-1;

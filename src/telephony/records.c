@@ -45,10 +45,10 @@ unsigned int record_allocate_next(unsigned char *bam_sector)
 char record_free(unsigned char *bam_sector,unsigned int record_num)
 {
   unsigned char b, bit;
-  if (record_num>=USABLE_SECTORS_PER_DISK) return 1;
+  if (record_num>=USABLE_SECTORS_PER_DISK) fail(1);
   b=bam_sector[record_num>>3];
   bit = 1<<(record_num&7);
-  if (!(b&bit)) return 2; // Record wasn't allocated
+  if (!(b&bit)) fail(2); // Record wasn't allocated
   b&=(0xff-bit);
   bam_sector[record_num>>3]=b;
   return 0;
@@ -72,11 +72,11 @@ char append_field(unsigned char *record, unsigned int *bytes_used, unsigned int 
 		  unsigned char type, unsigned char *value, unsigned int value_length)
 {
   // Insufficient space
-  if (((*bytes_used)+1+1+value_length)>=length) return 1;
+  if (((*bytes_used)+1+1+value_length)>=length) fail(1);
   // Field too long
-  if (value_length > 511) return 2;
+  if (value_length > 511) fail(2);
   // Type must be even
-  if (type&1) return 3;
+  if (type&1) fail(3);
 
   record[(*bytes_used)++]=type|(value_length>>8);
   record[(*bytes_used)++]=value_length&0xff;
@@ -141,9 +141,9 @@ char read_record_by_id(unsigned char drive_id,unsigned int id,unsigned char *buf
   if (track>39) track++;
   
   // And ID of 0 is invalid (it's the record BAM sector).
-  if (!id) return 1;
+  if (!id) fail(1);
 
-  if (read_sector(drive_id,track,sector)) return 3;
+  if (read_sector(drive_id,track,sector)) fail(3);
 
   desectorise_record((unsigned char *)SECTOR_BUFFER_ADDRESS,buffer);
   
@@ -162,12 +162,12 @@ char write_record_by_id(unsigned char drive_id,unsigned int id,unsigned char *bu
   if (track>39) track++;
 
   // And ID of 0 is invalid (it's the record BAM sector).
-  if (!id) return 1;
+  if (!id) fail(1);
 
   // fprintf(stderr,"DEBUG: Trying to write contact #%d\n",id);
 
   // Read original sector in to get inter-sector links
-  if (read_sector(drive_id,track,sector)) return 4;
+  if (read_sector(drive_id,track,sector)) fail(4);
 
   // Then write the contact body over the data area
   sectorise_record(buffer,(unsigned char *)SECTOR_BUFFER_ADDRESS);
@@ -176,7 +176,7 @@ char write_record_by_id(unsigned char drive_id,unsigned int id,unsigned char *bu
 
   // And commit it back to disk
   // fprintf(stderr,"DEBUG: write_sector(%d,%d,%d)\n",drive_id,track,sector);
-  if (write_sector(drive_id,track,sector)) return 3;
+  if (write_sector(drive_id,track,sector)) fail(3);
 
   return 0;
 }

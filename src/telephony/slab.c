@@ -28,7 +28,7 @@ char slab_read(unsigned char disk_id, unsigned char slab_number)
   for(;t<t_stop;t++) {
     for(s=0;s<20;s++) {
       if (t==40) t++;
-      if (read_sector(disk_id,t,s)) return 1;
+      if (read_sector(disk_id,t,s)) fail(1);
       lcopy((unsigned long)SECTOR_BUFFER_ADDRESS,rec_addr,512);
 
 #ifdef DEBUG_READ_TRACK_1
@@ -55,7 +55,7 @@ char slab_write(unsigned char disk_id, unsigned char slab_number)
     for(s=0;s<20;s++) {
       if (t==40) t++;
       lcopy(rec_addr,(unsigned long)SECTOR_BUFFER_ADDRESS,512);
-      if (write_sector(disk_id,t,s)) return 1;
+      if (write_sector(disk_id,t,s)) fail(1);
       
       rec_addr+=512;
     }

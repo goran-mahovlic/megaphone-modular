@@ -112,7 +112,7 @@ char index_update_from_buffer(unsigned char disk_id, unsigned int record_number)
     unsigned long index_page_address = WORK_BUFFER_ADDRESS;
   
     // Read a slab
-    if (slab_read(disk_id, slab)) return 2;
+    if (slab_read(disk_id, slab)) fail(2);
     
     for(ofs=0;ofs<INDEX_PAGES_PER_SLAB;ofs++) {
 
@@ -149,7 +149,7 @@ char index_update_from_buffer(unsigned char disk_id, unsigned int record_number)
     }
 
     // Write the slab back with the changes
-    if (slab_write(disk_id, slab)) return 3;
+    if (slab_write(disk_id, slab)) fail(3);
     
   }
 
@@ -180,7 +180,7 @@ char disk_reindex(unsigned char field)
   for(c=1;c<=USABLE_SECTORS_PER_DISK;c++) {
     
     // Read the record
-    if (read_record_by_id(0,c,buffers.index.rec)) return 1;
+    if (read_record_by_id(0,c,buffers.index.rec)) fail(1);
     
     // Extract the field
     unsigned int fieldlen = 0;
@@ -204,18 +204,18 @@ char contacts_reindex(unsigned char contacts_disk_id)
   char d81name[16];
   snprintf(d81name,16,"CONTACT%d.D81",contacts_disk_id);
   
-  if (mega65_cdroot()) return 1;
-  if (mega65_chdir("PHONE")) return 2;
+  if (mega65_cdroot()) fail(1);
+  if (mega65_chdir("PHONE")) fail(2);
 
-  if (mount_d81(d81name,0)) return 3;
+  if (mount_d81(d81name,0)) fail(3);
 
   for(field=FIELD_FIRSTNAME;field<=FIELD_PHONENUMBER;field+=2) {
     // Get index D81 as disk 1
     snprintf(d81name,16,"IDX%02X-%d.D81",
 	     field,contacts_disk_id);
-    if (mount_d81(d81name,1)) return 4;
+    if (mount_d81(d81name,1)) fail(4);
 
-    if (disk_reindex(field)) return 5;
+    if (disk_reindex(field)) fail(5);
   }
 
   return 0;

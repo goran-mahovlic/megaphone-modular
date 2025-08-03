@@ -98,7 +98,7 @@ unsigned char sort_slab(unsigned char field_id)
    */
   unsigned char c;
 
-  if (buffers_lock(LOCK_SORT)) return 99;
+  if (buffers_lock(LOCK_SORT)) fail(99);
   
   // Set up ordinal record numbers
   for(c=0;c<QSORT_MAX_RECORDS;c++) buffers.sort.indices[c]=c;
@@ -109,7 +109,7 @@ unsigned char sort_slab(unsigned char field_id)
   quicksort_indices(field_id, QSORT_MAX_RECORDS);
   // Write the sorted indices out to the temporary D81 in drive 1
 
-  if (buffers_unlock(LOCK_SORT)) return 98;
+  if (buffers_unlock(LOCK_SORT)) fail(98);
 
   return 0;  
 }
@@ -128,10 +128,10 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
   unsigned char s;
   
   // Mount D81 to be sorted in drive 0
-  if (mount_d81(name_in,0)) return 7;
+  if (mount_d81(name_in,0)) fail(7);
   
   // Mount a scratch D81 in drive 1  
-  if (mount_d81("SCRATCH.D81",1)) return 8;
+  if (mount_d81("SCRATCH.D81",1)) fail(8);
 
   // fprintf(stderr,"DEBUG: sort_d81(): Sort each slab.\n");
   
@@ -141,10 +141,10 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
     unsigned char n=0, t=0, t_stop=0, s=0;
     
     // Read in the slab
-    if (slab_read(0,slab)) return 1;
+    if (slab_read(0,slab)) fail(1);
 
     // Get a sorted list of indices
-    if (sort_slab(field_id)) return 8;
+    if (sort_slab(field_id)) fail(8);
 
     // Write out the sorted sectors into the scratch disk image
     t=1+(slab<<3);
@@ -156,7 +156,7 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
 	
 	lcopy(rec_addr,(unsigned long)SECTOR_BUFFER_ADDRESS,512);
 
-	if (write_sector(1,t,s)) return 2;
+	if (write_sector(1,t,s)) fail(2);
 
 	n++;
       }
@@ -171,7 +171,7 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
   // we can just regenerate it.
 
   // Mount output D81 as drive 0
-  if (mount_d81(name_out,0)) return 9;
+  if (mount_d81(name_out,0)) fail(9);
 
   // fprintf(stderr,"DEBUG: sort_d81(): Read merge cache.\n");
   
@@ -185,7 +185,7 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
     // fprintf(stderr,"DEBUG: Reading track %d for slab %d\n",cached_track[slab],slab);
     
     for(s=0;s<20;s++) {
-      if (read_sector(1,cached_track[slab],s)) return 3;
+      if (read_sector(1,cached_track[slab],s)) fail(3);
       lcopy((unsigned long)SECTOR_BUFFER_ADDRESS,WORK_BUFFER_ADDRESS + slab*(512L*20) + s*512L, 512);
     }
   }
@@ -228,7 +228,7 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
 	  SECTOR_BUFFER_ADDRESS,512);
     
     // Write this record to disk
-    if (write_sector(0,out_track,out_sector)) return 5;
+    if (write_sector(0,out_track,out_sector)) fail(5);
     out_sector++;
     if (out_sector==20) {
       out_sector=0;
@@ -245,7 +245,7 @@ char sort_d81(char *name_in, char *name_out, unsigned char field_id)
 	fprintf(stderr,"DEBUG: Reading track %d for slab %d\n",cached_track[next_slab],next_slab);
 #endif
 	for(s=0;s<20;s++) {
-	  if (read_sector(1,cached_track[next_slab],s)) return 6;
+	  if (read_sector(1,cached_track[next_slab],s)) fail(6);
 	  lcopy((unsigned long)SECTOR_BUFFER_ADDRESS,WORK_BUFFER_ADDRESS + next_slab*(512L*20) + s*512L, 512);
 	}
 	next_slab_sector=0;
