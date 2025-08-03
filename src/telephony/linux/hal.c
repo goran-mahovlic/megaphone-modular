@@ -8,6 +8,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+int verbose = 0;
+
 unsigned char sector_buffer[512];
 unsigned char work_buffer[WORK_BUFFER_SIZE];
 
@@ -32,23 +34,26 @@ void hal_init(void)
 char mega65_mkdir(char *dir)
 {
   char cwd[2048];
-  fprintf(stderr,"INFO: Making directory '%s' in '%s'\n",
-	  dir,getcwd(cwd,sizeof(cwd)));
+  if (verbose)
+    fprintf(stderr,"INFO: Making directory '%s' in '%s'\n",
+	    dir,getcwd(cwd,sizeof(cwd)));
   return mkdir(dir,0750);
 }
 
 char mega65_cdroot(void)
 {
-  fprintf(stderr,"INFO: CDROOT: Changing directory to '%s'\n",
-	  working_directory);
+  if (verbose)
+    fprintf(stderr,"INFO: CDROOT: Changing directory to '%s'\n",
+	    working_directory);
   return chdir(working_directory);
 }
 
 char mega65_chdir(char *dir)
 {
   char cwd[2048];
-  fprintf(stderr,"INFO: Changing directory to '%s' in '%s'\n",
-	  dir,getcwd(cwd,sizeof(cwd)));
+  if (verbose)
+    fprintf(stderr,"INFO: Changing directory to '%s' in '%s'\n",
+	    dir,getcwd(cwd,sizeof(cwd)));
   int r= chdir(dir);
   if (r) perror("chdir()");
   return r;
@@ -181,16 +186,18 @@ char mount_d81(char *filename, unsigned char drive_id)
     return -1;
   }
 
-  fprintf(stderr,"INFO: Disk image '%s' mounted as drive %d\n",filename,drive_id);
+  if (verbose)
+    fprintf(stderr,"INFO: Disk image '%s' mounted as drive %d\n",filename,drive_id);
   
   return 0;
 }
 
 char create_d81(char *filename)
 {
+  unlink(filename);
   FILE *f=fopen(filename,"rb");
   if (f) {
-    fprintf(stderr,"ERROR: Disk image '%s' already exists.\n",filename);
+    if (verbose) fprintf(stderr,"ERROR: Disk image '%s' already exists.\n",filename);
     fclose(f);
     return -1;
   }

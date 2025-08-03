@@ -74,8 +74,8 @@ void index_buffer_update(unsigned char *d,unsigned int len)
     // Don't index diphthongs where both characters == 0x00
     // (so that we don't make hits on unsused bytes in records)
     if (*d) {
-      fprintf(stderr,"DEBUG: Diphthong 0x%03x is in the indexed text.\n",
-	      diphthong);
+      // fprintf(stderr,"DEBUG: Diphthong 0x%03x is in the indexed text.\n",
+      //         diphthong);
       index_bitmap[diphthong>>3] |= 1<<(diphthong&0x07);
     }
     
@@ -128,12 +128,14 @@ char index_update_from_buffer(unsigned char disk_id, unsigned int record_number)
       if (bit) {
 	// Set the bit in the page
 	value |= record_bit;
+#if 0
 	fprintf(stderr,"DEBUG: Setting bit for diphthong 0x%04x (0x%04x) from record %d at slab offset 0x%05llx, slab %d\n",
 		index_page,
 		byte,
 		record_number,
 		index_page_address - WORK_BUFFER_ADDRESS,
 		slab);
+#endif
       } else {
 	// Clear the bit in the page
 	value &= (0xff - record_bit);

@@ -94,6 +94,7 @@ int main(int argc,char **argv)
       
       // 2. Retreive that contact (or if no such contact, then use the "UNKNOWN NUMBERS" pseudo-contact?)
       // contact_find_by_phonenumber() will return contact 1 always
+      fprintf(stderr,"DEBUG: Phone number '%s' is contact %d\n",phoneNumber,contact_ID);
       
       // 3. Increase unread message count by 1, and write back.
       // 4. Obtain contact physical ID from contact record, and then find and open the message D81 for that conversation.

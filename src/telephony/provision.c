@@ -1,5 +1,6 @@
 // Load HAL
 #include "includes.h"
+#include "contacts.h"
 #include "records.h"
 
 /*
@@ -103,7 +104,7 @@ int main(int argc,char **argv)
   
   for(contact=0;contact<MAX_CONTACTS;contact++) {
 
-    printf("Creating contact %d\n",contact);
+    printf("Populating directory structure for contact #%d\n",contact);
     
     // For compatibiity with MEGA65 HAL, we can't
     // CD .. or use relative paths. So we have to
