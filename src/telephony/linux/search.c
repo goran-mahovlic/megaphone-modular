@@ -37,12 +37,20 @@ int main(int argc,char **argv)
       printf("<could not read record>\n");
     else {
       unsigned int firstNameLen, lastNameLen, phoneNumberLen, unreadCountLen;
+      unsigned int bodyTextLen;
       unsigned char *firstName = find_field(record,RECORD_DATA_SIZE,FIELD_FIRSTNAME,&firstNameLen);
       unsigned char *lastName = find_field(record,RECORD_DATA_SIZE,FIELD_LASTNAME,&lastNameLen);
       unsigned char *phoneNumber = find_field(record,RECORD_DATA_SIZE,FIELD_PHONENUMBER,&phoneNumberLen);
       unsigned char *unreadCount = find_field(record,RECORD_DATA_SIZE,FIELD_UNREAD_MESSAGES,&unreadCountLen);
+      unsigned char *bodyText = find_field(record,RECORD_DATA_SIZE,FIELD_BODYTEXT,&bodyTextLen);
+
       int unreadMessageCount=0;
       if (unreadCount) unreadMessageCount=unreadCount[0]+(unreadCount[1]<<8);
+      if (bodyText) {
+	printf("MESSAGE:%s:%s:\n",
+	       phoneNumber?(char *)phoneNumber:"<no phone number>",
+	       bodyText?(char *)bodyText:"<no body text>");
+      }
       if (firstName||lastName||phoneNumber) {
 	printf("%s:%s:%s:%d\n",
 	       firstName?(char *)firstName:"<no first name>",
