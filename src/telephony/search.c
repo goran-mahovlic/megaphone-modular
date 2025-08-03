@@ -1,6 +1,7 @@
 #include "includes.h"
 #include "buffers.h"
 #include "index.h"
+#include "search.h"
 
 /*
   Reset search of a records D81.
@@ -158,6 +159,15 @@ char search_query_sub_diphthong_score(unsigned int offset)
 
   buffers.search.results_stale = 1;
   
+  return 0;
+}
+
+char search_query_append_string(unsigned char *c)
+{
+  while(*c) {
+    if (search_query_append(*c)) return 1;
+    c++;
+  }
   return 0;
 }
 
