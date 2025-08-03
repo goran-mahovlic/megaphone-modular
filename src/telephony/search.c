@@ -351,7 +351,7 @@ unsigned int search_contact_by_phonenumber(unsigned char *phoneNumber)
   mega65_cdroot();
   mega65_chdir("PHONE");
   mount_d81("CONTACT0.D81",0);
-  mount_d81("IDX06-0.D81",0);
+  mount_d81("IDX06-0.D81",1);
 
   // Perform the search
   // We require matches to have a score equal to the phone number or higher,
