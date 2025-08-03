@@ -3,6 +3,7 @@
 
 #include "buffers.h"
 #include "search.h"
+#include "contacts.h"
 
 void usage(void)
 {
@@ -42,8 +43,6 @@ int main(int argc,char **argv)
   // Dodgy match selecitivity filter  
   if (argv[1]&&(strlen(argv[1]?argv[1]:"")>3))
     score_threshold=strlen(argv[1])*0.75;
-  fprintf(stderr,"DEBUG: Score threshold is %d, argv[1]=%s\n",
-	  score_threshold,argv[1]?argv[1]:"<empty>");
 
   // Get list of candidate contacts
   if (search_query_init()) return 3;
@@ -55,11 +54,8 @@ int main(int argc,char **argv)
     fprintf(stderr,"ERROR: No matching contacts found.\n");
     exit(-1);
   }
-  
+
   for(int i=0;i<buffers.search.result_count;i++) {
-    printf("%d:%d:",
-	   buffers.search.record_numbers[i],
-	   buffers.search.scores[i]);
     unsigned char record[RECORD_DATA_SIZE];
     if (read_record_by_id(0,buffers.search.record_numbers[i], record))
       printf("<could not read record>\n");
@@ -72,12 +68,61 @@ int main(int argc,char **argv)
       int unreadMessageCount=0;
       if (unreadCount) unreadMessageCount=unreadCount[0]+(unreadCount[1]<<8);
       if (firstName||lastName||phoneNumber) {
-	printf("%s:%s:%s:%d\n",
+	printf("CONTACT:%s:%s:%s:%d\n",
 	       firstName?(char *)firstName:"<no first name>",
 	       lastName?(char *)lastName:"<no last name>",
 	       phoneNumber?(char *)phoneNumber:"<no phone number>",
 	       unreadMessageCount);
-      } else printf("<no contact fields in record>\n");
+
+	// XXX -- The following stomps the search state.
+	// We have to either save it somewhere and restore it after,
+	// or return results for only a single record (= contact)
+	
+	// Now reset the query and open the conversation
+	mount_contact_qso(buffers.search.record_numbers[i]);
+
+	search_query_init();
+	score_threshold = 1;
+	if (query) {
+	  if (query&&(strlen(query)>3))
+	    score_threshold=strlen(query)*0.75;
+	}
+	search_collate(score_threshold);
+	if (ranked) search_sort_results_by_score();
+
+	for(int i=0;i<buffers.search.result_count;i++) {
+	  unsigned char record[RECORD_DATA_SIZE];
+	  if (read_record_by_id(0,buffers.search.record_numbers[i], record))
+	    printf("<could not read record>\n");
+	  else {
+	    unsigned int phoneNumberLen, bodyTextLen, messageDirectionLen, timestampLen;
+	    unsigned char *bodyText = find_field(record,RECORD_DATA_SIZE,FIELD_BODYTEXT,&bodyTextLen);
+	    unsigned char *phoneNumber = find_field(record,RECORD_DATA_SIZE,FIELD_PHONENUMBER,&phoneNumberLen);
+	    unsigned char *messageDirection = find_field(record,RECORD_DATA_SIZE,FIELD_MESSAGE_DIRECTION,&messageDirectionLen);
+	    unsigned char *timestampAztecTime = find_field(record,RECORD_DATA_SIZE,FIELD_TIMESTAMP,&timestampLen);
+
+	    unsigned long timestampAztecTimeSec =0;
+	    timestampAztecTimeSec |= timestampAztecTime[0]<<0;
+	    timestampAztecTimeSec |= timestampAztecTime[1]<<8;
+	    timestampAztecTimeSec |= timestampAztecTime[2]<<16;
+	    timestampAztecTimeSec |= timestampAztecTime[3]<<24;
+	    
+	    if (phoneNumber||bodyText||timestampAztecTime) {
+	      if (messageDirection[0]==SMS_DIRECTION_TX)
+		printf("MESSAGETX:");
+	      else
+		printf("MESSAGERX:");
+
+	      printf("%s:%ld:%s:\n",
+		     phoneNumber, timestampAztecTimeSec, bodyText);
+	    } else printf("<no contact fields in record>\n");
+	    
+	  }
+	}
+
+	fprintf(stderr,"INFO: Returning conversation only for best matching contact.\n");
+	exit(0);
+      }
     }
   }
   
