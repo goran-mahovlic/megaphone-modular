@@ -35,9 +35,8 @@ char sms_build_message(unsigned char buffer[RECORD_DATA_SIZE],unsigned int *byte
   return 0;
 }
 
-
-char sms_rx(unsigned char *phoneNumber, unsigned int timestampAztecTime,
-	    unsigned char *message)
+char sms_log(unsigned char *phoneNumber, unsigned int timestampAztecTime,
+	     unsigned char *message, char direction)
 {      
   // 1. Work out which contact the message is to/from
   unsigned int contact_ID = search_contact_by_phonenumber(phoneNumber);
@@ -55,24 +54,26 @@ char sms_rx(unsigned char *phoneNumber, unsigned int timestampAztecTime,
   }
 			
   // 3. Increase unread message count by 1, and write back.
-  unsigned int unreadMessageCountLen = 0;
-  unsigned char *unreadMessageCount
-    = find_field(buffers.telephony.contact,RECORD_DATA_SIZE,FIELD_UNREAD_MESSAGES,
-		 &unreadMessageCountLen);
-  if (unreadMessageCountLen == 2) {
-    unreadMessageCount[0]++;
-    if (!unreadMessageCount[0]) {
-      unreadMessageCount[1]++;
-      if (!unreadMessageCount[1]) {
-	// Saturate rather than wrap at 64K unread messages
-	unreadMessageCount[0]=0xff;
-	unreadMessageCount[1]=0xff;
-      }
-    } 
-    write_record_by_id(0,contact_ID,buffers.telephony.contact);
-  } else {
-    // No unread message count in the contact. Silently ignore for now.
-  }  
+  if (direction==SMS_DIRECTION_RX) {
+    unsigned int unreadMessageCountLen = 0;
+    unsigned char *unreadMessageCount
+      = find_field(buffers.telephony.contact,RECORD_DATA_SIZE,FIELD_UNREAD_MESSAGES,
+		   &unreadMessageCountLen);
+    if (unreadMessageCountLen == 2) {
+      unreadMessageCount[0]++;
+      if (!unreadMessageCount[0]) {
+	unreadMessageCount[1]++;
+	if (!unreadMessageCount[1]) {
+	  // Saturate rather than wrap at 64K unread messages
+	  unreadMessageCount[0]=0xff;
+	  unreadMessageCount[1]=0xff;
+	}
+      } 
+      write_record_by_id(0,contact_ID,buffers.telephony.contact);
+    } else {
+      // No unread message count in the contact. Silently ignore for now.
+    }
+  }
   
   buffers_unlock(LOCK_TELEPHONY);
   
@@ -103,7 +104,7 @@ char sms_rx(unsigned char *phoneNumber, unsigned int timestampAztecTime,
   }
   if (sms_build_message(buffers.telephony.message,
 			&buffers.telephony.message_bytes,			
-			SMS_DIRECTION_RX,
+		        direction,
 			phoneNumber, timestampAztecTime, message)) {
     buffers_unlock(LOCK_TELEPHONY);  
     fail(8);

@@ -361,8 +361,16 @@ unsigned int search_contact_by_phonenumber(unsigned char *phoneNumber)
   // as no string can have a lower score and be identical to the phone number
   search_query_init();
   search_query_append_string(phoneNumber);
-  search_collate(strlen((char *)phoneNumber));
-
+  search_collate(SEARCH_UNFILTERED); // strlen((char *)phoneNumber));
+  
+  for(int i=0;i<USABLE_SECTORS_PER_DISK;i++) {
+    if (buffers.search.scores[i]) {
+      printf("%d:%d\n",
+	     buffers.search.record_numbers[i],
+	     buffers.search.scores[i]);
+    }
+  }
+  
   // Search for exact match among the phone numbers
   // (we don't need to sort the records, at this point, since a wrong number with
   // repeated matching digits could yield a higher score than the actual correct
@@ -370,6 +378,9 @@ unsigned int search_contact_by_phonenumber(unsigned char *phoneNumber)
   for(buffers.search.r=0;buffers.search.r<buffers.search.result_count;
       buffers.search.r++) {
     // Retrieve the record
+    fprintf(stderr,"DEBUG: '%s' might belong to contact #%d\n",
+	    phoneNumber,
+	    buffers.search.record_numbers[buffers.search.r]);
     if (read_record_by_id(0, buffers.search.record_numbers[buffers.search.r],
 			  buffers.search.sector_buffer)) continue;
 
@@ -381,6 +392,8 @@ unsigned int search_contact_by_phonenumber(unsigned char *phoneNumber)
 						  FIELD_PHONENUMBER,
 						  &recordPhoneNumberLen);
     if (phoneNumber) {
+      fprintf(stderr,"DEBUG: Comparing search phone number '%s' with '%s'\n",
+	      phoneNumber,recordPhoneNumber);
       if (!strcmp((char *)phoneNumber,(char *)recordPhoneNumber)) {
 	search_query_release();
 	return buffers.search.record_numbers[buffers.search.r];

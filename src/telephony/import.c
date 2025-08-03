@@ -87,12 +87,12 @@ int main(int argc,char **argv)
     // MESSAGERX:+99973014512:397831207:🤣🎧🐨💻🥭 Id nisi MEGA65 corrupti natus:
     else if (sscanf(line,"MESSAGERX:%[^:]:%ld:%[^:]:",phoneNumber,&timestampAztecTime,messageBody)==3) {
 
-      sms_rx(phoneNumber,timestampAztecTime,messageBody);
+      sms_log(phoneNumber,timestampAztecTime,messageBody,SMS_DIRECTION_RX);
     }
     // MESSAGETX:+99966049372:397833622:🍳🍿 Quasi nisi quidem, quis veniam sed numquam ipsam quo hic amet molestiae? Veritatis cupiditate ullam nihil et tenetur doloribus, accusantium:
     else if (sscanf(line,"MESSAGETX:%[^:]:%ld:%[^:]:",phoneNumber,&timestampAztecTime,messageBody)==3) {
       // As for MESSAGERX, but don't increment unread message count.
-      fprintf(stderr,"INFO: Importing MESSAGETX not implemented.\n");
+      sms_log(phoneNumber,timestampAztecTime,messageBody,SMS_DIRECTION_TX);
     } else {
       fprintf(stderr,"ERROR: Could not scan line: %s\n",line);
       exit(-1);
