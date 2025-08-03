@@ -92,5 +92,6 @@ test:	$(LINUX_BINARIES)
 	src/telephony/linux/provision 5 10
 	python3 src/telephony/sms-stim.py -o stim.txt 5 10
 	src/telephony/linux/import stim.txt
+	src/telephony/linux/search PHONE/CONTACT0.D81 PHONE/IDX02-0.D81 "Nicole"
 	src/telephony/linux/export export.txt
 	cat export.txt
