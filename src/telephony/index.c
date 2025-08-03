@@ -173,7 +173,15 @@ char disk_reindex(unsigned char field)
      and insufficient RAM for caching whole D81s (due to lack of Attic RAM on
      the Trenz modules that we are using).
    */
-  
+
+  unsigned char field_low=field;
+  unsigned char field_high=field;
+
+  // Make it easy to create a single index that contains all contact fields
+  if (field==0xff) {
+    field_low=FIELD_FIRSTNAME;
+    field_high=FIELD_PHONENUMBER;
+  }
   
   // For each record in the disk.
   // (remember we are 1-relative, as record 0 = record BAM)  
@@ -181,15 +189,18 @@ char disk_reindex(unsigned char field)
     
     // Read the record
     if (read_record_by_id(0,c,buffers.index.rec)) fail(1);
-    
-    // Extract the field
-    unsigned int fieldlen = 0;
-    unsigned char *fieldvalue
-      = find_field(buffers.index.rec, RECORD_DATA_SIZE, field, &fieldlen);
-    
-    // Build bitmap of all diphthongs in field
+
     index_buffer_clear();
-    if (fieldvalue&&fieldlen) index_buffer_update(fieldvalue, fieldlen);
+    
+    for(field=field_low;field<=field_high;field+=2) {
+      // Extract the field
+      unsigned int fieldlen = 0;
+      unsigned char *fieldvalue
+	= find_field(buffers.index.rec, RECORD_DATA_SIZE, field, &fieldlen);
+      
+      // Build bitmap of all diphthongs in field
+      if (fieldvalue&&fieldlen) index_buffer_update(fieldvalue, fieldlen);
+    }
     
     // Update all index pages accordingly
     index_update_from_buffer(1,c);
@@ -218,6 +229,10 @@ char contacts_reindex(unsigned char contacts_disk_id)
     if (disk_reindex(field)) fail(5);
   }
 
+  // And update the all fields index for the contacts
+  if (mount_d81("IDXALL-0.D81",1)) fail(6);
+  if (disk_reindex(0xff)) fail(7);
+  
   return 0;
 }
 

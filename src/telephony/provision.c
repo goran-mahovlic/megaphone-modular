@@ -89,6 +89,7 @@ int main(int argc,char **argv)
   create_d81("IDX02-0.D81");  // by first name
   create_d81("IDX04-0.D81");  // by last name
   create_d81("IDX06-0.D81");  // by phone number
+  create_d81("IDXALL-0.D81");  // by all fields concatenated
 
   // And scratch disk image used during sorting
   create_d81("SCRATCH.D81");
