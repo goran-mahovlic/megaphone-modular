@@ -816,6 +816,11 @@ int main(int argc, char **argv)
 
     // Magic value to indicate all pins except 2 present.
     pin_mask = 0;
+
+    sprintf(footprint_name,"MegaCastle2x%d-Module-I%.1fx%.1f-M1",
+	    half_pin_count,co_width,co_height);
+    sprintf(bay_footprint_name,"MegaCastle2x%d-I%.1fx%.1f-M1",
+	    half_pin_count,co_width,co_height);    
   }
 
   /* ------------------------------------------------------------------------------
