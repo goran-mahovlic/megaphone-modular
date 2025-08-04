@@ -252,6 +252,11 @@ unsigned long long find_variant(int half_pin_count,int pins_used,char *variant_s
 
 int pin_present(int pin_num,unsigned long long vector)
 {
+  // With >64 pins, we only support a single missing key pin in pin 2
+  if (!vector) {
+    if (pin_num!=2) return 1; else return 0;
+  }
+  
   int shift = pin_num - 1;
   unsigned long long shifted = (vector >> shift);
   return shifted & 1;
@@ -799,8 +804,19 @@ int main(int argc, char **argv)
   unsigned long long pin_mask = 0;
 
   // Assume variant field is just an ordinal number
-  pin_mask = find_variant(half_pin_count,pins_used,argv[5],
-			  co_width,co_height);  
+  if (pins_used <= MAX_M) {
+    pin_mask = find_variant(half_pin_count,pins_used,argv[5],
+			    co_width,co_height);
+  } else {
+    // Module with too many pins: Only support a single variant with pin 2 missing.
+    if (strcmp(argv[5],"1")) {
+      fprintf(stderr,"ERROR: With >64 pins, only a single variant is supported.\n");
+      exit(-1);
+    }
+
+    // Magic value to indicate all pins except 2 present.
+    pin_mask = 0;
+  }
 
   /* ------------------------------------------------------------------------------
 
